@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MASA — Türkiye'nin Restoran Rezervasyon Platformu</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#1a6b6b;--teal-dark:#0f4444;--teal-light:#2a8a8a;--gold:#c9a84c;--gold-light:#e8c46a;--gold-pale:#fdf6e3;--cream:#fafaf7;--dark:#1a1a1a;--gray:#666;--light:#f5f5f0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#fff;color:var(--dark);overflow-x:hidden}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:14px 48px;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer}
+.logo-mark{width:36px;height:36px;background:var(--teal);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-weight:900;font-size:17px}
+.logo-text{font-size:20px;font-weight:800;color:var(--teal-dark);letter-spacing:-.5px}
+.nav-search{display:flex;align-items:center;gap:8px;background:var(--light);border-radius:10px;padding:9px 16px;width:280px}
+.nav-search input{border:none;background:transparent;font-size:14px;outline:none;width:100%;color:var(--dark)}
+.nav-actions{display:flex;gap:10px}
+.btn{padding:9px 20px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none;display:inline-block}
+.btn-outline{background:transparent;border:1.5px solid var(--teal);color:var(--teal)}
+.btn-outline:hover{background:var(--teal);color:#fff}
+.btn-gold{background:var(--gold);color:var(--dark)}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.4)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:var(--teal-light);transform:translateY(-1px)}
+/* HERO */
+.hero{min-height:60vh;background:linear-gradient(150deg,var(--teal-dark),var(--teal) 60%,#1a8585);display:flex;align-items:center;padding:100px 48px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-150px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.12),transparent 70%);border-radius:50%}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.35);color:var(--gold-light);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:20px}
+.hero h1{font-size:52px;font-weight:900;color:#fff;line-height:1.06;letter-spacing:-2px;margin-bottom:18px}
+.hero h1 span{color:var(--gold-light)}
+.hero p{font-size:17px;color:rgba(255,255,255,.72);line-height:1.7;margin-bottom:32px;max-width:520px}
+.hero-search{display:flex;gap:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.25);max-width:680px}
+.hero-search input{flex:1;border:none;padding:16px 20px;font-size:15px;outline:none;color:var(--dark)}
+.hero-search select{border:none;border-left:1px solid #eee;padding:16px 14px;font-size:14px;color:var(--gray);background:#fff;cursor:pointer;outline:none}
+.hero-search button{background:var(--gold);color:var(--dark);border:none;padding:16px 28px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s}
+.hero-search button:hover{background:var(--gold-light)}
+.hero-stats{display:flex;gap:40px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12)}
+.hstat-num{font-size:26px;font-weight:800;color:#fff;letter-spacing:-1px}
+.hstat-num span{color:var(--gold-light)}
+.hstat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+/* FILTERS */
+.filters-bar{padding:20px 48px;background:#fff;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:64px;z-index:100}
+.filter-btn{padding:7px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #e5e5e5;background:#fff;color:var(--gray);transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.filter-separator{width:1px;height:24px;background:#e5e5e5}
+.results-count{margin-left:auto;font-size:13px;color:var(--gray);font-weight:500}
+/* RESTAURANT GRID */
+.grid-section{padding:40px 48px;max-width:1296px;margin:0 auto}
+.grid-title{font-size:24px;font-weight:800;margin-bottom:24px;letter-spacing:-.5px}
+.restaurant-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.rest-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.07);border:1px solid rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.rest-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
+.rest-card-img{height:140px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative}
+.rest-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:14px;backdrop-filter:blur(4px)}
+.rest-card-body{padding:16px}
+.rest-card-name{font-size:16px;font-weight:800;margin-bottom:4px;letter-spacing:-.2px}
+.rest-card-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray);margin-bottom:8px}
+.rest-card-rating{color:#f59e0b;font-weight:700}
+.rest-card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font-size:11px;background:var(--light);color:var(--gray);padding:3px 8px;border-radius:6px;font-weight:500}
+.rest-card-footer{display:flex;justify-content:space-between;align-items:center}
+.price-range{font-size:13px;font-weight:700;color:var(--teal)}
+.rest-reserve-btn{background:var(--teal);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.rest-reserve-btn:hover{background:var(--teal-light)}
+/* MODAL OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:24px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .25s;padding:32px}
+.overlay.open .modal{transform:translateY(0)}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+.modal-title{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.modal-close{width:36px;height:36px;border-radius:50%;border:none;background:var(--light);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:#e5e5e5}
+/* DETAIL MODAL */
+.detail-hero{height:160px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:20px;position:relative}
+.detail-name{font-size:24px;font-weight:900;margin-bottom:6px}
+.detail-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--gray);margin-bottom:16px}
+.detail-meta span{display:flex;align-items:center;gap:4px}
+.detail-desc{font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:20px}
+.time-label{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--dark)}
+.time-slots{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.time-slot{padding:7px 14px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.time-slot:hover,.time-slot.selected{background:var(--teal);color:#fff;border-color:var(--teal)}
+/* RESERVATION STEPS */
+.steps-bar{display:flex;gap:0;margin-bottom:28px}
+.step-item{flex:1;text-align:center;position:relative}
+.step-item::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:#e5e5e5;z-index:0}
+.step-item:last-child::after{display:none}
+.step-circle{width:28px;height:28px;border-radius:50%;border:2px solid #e5e5e5;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin:0 auto 6px;position:relative;z-index:1;transition:all .2s}
+.step-item.active .step-circle{background:var(--teal);border-color:var(--teal);color:#fff}
+.step-item.done .step-circle{background:var(--teal);border-color:var(--teal);color:#fff}
+.step-item.done::after{background:var(--teal)}
+.step-label{font-size:11px;color:var(--gray);font-weight:500}
+.step-item.active .step-label{color:var(--teal);font-weight:700}
+/* STEP CONTENT */
+.step-content{display:none}
+.step-content.active{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{margin-bottom:16px}
+.form-label{font-size:13px;font-weight:600;margin-bottom:6px;display:block}
+.form-input{width:100%;padding:10px 14px;border:1.5px solid #e5e5e5;border-radius:10px;font-size:14px;outline:none;transition:border-color .2s;font-family:'Inter',sans-serif}
+.form-input:focus{border-color:var(--teal)}
+.people-counter{display:flex;align-items:center;gap:16px}
+.counter-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid #e5e5e5;background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .15s}
+.counter-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.counter-val{font-size:20px;font-weight:800;min-width:30px;text-align:center}
+/* TABLE MAP */
+.table-map{background:var(--light);border-radius:16px;padding:20px;margin-bottom:16px}
+.table-map-title{font-size:13px;font-weight:700;margin-bottom:14px}
+.tables-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.table-circle{aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;border:2px solid transparent}
+.table-circle.available{background:#d1fae5;color:#065f46}
+.table-circle.occupied{background:#fee2e2;color:#991b1b;cursor:not-allowed}
+.table-circle.reserved{background:#fef3c7;color:#92400e}
+.table-circle.selected{background:var(--teal);color:#fff;border-color:var(--teal-dark);transform:scale(1.1)}
+.table-circle:not(.occupied):hover{transform:scale(1.05)}
+.table-legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+/* PRE ORDER */
+.menu-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0}
+.menu-item:last-child{border-bottom:none}
+.menu-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--teal);cursor:pointer;flex-shrink:0}
+.menu-item-info{flex:1}
+.menu-item-name{font-size:14px;font-weight:600}
+.menu-item-desc{font-size:12px;color:var(--gray)}
+.menu-item-price{font-size:14px;font-weight:700;color:var(--teal)}
+.preorder-total{background:var(--gold-pale);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:700}
+/* PAYMENT */
+.payment-methods{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.pay-method-card{border:2px solid #e5e5e5;border-radius:12px;padding:14px;cursor:pointer;transition:all .15s;text-align:center}
+.pay-method-card:hover,.pay-method-card.selected{border-color:var(--teal);background:rgba(26,107,107,.04)}
+.pay-method-icon{font-size:24px;margin-bottom:4px}
+.pay-method-name{font-size:12px;font-weight:700}
+.order-summary{background:var(--light);border-radius:14px;padding:16px;margin-bottom:16px}
+.summary-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px}
+.summary-row.total{border-top:1.5px solid #e5e5e5;margin-top:8px;padding-top:10px;font-weight:800;font-size:15px}
+/* SPLIT BILL */
+.split-toggle{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:14px;font-weight:600}
+.toggle-switch{position:relative;width:44px;height:24px;cursor:pointer}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:24px;transition:.3s}
+.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle-switch input:checked+.toggle-slider{background:var(--teal)}
+.toggle-switch input:checked+.toggle-slider:before{transform:translateX(20px)}
+.split-people-input{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.split-result{display:flex;gap:8px;flex-wrap:wrap}
+.split-person{background:#fff;border:1.5px solid #e5e5e5;border-radius:10px;padding:10px;text-align:center;min-width:70px}
+.split-person-emoji{font-size:20px}
+.split-person-label{font-size:10px;color:var(--gray);margin:2px 0}
+.split-person-amount{font-size:14px;font-weight:800;color:var(--teal)}
+/* SUCCESS */
+.success-screen{text-align:center;padding:20px 0}
+.success-icon{font-size:72px;margin-bottom:16px;animation:bounce .5s ease}
+@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.success-title{font-size:26px;font-weight:900;color:var(--teal);margin-bottom:8px}
+.success-subtitle{font-size:15px;color:var(--gray);margin-bottom:24px}
+.success-details{background:var(--light);border-radius:14px;padding:16px;text-align:left;margin-bottom:20px}
+.success-detail-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid #e5e5e5}
+.success-detail-row:last-child{border-bottom:none;font-weight:700}
+.confetti-container{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+.confetti-piece{position:absolute;width:10px;height:10px;border-radius:2px;animation:fall 3s ease-in forwards}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+/* AI CHAT */
+.chat-fab{position:fixed;bottom:28px;right:28px;z-index:300;width:56px;height:56px;border-radius:50%;background:var(--teal);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 20px rgba(26,107,107,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.chat-fab:hover{transform:scale(1.1)}
+.chat-panel{position:fixed;bottom:96px;right:28px;z-index:300;width:320px;height:420px;background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.2);display:flex;flex-direction:column;transform:scale(0) translateY(20px);transform-origin:bottom right;transition:transform .25s;overflow:hidden}
+.chat-panel.open{transform:scale(1) translateY(0)}
+.chat-header{background:var(--teal);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.chat-avatar{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.chat-header-text{flex:1}
+.chat-header-name{font-size:14px;font-weight:700}
+.chat-header-status{font-size:11px;opacity:.75}
+.chat-close{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer;opacity:.75}
+.chat-close:hover{opacity:1}
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:85%;animation:msgIn .2s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.chat-msg.ai{align-self:flex-start}
+.chat-msg.user{align-self:flex-end}
+.chat-bubble{padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+.chat-msg.ai .chat-bubble{background:var(--light);color:var(--dark);border-bottom-left-radius:4px}
+.chat-msg.user .chat-bubble{background:var(--teal);color:#fff;border-bottom-right-radius:4px}
+.chat-typing{display:flex;gap:4px;padding:10px 13px;background:var(--light);border-radius:14px;border-bottom-left-radius:4px;width:fit-content}
+.typing-dot{width:6px;height:6px;background:var(--gray);border-radius:50%;animation:typing 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1);opacity:1}}
+.chat-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}
+.chip{background:rgba(26,107,107,.08);color:var(--teal);border:1px solid rgba(26,107,107,.2);border-radius:14px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.chip:hover{background:var(--teal);color:#fff}
+.chat-input-bar{padding:10px;border-top:1px solid #f0f0f0;display:flex;gap:8px}
+.chat-input{flex:1;border:1.5px solid #e5e5e5;border-radius:10px;padding:8px 12px;font-size:13px;outline:none;font-family:'Inter',sans-serif}
+.chat-input:focus{border-color:var(--teal)}
+.chat-send{background:var(--teal);color:#fff;border:none;border-radius:10px;width:36px;height:36px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+/* ADMIN */
+.admin-overlay{position:fixed;inset:0;z-index:1000;background:#f5f5f5;display:none;flex-direction:column}
+.admin-overlay.open{display:flex}
+.admin-topbar{background:var(--teal-dark);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.admin-logo{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.admin-close-btn{background:rgba(255,255,255,.15);border:none;color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.admin-body{display:flex;flex:1;overflow:hidden}
+.admin-sidebar{width:200px;background:var(--teal-dark);padding:16px 0;flex-shrink:0}
+.admin-nav-item{display:block;padding:11px 20px;color:rgba(255,255,255,.65);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.admin-nav-item:hover,.admin-nav-item.active{color:#fff;background:rgba(255,255,255,.08);border-left-color:var(--gold)}
+.admin-content{flex:1;overflow-y:auto;padding:28px}
+.admin-page{display:none}
+.admin-page.active{display:block}
+.admin-title{font-size:20px;font-weight:800;margin-bottom:20px}
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.stat-card-val{font-size:26px;font-weight:900;color:var(--dark);letter-spacing:-1px}
+.stat-card-change{font-size:11px;color:#2ecc71;font-weight:600}
+.stat-card-label{font-size:12px;color:var(--gray);margin-top:4px}
+.chart-section{background:#fff;border-radius:14px;padding:20px;margin-bottom:24px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.chart-title{font-size:14px;font-weight:700;margin-bottom:16px}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:100px}
+.bar{flex:1;background:var(--teal);border-radius:4px 4px 0 0;position:relative;transition:opacity .2s;min-width:0}
+.bar:hover{opacity:.8}
+.bar-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--gray);white-space:nowrap}
+.data-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.data-table th{background:var(--teal-dark);color:#fff;padding:12px 16px;font-size:12px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.4px}
+.data-table td{padding:12px 16px;font-size:13px;border-bottom:1px solid #f5f5f5}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#fafafa}
+.status-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+.status-confirmed{background:#d1fae5;color:#065f46}
+.status-pending{background:#fef3c7;color:#92400e}
+.status-cancelled{background:#fee2e2;color:#991b1b}
+.toggle-sm{position:relative;width:36px;height:20px;cursor:pointer}
+.toggle-sm input{opacity:0;width:0;height:0}
+.toggle-sm-slider{position:absolute;inset:0;background:#ccc;border-radius:20px;transition:.3s}
+.toggle-sm-slider:before{content:'';position:absolute;width:14px;height:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle-sm input:checked+.toggle-sm-slider{background:var(--teal)}
+.toggle-sm input:checked+.toggle-sm-slider:before{transform:translateX(16px)}
+/* FOOTER */
+footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.footer-logo .logo-mark{background:rgba(255,255,255,.1)}
+.footer-logo .logo-text{color:#fff;font-size:17px}
+.footer-right{font-size:13px}
+/* RESPONSIVE */
+@media(max-width:768px){nav{padding:12px 16px}.nav-search,.nav-actions .btn-outline{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:32px}.hero-search{flex-direction:column;border-radius:14px}.hero-search input,.hero-search select,.hero-search button{border:none;border-radius:0;padding:14px 16px}.hero-stats{gap:20px}.filters-bar{padding:12px 16px}.grid-section{padding:24px 16px}.restaurant-grid{grid-template-columns:1fr 1fr}.stat-cards{grid-template-columns:1fr 1fr}.admin-sidebar{display:none}footer{flex-direction:column;gap:12px;padding:28px 16px;text-align:center}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo" id="footerLogo">
+    <div class="logo-mark">M</div>
+    <span class="logo-text">MASA</span>
+  </a>
+  <div class="nav-search">
+    <span style="color:var(--gray)">🔍</span>
+    <input type="text" id="navSearchInput" placeholder="Restoran veya semt ara..." oninput="filterRestaurants()">
+  </div>
+  <div class="nav-actions">
+    <a href="#" class="btn btn-outline">Giriş yap</a>
+    <a href="#" class="btn btn-gold">Ücretsiz dene</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇹🇷 Türkiye'nin #1 Rezervasyon Platformu</div>
+    <h1>En iyi masayı<br><span>iki dakikada</span> ayırt</h1>
+    <p>WhatsApp onayı, AI önerileri ve canlı masa haritasıyla İstanbul'un en iyi restoranlarında yer ayırt.</p>
+    <div class="hero-search">
+      <input type="text" id="heroSearchInput" placeholder="Restoran adı veya mutfak türü..." oninput="syncSearch(this)">
+      <select id="heroNeighborhood" onchange="filterByNeighborhood(this.value)">
+        <option value="">Tüm semtler</option>
+        <option>Beşiktaş</option><option>Beyoğlu</option><option>Karaköy</option>
+        <option>Kadıköy</option><option>Nişantaşı</option><option>Sultanahmet</option>
+        <option>Taksim</option><option>Galata</option><option>Bebek</option><option>Çırağan</option>
+      </select>
+      <button onclick="scrollToGrid()">Restoran Bul</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-num">2,400<span>+</span></div><div class="hstat-label">Restoran</div></div>
+      <div><div class="hstat-num">48K<span>+</span></div><div class="hstat-label">Aylık rezervasyon</div></div>
+      <div><div class="hstat-num">4.9<span>★</span></div><div class="hstat-label">Kullanıcı puanı</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-bar" id="filtersBar">
+  <button class="filter-btn active" onclick="setFilter('all',this)">Tümü</button>
+  <div class="filter-separator"></div>
+  <button class="filter-btn" onclick="setFilter('Beşiktaş',this)">Beşiktaş</button>
+  <button class="filter-btn" onclick="setFilter('Beyoğlu',this)">Beyoğlu</button>
+  <button class="filter-btn" onclick="setFilter('Karaköy',this)">Karaköy</button>
+  <button class="filter-btn" onclick="setFilter('Kadıköy',this)">Kadıköy</button>
+  <button class="filter-btn" onclick="setFilter('Nişantaşı',this)">Nişantaşı</button>
+  <button class="filter-btn" onclick="setFilter('Galata',this)">Galata</button>
+  <div class="filter-separator"></div>
+  <button class="filter-btn" onclick="setPriceFilter(1,this)">₺</button>
+  <button class="filter-btn" onclick="setPriceFilter(2,this)">₺₺</button>
+  <button class="filter-btn" onclick="setPriceFilter(3,this)">₺₺₺</button>
+  <button class="filter-btn" onclick="setPriceFilter(4,this)">₺₺₺₺</button>
+  <span class="results-count" id="resultsCount">20 restoran</span>
+</div>
+
+<!-- GRID -->
+<div class="grid-section" id="gridSection">
+  <div class="grid-title">🔥 İstanbul'un En İyi Restoranları</div>
+  <div class="restaurant-grid" id="restaurantGrid"></div>
+</div>
+
+<!-- RESTAURANT DETAIL MODAL -->
+<div class="overlay" id="detailOverlay" onclick="closeDetailIfOutside(event)">
+  <div class="modal" id="detailModal">
+    <div class="modal-header">
+      <div class="modal-title" id="detailTitle">Restoran</div>
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- RESERVATION MODAL -->
+<div class="overlay" id="reserveOverlay" onclick="closeReserveIfOutside(event)">
+  <div class="modal" id="reserveModal">
+    <div class="modal-header">
+      <div>
+        <div style="font-size:12px;color:var(--gray);margin-bottom:2px" id="reserveRestName"></div>
+        <div class="modal-title" id="reserveStep">Rezervasyon</div>
+      </div>
+      <button class="modal-close" onclick="closeReserve()">✕</button>
+    </div>
+    <div class="steps-bar" id="stepsBar">
+      <div class="step-item active" id="stepItem1"><div class="step-circle">1</div><div class="step-label">Tarih & Saat</div></div>
+      <div class="step-item" id="stepItem2"><div class="step-circle">2</div><div class="step-label">Masa Seç</div></div>
+      <div class="step-item" id="stepItem3"><div class="step-circle">3</div><div class="step-label">Ön Sipariş</div></div>
+      <div class="step-item" id="stepItem4"><div class="step-circle">4</div><div class="step-label">Ödeme</div></div>
+    </div>
+    <div id="reserveContent"></div>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">🤖</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-text">
+      <div class="chat-header-name">MASA AI</div>
+      <div class="chat-header-status">● Çevrimiçi</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-chips" id="chatChips">
+    <span class="chip" onclick="sendChip('Romantik bir yer öner')">💑 Romantik</span>
+    <span class="chip" onclick="sendChip('Balık restoranı öner')">🐟 Balık</span>
+    <span class="chip" onclick="sendChip('Ucuz ve iyi bir yer')">💰 Ekonomik</span>
+  </div>
+  <div class="chat-input-bar">
+    <input class="chat-input" id="chatInput" placeholder="Mesaj yaz..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-topbar">
+    <div class="admin-logo">🔧 MASA Admin Panel</div>
+    <button class="admin-close-btn" onclick="closeAdmin()">✕ Çıkış</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" onclick="showAdminPage('overview',this)">📊 Genel Bakış</div>
+      <div class="admin-nav-item" onclick="showAdminPage('reservations',this)">📅 Rezervasyonlar</div>
+      <div class="admin-nav-item" onclick="showAdminPage('restaurants',this)">🍽️ Restoranlar</div>
+      <div class="admin-nav-item" onclick="showAdminPage('users',this)">👥 Kullanıcılar</div>
+    </div>
+    <div class="admin-content">
+      <!-- OVERVIEW -->
+      <div class="admin-page active" id="adminOverviewPage">
+        <div class="admin-title">📊 Genel Bakış</div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-card-val">47</div><div class="stat-card-change">+12% ↑</div><div class="stat-card-label">Bugünkü Rezervasyonlar</div></div>
+          <div class="stat-card"><div class="stat-card-val">312</div><div class="stat-card-change">+8% ↑</div><div class="stat-card-label">Bu Haftaki</div></div>
+          <div class="stat-card"><div class="stat-card-val">₺184,500</div><div class="stat-card-change">+15% ↑</div><div class="stat-card-label">Aylık Ciro</div></div>
+          <div class="stat-card"><div class="stat-card-val">20</div><div class="stat-card-change">2 yeni ↑</div><div class="stat-card-label">Aktif Restoran</div></div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">Son 7 Gün — Rezervasyon</div>
+          <div class="bar-chart" id="barChart"></div>
+          <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap" id="barLabels"></div>
+        </div>
+      </div>
+      <!-- RESERVATIONS -->
+      <div class="admin-page" id="adminReservationsPage">
+        <div class="admin-title">📅 Rezervasyonlar</div>
+        <table class="data-table" id="reservationsTable">
+          <thead><tr><th>#</th><th>Restoran</th><th>Tarih</th><th>Saat</th><th>Kişi</th><th>Durum</th><th>Tutar</th></tr></thead>
+          <tbody id="reservationsTbody"></tbody>
+        </table>
+      </div>
+      <!-- RESTAURANTS -->
+      <div class="admin-page" id="adminRestaurantsPage">
+        <div class="admin-title">🍽️ Restoranlar</div>
+        <table class="data-table">
+          <thead><tr><th>Restoran</th><th>Semt</th><th>Mutfak</th><th>Puan</th><th>Aktif</th></tr></thead>
+          <tbody id="adminRestaurantsTbody"></tbody>
+        </table>
+      </div>
+      <!-- USERS -->
+      <div class="admin-page" id="adminUsersPage">
+        <div class="admin-title">👥 Kullanıcılar</div>
+        <table class="data-table">
+          <thead><tr><th>ID</th><th>İsim</th><th>Rezervasyon</th><th>Harcama</th><th>Son Giriş</th></tr></thead>
+          <tbody id="adminUsersTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" id="footerLogoAdmin" onclick="adminClickHandler()">
+    <div class="logo-mark" style="background:rgba(201,168,76,.2);color:var(--gold-light)">M</div>
+    <span class="logo-text">MASA</span>
+  </div>
+  <div class="footer-right">© 2026 MASA. Türkiye'nin rezervasyon platformu.</div>
+</footer>
+
+<script>
+// ===== DATA =====
+const restaurants = [
+  {id:1,name:'Nusr-Et Beşiktaş',neighborhood:'Beşiktaş',cuisine:'Steakhouse',price:4,rating:4.9,reviews:1847,emoji:'🥩',desc:'Salt Bae\'nin dünyaca ünlü steakhouse restoranı. Eşsiz et deneyimi için İstanbul\'un en iyi adreslerinden biri.',gradient:'linear-gradient(135deg,#1a1a2e,#c0392b)',times:['12:00','13:00','14:00','19:00','20:00','21:00','22:00'],menu:[{name:'Salt Burger',price:450},{name:'Osmanlı Kavurması',price:890},{name:'Ribeye Steak',price:1200},{name:'Humus',price:180},{name:'Kızarmış Patates',price:150},{name:'Cheesecake',price:220}]},
+  {id:2,name:'Mikla',neighborhood:'Beyoğlu',cuisine:'Modern Türk',price:4,rating:4.9,reviews:2341,emoji:'🌃',desc:'Pera Palas\'ın çatısında İstanbul manzarasıyla modern Türk mutfağı. Şef Mehmet Gürs\'ün sanat eseri.',gradient:'linear-gradient(135deg,#0f2027,#203a43,#2c5364)',times:['19:00','19:30','20:00','20:30','21:00','21:30'],menu:[{name:'Midye Tava',price:380},{name:'Ahtapot',price:520},{name:'Kuzu Tandır',price:680},{name:'Patlıcan Mezesi',price:220},{name:'Sütlaç',price:180},{name:'Türk Kahvesi',price:80}]},
+  {id:3,name:'Nicole Restaurant',neighborhood:'Taksim',cuisine:'Fine Dining',price:4,rating:4.7,reviews:987,emoji:'🍽️',desc:'Tom Tom Suites Hotel\'de Fransız-Türk füzyon mutfağı. Şehrin en romantik ve sofistike restoranlarından.',gradient:'linear-gradient(135deg,#2c0036,#7b0099)',times:['12:30','13:00','19:30','20:00','20:30','21:00'],menu:[{name:'Foie Gras',price:680},{name:'Kuzu Kaburga',price:850},{name:'Levrek Ceviche',price:420},{name:'Trüf Mantarlı Risotto',price:580},{name:'Crème Brûlée',price:220},{name:'Şarap Seçkisi',price:350}]},
+  {id:4,name:'Balıkçı Sabahattin',neighborhood:'Sultanahmet',cuisine:'Balık',price:3,rating:4.8,reviews:3124,emoji:'🐟',desc:'1927\'den bu yana Sultanahmet\'te hizmet veren efsanevi balık restoranı. Taze deniz ürünleri ve otantik Türk mutfağı.',gradient:'linear-gradient(135deg,#005c97,#363795)',times:['12:00','13:00','14:00','19:00','20:00','21:00'],menu:[{name:'Lüfer Izgara',price:520},{name:'Karides Güveç',price:380},{name:'Kalamar Tava',price:280},{name:'Balık Çorbası',price:150},{name:'Mevsim Salata',price:120},{name:'Baklava',price:140}]},
+  {id:5,name:'Karaköy Lokantası',neighborhood:'Karaköy',cuisine:'Türk Mutfağı',price:2,rating:4.6,reviews:4567,emoji:'🍲',desc:'Karaköy\'ün kalbinde geleneksel ev yemekleri. Her gün taze yapılan mevsimlik yemekler.',gradient:'linear-gradient(135deg,#f7971e,#ffd200)',times:['11:30','12:00','12:30','13:00','13:30','18:00','19:00'],menu:[{name:'Günün Çorbası',price:80},{name:'Kuru Fasulye',price:120},{name:'Hünkârbeğendi',price:220},{name:'İmam Bayıldı',price:160},{name:'Kıymalı Pide',price:180},{name:'Kazandibi',price:90}]},
+  {id:6,name:'Ciya Sofrası',neighborhood:'Kadıköy',cuisine:'Anadolu',price:1,rating:4.8,reviews:5678,emoji:'🥗',desc:'Şef Musa Dağdeviren\'in Anadolu mutfağı laboratuvarı. Türkiye\'nin dört bir yanından getirilen geleneksel tarifler.',gradient:'linear-gradient(135deg,#56ab2f,#a8e063)',times:['11:00','12:00','13:00','14:00','18:00','19:00','20:00'],menu:[{name:'Acılı Ezme',price:60},{name:'Bulgur Pilavı',price:90},{name:'Çiğ Köfte',price:80},{name:'Sarıyer Böreği',price:110},{name:'Ayran Aşı',price:140},{name:'Aşure',price:70}]},
+  {id:7,name:'Sunset Grill',neighborhood:'Ulus',cuisine:'Uluslararası',price:4,rating:4.7,reviews:1234,emoji:'🌅',desc:'Boğaz manzaralı teras restoranı. Gün batımı eşliğinde Akdeniz ve Uzakdoğu mutfağından ilham alan menü.',gradient:'linear-gradient(135deg,#f83600,#f9d423)',times:['12:00','13:00','19:00','20:00','21:00'],menu:[{name:'Wagyu Burger',price:680},{name:'Somon Tataki',price:520},{name:'Akdeniz Tabağı',price:380},{name:'Truffle Frites',price:220},{name:'Cheesecake',price:200},{name:'Mojito',price:180}]},
+  {id:8,name:'Poseidon',neighborhood:'Bebek',cuisine:'Balık/Deniz',price:4,rating:4.6,reviews:2109,emoji:'🦐',desc:'Bebek sahilinde deniz üstü masalarıyla ünlü. Taze deniz mahsulleri ve nefis mezelerle zengin bir deneyim.',gradient:'linear-gradient(135deg,#1a6b6b,#00c9ff)',times:['12:30','13:00','19:30','20:00','20:30','21:00'],menu:[{name:'Karides Güveç',price:480},{name:'Ahtapot Salatası',price:420},{name:'Çinekop Izgara',price:560},{name:'Deniz Mahsulleri Tabağı',price:880},{name:'Tarama',price:160},{name:'Fırın Sütlaç',price:150}]},
+  {id:9,name:'Münferit',neighborhood:'Galata',cuisine:'Modern',price:3,rating:4.5,reviews:1876,emoji:'🍷',desc:'Galata\'da yaratıcı kokteyller ve modern mezelerle öne çıkan şık mekan. Canlı müzik geceleri.',gradient:'linear-gradient(135deg,#373b44,#4286f4)',times:['18:00','19:00','20:00','21:00','22:00'],menu:[{name:'Humus Tabağı',price:180},{name:'Sucuklu Mantar',price:220},{name:'Kaşarlı Köfte',price:320},{name:'Kalamar',price:260},{name:'Cheesecake',price:180},{name:'Signature Kokteyl',price:220}]},
+  {id:10,name:'Sur Balık',neighborhood:'Fatih',cuisine:'Balık',price:2,rating:4.7,reviews:3456,emoji:'🐠',desc:'Fatih\'te uygun fiyatlarla taze balık. Yerel halkın favorisi, şehrin en iyi tava balık adresi.',gradient:'linear-gradient(135deg,#0f3460,#533483)',times:['12:00','13:00','14:00','18:30','19:00','20:00'],menu:[{name:'Tava Balık',price:240},{name:'Balık Ekmek',price:80},{name:'Midye Dolma',price:120},{name:'Balık Çorbası',price:90},{name:'Çoban Salata',price:80},{name:'Ayran',price:30}]},
+  {id:11,name:'Neolokal',neighborhood:'Beyoğlu',cuisine:'Anadolu Fine Dining',price:4,rating:4.8,reviews:1543,emoji:'🏛️',desc:'SALT Galata\'nın içinde Anadolu mutfağını fine dining çerçevesinde sunan ödüllü restoran.',gradient:'linear-gradient(135deg,#4a0e8f,#c13584)',times:['12:30','13:00','19:00','19:30','20:00','20:30'],menu:[{name:'Tarhana Çorbası',price:180},{name:'Kuzu Pirzola',price:780},{name:'Manti',price:320},{name:'Patlıcan Tabağı',price:260},{name:'Kadayıf',price:200},{name:'Boza',price:80}]},
+  {id:12,name:'Köşebaşı',neighborhood:'Nişantaşı',cuisine:'Mangal/Kebap',price:3,rating:4.5,reviews:6789,emoji:'🔥',desc:'Nişantaşı\'nın en iyi ızgara restoranı. Taze malzemelerle hazırlanan Adana kebap ve özel mangal çeşitleri.',gradient:'linear-gradient(135deg,#c94b4b,#4b134f)',times:['12:00','13:00','14:00','19:00','20:00','21:00'],menu:[{name:'Adana Kebap',price:320},{name:'Kuzu Şiş',price:380},{name:'Tavuk Kanat',price:220},{name:'Acılı Ezme',price:80},{name:'Lavas Ekmek',price:40},{name:'Künefe',price:180}]},
+  {id:13,name:'Borsam Taşfırın',neighborhood:'Beşiktaş',cuisine:'Pizza/İtalyan',price:2,rating:4.6,reviews:4321,emoji:'🍕',desc:'Beşiktaş\'ın sevilen pizza restoranı. Taş fırında pişen Napoli usulü pizzalar ve ev yapımı makarnalar.',gradient:'linear-gradient(135deg,#ee0979,#ff6a00)',times:['12:00','13:00','14:00','18:00','19:00','20:00','21:00'],menu:[{name:'Margherita',price:200},{name:'Pepperoni',price:240},{name:'Carbonara',price:280},{name:'Tiramisu',price:160},{name:'Bruschetta',price:120},{name:'Limonata',price:60}]},
+  {id:14,name:'Çiya Kebap',neighborhood:'Kadıköy',cuisine:'Kebap',price:1,rating:4.7,reviews:7890,emoji:'🥙',desc:'Kadıköy Çarşısı\'nın ikonik kebap noktası. Geleneksel Güneydoğu tariflerine sadık kalan lezzetler.',gradient:'linear-gradient(135deg,#c0392b,#8e44ad)',times:['11:00','12:00','13:00','14:00','18:00','19:00'],menu:[{name:'Urfa Kebap',price:180},{name:'Çiğ Köfte',price:60},{name:'Lahmacun',price:80},{name:'Ayran',price:25},{name:'Künefe',price:120},{name:'Bulgur Pilavı',price:70}]},
+  {id:15,name:'Gram',neighborhood:'Galata',cuisine:'Fusion',price:3,rating:4.4,reviews:1234,emoji:'🍜',desc:'Galata\'da Asya-Akdeniz füzyon mutfağı. Her hafta değişen özel menüsüyle sürprizlere açık bir deneyim.',gradient:'linear-gradient(135deg,#11998e,#38ef7d)',times:['12:30','13:00','19:00','20:00','21:00'],menu:[{name:'Ramen',price:320},{name:'Dim Sum',price:280},{name:'Pad Thai',price:300},{name:'Mochi',price:160},{name:'Miso Çorbası',price:140},{name:'Sake',price:180}]},
+  {id:16,name:'Günaydın',neighborhood:'Nişantaşı',cuisine:'Et/Steakhouse',price:3,rating:4.6,reviews:3456,emoji:'🥩',desc:'Türkiye\'nin en köklü et restoranı zinciri. Nişantaşı şubesi şık dekorasyonu ve kaliteli etleriyle öne çıkıyor.',gradient:'linear-gradient(135deg,#3a1c71,#d76d77,#ffaf7b)',times:['12:00','13:00','14:00','19:00','20:00','21:00'],menu:[{name:'Antrikot',price:580},{name:'Bonfile',price:650},{name:'Karışık Izgara',price:480},{name:'Kaburga',price:420},{name:'Tatlı Tabağı',price:160},{name:'Şarap',price:280}]},
+  {id:17,name:'Galata Konak',neighborhood:'Karaköy',cuisine:'Osmanlı',price:3,rating:4.5,reviews:987,emoji:'🏰',desc:'Osmanlı mutfağının unutulmuş tariflerini modern yorumla sunan tarihi mekan. Galata Kulesi manzarası.',gradient:'linear-gradient(135deg,#2c3e50,#c0392b)',times:['12:00','13:00','19:00','20:00','21:00'],menu:[{name:'Osmanlı Çorbası',price:180},{name:'Hünkârbeğendi',price:380},{name:'Mutancana',price:420},{name:'Zerde',price:120},{name:'Şerbetli Kadayıf',price:180},{name:'Türk Kahvesi',price:70}]},
+  {id:18,name:'Mürver',neighborhood:'Çırağan',cuisine:'Bosphorus View',price:4,rating:4.8,reviews:876,emoji:'🌊',desc:'Çırağan Sarayı\'nda Boğaz kenarında eşsiz deneyim. Akdeniz mutfağından ilham alan yaratıcı lezzetler.',gradient:'linear-gradient(135deg,#1a6b6b,#0f4444)',times:['12:30','13:00','19:30','20:00','20:30'],menu:[{name:'Levrek Ceviche',price:480},{name:'Ücünlü Tabak',price:620},{name:'Izgara Somon',price:560},{name:'Boğaz Mezesi',price:380},{name:'Limon Tart',price:220},{name:'Özel Kokteyel',price:280}]},
+  {id:19,name:'Vogue',neighborhood:'Beşiktaş',cuisine:'Modern',price:3,rating:4.7,reviews:2345,emoji:'✨',desc:'Beşiktaş\'ın en şık restoranı. Minimalist dekor, yaratıcı sunumlar ve geniş şarap seçkisi.',gradient:'linear-gradient(135deg,#485563,#29323c)',times:['12:00','13:00','19:00','20:00','21:00','22:00'],menu:[{name:'Carpaccio',price:380},{name:'Risotto',price:340},{name:'Kuzu Tandır',price:520},{name:'Tiramisu',price:200},{name:'Cheese Board',price:280},{name:'Prosecco',price:220}]},
+  {id:20,name:'Tuğra',neighborhood:'Çırağan',cuisine:'Ottoman Fine Dining',price:4,rating:4.9,reviews:654,emoji:'👑',desc:'Çırağan Sarayı\'nın efsanevi restoranı. 300 yıllık Osmanlı saray mutfağı gelenekleri yaşatılıyor.',gradient:'linear-gradient(135deg,#7f0000,#c9a84c)',times:['19:00','19:30','20:00','20:30'],menu:[{name:'Saraylı Mezeler',price:580},{name:'Osmanlı Dolması',price:380},{name:'Hükümdar Kebabı',price:920},{name:'Saray Baklavası',price:280},{name:'Osmanlı Şerbeti',price:120},{name:'Nargile Hizmeti',price:200}]}
+];
+
+let currentFilter='all', currentPriceFilter=0, searchTerm='', currentRestaurant=null, currentStep=1, reservationData={}, adminClickCount=0, adminClickTimer=null;
+
+// ===== RENDER =====
+function renderRestaurants(){
+  const grid=document.getElementById('restaurantGrid');
+  const priceStr=r=>'₺'.repeat(r.price);
+  let filtered=restaurants.filter(r=>{
+    const matchFilter=currentFilter==='all'||r.neighborhood===currentFilter;
+    const matchPrice=currentPriceFilter===0||r.price===currentPriceFilter;
+    const matchSearch=!searchTerm||r.name.toLowerCase().includes(searchTerm.toLowerCase())||r.neighborhood.toLowerCase().includes(searchTerm.toLowerCase())||r.cuisine.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchFilter&&matchPrice&&matchSearch;
+  });
+  document.getElementById('resultsCount').textContent=filtered.length+' restoran';
+  grid.innerHTML=filtered.map(r=>`
+    <div class="rest-card" onclick="openDetail(${r.id})">
+      <div class="rest-card-img" style="background:${r.gradient}">
+        ${r.emoji}
+        <div class="rest-badge">${priceStr(r)}</div>
+      </div>
+      <div class="rest-card-body">
+        <div class="rest-card-name">${r.name}</div>
+        <div class="rest-card-meta">
+          <span class="rest-card-rating">★ ${r.rating}</span>
+          <span>(${r.reviews.toLocaleString()})</span>
+          <span>• ${r.neighborhood}</span>
+        </div>
+        <div class="rest-card-tags">
+          <span class="tag">${r.cuisine}</span>
+          <span class="tag">${priceStr(r)}</span>
+        </div>
+        <div class="rest-card-footer">
+          <span class="price-range">${r.neighborhood}</span>
+          <button class="rest-reserve-btn" onclick="event.stopPropagation();openReserve(${r.id})">Rezervasyon Yap</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function setFilter(val,btn){
+  currentFilter=val;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');currentPriceFilter=0;
+  renderRestaurants();
+}
+function setPriceFilter(val,btn){
+  currentPriceFilter=currentPriceFilter===val?0:val;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(currentPriceFilter!==0)btn.classList.add('active');
+  renderRestaurants();
+}
+function filterRestaurants(){searchTerm=document.getElementById('navSearchInput').value;document.getElementById('heroSearchInput').value=searchTerm;renderRestaurants();}
+function syncSearch(el){searchTerm=el.value;document.getElementById('navSearchInput').value=searchTerm;renderRestaurants();}
+function filterByNeighborhood(val){currentFilter=val||'all';renderRestaurants();}
+function scrollToGrid(){document.getElementById('gridSection').scrollIntoView({behavior:'smooth'});}
+
+// ===== DETAIL MODAL =====
+function openDetail(id){
+  const r=restaurants.find(x=>x.id===id);
+  currentRestaurant=r;
+  document.getElementById('detailTitle').textContent=r.name;
+  const today=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
+  const tomorrow=new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('detailContent').innerHTML=`
+    <div class="detail-hero" style="background:${r.gradient}">${r.emoji}</div>
+    <div class="detail-name">${r.name}</div>
+    <div class="detail-meta">
+      <span>★ ${r.rating} (${r.reviews.toLocaleString()} yorum)</span>
+      <span>📍 ${r.neighborhood}</span>
+      <span>🍽️ ${r.cuisine}</span>
+      <span>💰 ${'₺'.repeat(r.price)}</span>
+    </div>
+    <div class="detail-desc">${r.desc}</div>
+    <div class="time-label">📅 ${today} — Müsait Saatler</div>
+    <div class="time-slots">${r.times.map(t=>`<div class="time-slot" onclick="selectTime(this,'${t}')">${t}</div>`).join('')}</div>
+    <div class="time-label">📅 ${tomorrow}</div>
+    <div class="time-slots">${r.times.map(t=>`<div class="time-slot" onclick="selectTime(this,'${t}')">${t}</div>`).join('')}</div>
+    <button class="btn btn-teal" style="width:100%;padding:14px;font-size:15px;border-radius:12px;margin-top:8px" onclick="closeDetail();openReserve(${r.id})">Rezervasyon Yap →</button>`;
+  document.getElementById('detailOverlay').classList.add('open');
+}
+function selectTime(el,t){document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));el.classList.add('selected');reservationData.time=t;}
+function closeDetail(){document.getElementById('detailOverlay').classList.remove('open');}
+function closeDetailIfOutside(e){if(e.target===document.getElementById('detailOverlay'))closeDetail();}
+
+// ===== RESERVATION =====
+function openReserve(id){
+  const r=restaurants.find(x=>x.id===id);
+  currentRestaurant=r;currentStep=1;reservationData={restaurantId:id,restaurantName:r.name,preorderItems:[],payMethod:'card'};
+  document.getElementById('reserveRestName').textContent=r.name;
+  updateStepBar();renderStep();
+  document.getElementById('reserveOverlay').classList.add('open');
+}
+function closeReserve(){document.getElementById('reserveOverlay').classList.remove('open');}
+function closeReserveIfOutside(e){if(e.target===document.getElementById('reserveOverlay'))closeReserve();}
+function updateStepBar(){
+  [1,2,3,4].forEach(i=>{
+    const el=document.getElementById('stepItem'+i);
+    el.classList.remove('active','done');
+    if(i<currentStep)el.classList.add('done');
+    if(i===currentStep)el.classList.add('active');
+  });
+}
+function nextStep(){if(currentStep<4){currentStep++;updateStepBar();renderStep();}}
+function prevStep(){if(currentStep>1){currentStep--;updateStepBar();renderStep();}}
+
+function renderStep(){
+  const c=document.getElementById('reserveContent');
+  const r=currentRestaurant;
+  const today=new Date().toISOString().split('T')[0];
+  const tomorrow=new Date(Date.now()+86400000).toISOString().split('T')[0];
+
+  if(currentStep===1){
+    document.getElementById('reserveStep').textContent='Tarih & Saat Seç';
+    c.innerHTML=`
+      <div class="form-group"><label class="form-label">Tarih</label>
+        <div style="display:flex;gap:10px">
+          <button class="btn ${reservationData.date===today?'btn-teal':'btn-outline'}" onclick="setDate('${today}',this)">${new Date().toLocaleDateString('tr-TR',{weekday:'short',day:'numeric',month:'short'})}</button>
+          <button class="btn ${reservationData.date===tomorrow?'btn-teal':'btn-outline'}" onclick="setDate('${tomorrow}',this)">${new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{weekday:'short',day:'numeric',month:'short'})}</button>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Saat</label>
+        <div class="time-slots">${r.times.map(t=>`<div class="time-slot ${reservationData.time===t?'selected':''}" onclick="document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));this.classList.add('selected');reservationData.time='${t}'">${t}</div>`).join('')}</div>
+      </div>
+      <div class="form-group"><label class="form-label">Kişi Sayısı</label>
+        <div class="people-counter">
+          <button class="counter-btn" onclick="changePeople(-1)">−</button>
+          <div class="counter-val" id="peopleVal">${reservationData.people||2}</div>
+          <button class="counter-btn" onclick="changePeople(1)">+</button>
+          <span style="font-size:13px;color:var(--gray);margin-left:8px">kişi</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button class="btn btn-teal" style="flex:1;padding:14px" onclick="if(!reservationData.date||!reservationData.time){alert('Lütfen tarih ve saat seçin!');return;}if(!reservationData.people)reservationData.people=2;nextStep()">Devam Et →</button>
+      </div>`;
+    if(!reservationData.people)reservationData.people=2;
+    if(!reservationData.date)reservationData.date=today;
+  }
+
+  else if(currentStep===2){
+    document.getElementById('reserveStep').textContent='Masa Seç';
+    const tables=Array.from({length:12},(_,i)=>({num:i+1,status:[0,2,4,7,10].includes(i)?'occupied':[3,8].includes(i)?'reserved':'available'}));
+    c.innerHTML=`
+      <div class="table-map">
+        <div class="table-map-title">Masa planı — ${reservationData.restaurantName}</div>
+        <div class="tables-grid">${tables.map(t=>`
+          <div class="table-circle ${t.status} ${reservationData.table===t.num?'selected':''}" onclick="${t.status!=='occupied'?`selectTable(${t.num},this)`:''}" title="Masa ${t.num}">
+            <span style="font-size:14px">T${t.num}</span>
+          </div>`).join('')}</div>
+        <div class="table-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#d1fae5"></div>Boş</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fee2e2"></div>Dolu</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fef3c7"></div>Rezerve</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-outline" style="padding:12px 20px" onclick="prevStep()">← Geri</button>
+        <button class="btn btn-teal" style="flex:1;padding:12px" onclick="if(!reservationData.table){alert('Lütfen bir masa seçin!');return;}nextStep()">Devam Et →</button>
+      </div>`;
+  }
+
+  else if(currentStep===3){
+    document.getElementById('reserveStep').textContent='Ön Sipariş (İsteğe Bağlı)';
+    c.innerHTML=`
+      <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Gelmeden önce siparişinizi verin, hazır olsun!</p>
+      <div>${r.menu.map((item,i)=>`
+        <div class="menu-item">
+          <input type="checkbox" id="menu${i}" ${reservationData.preorderItems.find(x=>x.name===item.name)?'checked':''} onchange="toggleMenuItem('${item.name}',${item.price},this.checked)">
+          <div class="menu-item-info"><div class="menu-item-name">${item.name}</div></div>
+          <div class="menu-item-price">₺${item.price}</div>
+        </div>`).join('')}</div>
+      <div class="preorder-total"><span>Ön Sipariş Toplamı</span><span id="preorderTotal">₺${reservationData.preorderItems.reduce((s,x)=>s+x.price,0)}</span></div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="btn btn-outline" style="padding:12px 20px" onclick="prevStep()">← Geri</button>
+        <button class="btn btn-teal" style="flex:1;padding:12px" onclick="nextStep()">Ödemeye Geç →</button>
+      </div>`;
+  }
+
+  else if(currentStep===4){
+    document.getElementById('reserveStep').textContent='Ödeme';
+    const preorderTotal=reservationData.preorderItems.reduce((s,x)=>s+x.price,0);
+    const serviceFee=50;
+    const total=preorderTotal+serviceFee;
+    reservationData.total=total;
+    c.innerHTML=`
+      <div class="order-summary">
+        <div class="summary-row"><span>🍽️ ${reservationData.restaurantName}</span></div>
+        <div class="summary-row"><span>📅 ${reservationData.date} ${reservationData.time}</span><span>👥 ${reservationData.people} kişi</span></div>
+        <div class="summary-row"><span>🪑 Masa ${reservationData.table}</span></div>
+        ${preorderTotal>0?`<div class="summary-row"><span>Ön Sipariş</span><span>₺${preorderTotal}</span></div>`:''}
+        <div class="summary-row"><span>Hizmet Bedeli</span><span>₺${serviceFee}</span></div>
+        <div class="summary-row total"><span>Toplam</span><span>₺${total}</span></div>
+      </div>
+      <div class="payment-methods">
+        <div class="pay-method-card selected" id="payCard" onclick="selectPayMethod('card')"><div class="pay-method-icon">💳</div><div class="pay-method-name">Kredi Kartı</div></div>
+        <div class="pay-method-card" id="payIyzico" onclick="selectPayMethod('iyzico')"><div class="pay-method-icon">📱</div><div class="pay-method-name">iyzico</div></div>
+        <div class="pay-method-card" id="payPapara" onclick="selectPayMethod('papara')"><div class="pay-method-icon">💰</div><div class="pay-method-name">Papara</div></div>
+        <div class="pay-method-card" id="payGift" onclick="selectPayMethod('gift')"><div class="pay-method-icon">🎁</div><div class="pay-method-name">Hediye Çeki</div></div>
+      </div>
+      <div id="cardForm">
+        <div class="form-group"><label class="form-label">Kart Üzerindeki İsim</label><input class="form-input" placeholder="AD SOYAD" id="cardName"></div>
+        <div class="form-group"><label class="form-label">Kart Numarası</label><input class="form-input" placeholder="0000 0000 0000 0000" id="cardNum" oninput="formatCard(this)" maxlength="19"></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Son Kullanma</label><input class="form-input" placeholder="MM/YY" id="cardExpiry" maxlength="5" oninput="formatExpiry(this)"></div>
+          <div class="form-group"><label class="form-label">CVV</label><input class="form-input" placeholder="000" id="cardCvv" maxlength="3" type="password"></div>
+        </div>
+      </div>
+      <div class="split-toggle">
+        <span>Hesabı Böl</span>
+        <label class="toggle-switch"><input type="checkbox" id="splitToggle" onchange="toggleSplit(this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div id="splitSection" style="display:none">
+        <div class="split-people-input">
+          <span style="font-size:13px;font-weight:600">Kişi sayısı:</span>
+          <input type="number" class="form-input" id="splitCount" min="2" max="10" value="2" style="width:70px;text-align:center" oninput="updateSplit()">
+        </div>
+        <div class="split-result" id="splitResult"></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="btn btn-outline" style="padding:12px 20px" onclick="prevStep()">← Geri</button>
+        <button class="btn btn-gold" style="flex:1;padding:14px;font-size:15px" onclick="completePayment()">Ödemeyi Tamamla →</button>
+      </div>`;
+  }
+}
+
+function setDate(d,btn){reservationData.date=d;document.querySelectorAll('.form-group button').forEach(b=>b.classList.remove('btn-teal'));btn.classList.add('btn-teal');}
+function changePeople(delta){let p=(reservationData.people||2)+delta;p=Math.max(1,Math.min(10,p));reservationData.people=p;document.getElementById('peopleVal').textContent=p;}
+function selectTable(n,el){reservationData.table=n;document.querySelectorAll('.table-circle:not(.occupied)').forEach(t=>t.classList.remove('selected'));el.classList.add('selected');}
+function toggleMenuItem(name,price,checked){if(checked){reservationData.preorderItems.push({name,price});}else{reservationData.preorderItems=reservationData.preorderItems.filter(x=>x.name!==name);}document.getElementById('preorderTotal').textContent='₺'+reservationData.preorderItems.reduce((s,x)=>s+x.price,0);}
+function selectPayMethod(method){reservationData.payMethod=method;['card','iyzico','papara','gift'].forEach(m=>document.getElementById('pay'+m.charAt(0).toUpperCase()+m.slice(1))?.classList.remove('selected'));document.getElementById('pay'+method.charAt(0).toUpperCase()+method.slice(1))?.classList.add('selected');document.getElementById('cardForm').style.display=method==='card'?'block':'none';}
+function formatCard(el){let v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim();}
+function formatExpiry(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2,4);el.value=v;}
+function toggleSplit(on){document.getElementById('splitSection').style.display=on?'block':'none';if(on)updateSplit();}
+function updateSplit(){const n=parseInt(document.getElementById('splitCount').value)||2;const amt=Math.ceil(reservationData.total/n);const emojis=['👤','👤','👤','👤','👤','👤','👤','👤','👤','👤'];document.getElementById('splitResult').innerHTML=Array.from({length:n},(_,i)=>`<div class="split-person"><div class="split-person-emoji">${emojis[i]}</div><div class="split-person-label">Kişi ${i+1}</div><div class="split-person-amount">₺${amt}</div></div>`).join('');}
+
+function completePayment(){
+  launchConfetti();
+  const r=currentRestaurant;
+  const waText=encodeURIComponent(`✅ Rezervasyon Onaylandı!\n\nRestoran: ${r.name}\nTarih: ${reservationData.date} ${reservationData.time}\nKişi: ${reservationData.people}\nMasa: ${reservationData.table}\nToplam: ₺${reservationData.total}\n\nMASA uygulaması ile rezervasyon yapıldı.`);
+  document.getElementById('reserveContent').innerHTML=`
+    <div class="success-screen">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Rezervasyon Onaylandı!</div>
+      <div class="success-subtitle">WhatsApp'ınıza onay mesajı gönderildi 💬</div>
+      <div class="success-details">
+        <div class="success-detail-row"><span>Restoran</span><span>${r.name}</span></div>
+        <div class="success-detail-row"><span>Tarih</span><span>${reservationData.date}</span></div>
+        <div class="success-detail-row"><span>Saat</span><span>${reservationData.time}</span></div>
+        <div class="success-detail-row"><span>Kişi</span><span>${reservationData.people}</span></div>
+        <div class="success-detail-row"><span>Masa</span><span>T${reservationData.table}</span></div>
+        <div class="success-detail-row"><span>Toplam</span><span>₺${reservationData.total}</span></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a href="https://wa.me/?text=${waText}" target="_blank" class="btn" style="background:#25D366;color:#fff;padding:12px 24px">💬 WhatsApp'ta Görüntüle</a>
+        <button class="btn btn-outline" onclick="closeReserve()">Kapat</button>
+      </div>
+    </div>`;
+  document.getElementById('stepsBar').style.display='none';
+}
+
+function launchConfetti(){
+  const container=document.createElement('div');container.className='confetti-container';document.body.appendChild(container);
+  const colors=['#c9a84c','#1a6b6b','#e8c46a','#2a8a8a','#f59e0b','#10b981','#3b82f6','#ef4444'];
+  for(let i=0;i<80;i++){const piece=document.createElement('div');piece.className='confetti-piece';piece.style.cssText=`left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*.5}s;transform:rotate(${Math.random()*360}deg)`;container.appendChild(piece);}
+  setTimeout(()=>container.remove(),4000);
+}
+
+// ===== AI CHAT =====
+let chatOpen=false;
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatPanel').classList.toggle('open',chatOpen);if(chatOpen&&!document.getElementById('chatMessages').children.length){addChatMsg('ai','Merhaba! 👋 Ben MASA AI. İstanbul\'da restoran önerebilir, rezervasyon yapmanıza yardımcı olabilirim. Ne arıyorsunuz?');}}
+
+function sendChat(){const input=document.getElementById('chatInput');const text=input.value.trim();if(!text)return;addChatMsg('user',text);input.value='';document.getElementById('chatChips').style.display='none';showTyping();
+  setTimeout(()=>{removeTyping();const reply=getAIReply(text);addChatMsg('ai',reply);},1500);}
+
+function sendChip(text){addChatMsg('user',text);document.getElementById('chatChips').style.display='none';showTyping();setTimeout(()=>{removeTyping();addChatMsg('ai',getAIReply(text));},1500);}
+
+function addChatMsg(who,text){const msgs=document.getElementById('chatMessages');const div=document.createElement('div');div.className=`chat-msg ${who}`;div.innerHTML=`<div class="chat-bubble">${text}</div>`;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
+function showTyping(){const msgs=document.getElementById('chatMessages');const div=document.createElement('div');div.id='typingIndicator';div.className='chat-msg ai';div.innerHTML='<div class="chat-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
+function removeTyping(){document.getElementById('typingIndicator')?.remove();}
+
+function getAIReply(text){
+  const t=text.toLowerCase();
+  if(t.includes('romantik')||t.includes('sevgili')||t.includes('aşk')){return '💑 Romantik akşam için harika seçenekler:<br>🌃 <b>Mikla</b> — çatı katı, İstanbul manzarası<br>👑 <b>Tuğra</b> — Osmanlı sarayında eşsiz deneyim<br>🌊 <b>Mürver</b> — Boğaz kenarında çok özel<br><br>Hangisini rezerve etmek istersiniz?';}
+  if(t.includes('balık')||t.includes('deniz')||t.includes('seafood')){return '🐟 En iyi balık restoranları:<br>🐟 <b>Balıkçı Sabahattin</b> — Sultanahmet, 1927\'den beri<br>🦐 <b>Poseidon</b> — Bebek sahilinde deniz üstü<br>🐠 <b>Sur Balık</b> — Uygun fiyat, taze balık<br>🐠 <b>Mürver</b> — Çırağan\'da Boğaz manzaralı';}
+  if(t.includes('ucuz')||t.includes('ekonomik')||t.includes('uygun')){return '💰 En uygun fiyatlı en iyi yerler:<br>🥗 <b>Ciya Sofrası</b> — Kadıköy, Anadolu mutfağı<br>🥙 <b>Çiya Kebap</b> — Lezzetli ve ekonomik<br>🍲 <b>Karaköy Lokantası</b> — Ev yemekleri<br>🐠 <b>Sur Balık</b> — Taze balık, uygun fiyat';}
+  if(t.includes('iş')||t.includes('toplantı')||t.includes('business')){return '💼 İş yemeği için ideal mekanlar:<br>🌃 <b>Mikla</b> — Prestijli, etkileyici ortam<br>🏛️ <b>Neolokal</b> — Şık ve sakin<br>🌅 <b>Sunset Grill</b> — Boğaz manzaralı, prestijli<br>✨ <b>Vogue</b> — Minimalist, profesyonel';}
+  if(t.includes('doğum')||t.includes('kutlama')||t.includes('özel')){return '🎂 Özel gün için mükemmel seçenekler:<br>👑 <b>Tuğra</b> — Çırağan Sarayı, unutulmaz deneyim<br>🍽️ <b>Nicole</b> — Fine dining, çok özel<br>🌊 <b>Mürver</b> — Boğaz\'da romantik kutlama<br>🌃 <b>Mikla</b> — İstanbul manzaralı teras';}
+  if(t.includes('kadıköy')){return '📍 Kadıköy\'ün en iyileri:<br>🥗 <b>Ciya Sofrası</b> — ★4.8 Anadolu mutfağı<br>🥙 <b>Çiya Kebap</b> — ★4.7 Lezzetli kebaplar';}
+  if(t.includes('beşiktaş')){return '📍 Beşiktaş\'ın en iyileri:<br>🥩 <b>Nusr-Et</b> — ★4.9 Efsanevi steakhouse<br>🍕 <b>Borsam Taşfırın</b> — ★4.6 Lezzetli pizzalar<br>✨ <b>Vogue</b> — ★4.7 Modern mutfak';}
+  if(t.includes('karaköy')){return '📍 Karaköy\'ün en iyileri:<br>🍲 <b>Karaköy Lokantası</b> — ★4.6 Ev yemekleri<br>🏰 <b>Galata Konak</b> — ★4.5 Osmanlı mutfağı';}
+  return '🍽️ Sizin için şu an popüler olanlar:<br>🥩 <b>Nusr-Et</b> — Beşiktaş\'ta efsanevi steakhouse<br>🌃 <b>Mikla</b> — Beyoğlu\'nda çatı restoranı<br>🐟 <b>Balıkçı Sabahattin</b> — Sultanahmet\'te tarihi balık<br>🥗 <b>Ciya Sofrası</b> — Kadıköy\'de Anadolu mutfağı<br><br>Daha spesifik önerim için mutfak türü veya semt söyleyin!';}
+
+// ===== ADMIN =====
+function adminClickHandler(){
+  adminClickCount++;
+  if(adminClickTimer)clearTimeout(adminClickTimer);
+  adminClickTimer=setTimeout(()=>adminClickCount=0,1500);
+  if(adminClickCount>=3){adminClickCount=0;openAdmin();}
+}
+function openAdmin(){renderAdminData();document.getElementById('adminOverlay').classList.add('open');}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');}
+function showAdminPage(page,btn){
+  document.querySelectorAll('.admin-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('admin'+page.charAt(0).toUpperCase()+page.slice(1)+'Page').classList.add('active');
+  btn.classList.add('active');
+}
+function renderAdminData(){
+  // Bar chart
+  const days=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+  const vals=[38,45,52,41,67,89,47];
+  const maxVal=Math.max(...vals);
+  const chart=document.getElementById('barChart');
+  const labels=document.getElementById('barLabels');
+  chart.innerHTML=vals.map((v,i)=>`<div class="bar" style="height:${(v/maxVal)*100}%" title="${v} rezervasyon"><span class="bar-label">${days[i]}</span></div>`).join('');
+  labels.innerHTML=vals.map((v,i)=>`<span style="font-size:11px;color:var(--gray);flex:1;text-align:center">${v}</span>`).join('');
+  // Reservations
+  const names=['Ahmet Y.','Zeynep K.','Mert A.','Elif B.','Can S.','Fatma D.','Ali R.','Selin T.'];
+  const statuses=['confirmed','confirmed','pending','confirmed','cancelled','confirmed','confirmed','pending'];
+  const statusLabels={confirmed:'Onaylandı',pending:'Bekliyor',cancelled:'İptal'};
+  document.getElementById('reservationsTbody').innerHTML=Array.from({length:8},(_,i)=>`
+    <tr><td>#${1000+i}</td><td>${restaurants[i%restaurants.length].name}</td><td>18.03.2026</td><td>${['19:00','20:00','13:00','20:30','19:30','21:00','12:00','20:00'][i]}</td><td>${[4,2,6,3,2,4,2,5][i]}</td><td><span class="status-badge status-${statuses[i]}">${statusLabels[statuses[i]]}</span></td><td>₺${[680,320,450,890,280,560,180,740][i]}</td></tr>`).join('');
+  // Restaurants admin
+  document.getElementById('adminRestaurantsTbody').innerHTML=restaurants.map(r=>`
+    <tr><td>${r.emoji} ${r.name}</td><td>${r.neighborhood}</td><td>${r.cuisine}</td><td>★ ${r.rating}</td><td><label class="toggle-sm"><input type="checkbox" checked><span class="toggle-sm-slider"></span></label></td></tr>`).join('');
+  // Users
+  const unames=['Ahmet Yılmaz','Zeynep Kaya','Mert Aslan','Elif Bozkurt','Can Şahin'];
+  document.getElementById('adminUsersTbody').innerHTML=unames.map((name,i)=>`
+    <tr><td>USR-${1000+i}</td><td>${name}</td><td>${[12,8,24,5,18][i]}</td><td>₺${[4800,2100,9600,1500,7200][i]}</td><td>${['2 saat önce','5 saat önce','Dün','3 gün önce','Bugün'][i]}</td></tr>`).join('');
+}
+
+// ===== INIT =====
+renderRestaurants();
+// Init chat
+document.getElementById('chatMessages').innerHTML='';
+</script>
+</body>
+</html>
