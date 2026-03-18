@@ -236,6 +236,78 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .toggle-sm-slider:before{content:'';position:absolute;width:14px;height:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
 .toggle-sm input:checked+.toggle-sm-slider{background:var(--teal)}
 .toggle-sm input:checked+.toggle-sm-slider:before{transform:translateX(16px)}
+/* AUTH MODAL */
+.auth-tabs{display:flex;border-bottom:2px solid #e5e5e5;margin-bottom:24px}
+.auth-tab{flex:1;padding:12px;text-align:center;font-size:14px;font-weight:700;cursor:pointer;color:var(--gray);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.auth-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.auth-form{display:none}
+.auth-form.active{display:block}
+.google-btn{width:100%;padding:11px;border:1.5px solid #e5e5e5;border-radius:10px;background:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;transition:all .2s}
+.google-btn:hover{background:#f5f5f5;border-color:#ccc}
+.auth-divider{text-align:center;color:var(--gray);font-size:12px;margin:12px 0;position:relative}
+.auth-divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:#e5e5e5;z-index:0}
+.auth-divider span{background:#fff;padding:0 10px;position:relative;z-index:1}
+.radio-group{display:flex;gap:12px;margin-top:6px}
+.radio-option{flex:1;border:2px solid #e5e5e5;border-radius:10px;padding:10px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px;font-weight:600;color:var(--gray)}
+.radio-option.selected{border-color:var(--teal);background:rgba(26,107,107,.05);color:var(--teal)}
+/* USER AVATAR NAV */
+.nav-user{display:none;align-items:center;gap:10px}
+.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;cursor:pointer;border:2px solid var(--gold);flex-shrink:0}
+.nav-user-name{font-size:13px;font-weight:700;color:var(--dark);cursor:pointer}
+/* PROFILE OVERLAY */
+.profile-overlay{position:fixed;inset:0;z-index:1000;background:#f5f5f5;display:none;flex-direction:column}
+.profile-overlay.open{display:flex}
+.profile-section-content{display:none}
+.profile-section-content.active{display:block}
+.profile-avatar-big{width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;margin:0 auto 12px;border:3px solid var(--gold)}
+.reserv-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 8px rgba(0,0,0,.06);display:flex;gap:16px;align-items:center}
+.reserv-card-icon{font-size:36px}
+.reserv-card-info{flex:1}
+.reserv-card-name{font-weight:800;font-size:15px;margin-bottom:4px}
+.reserv-card-meta{font-size:12px;color:var(--gray)}
+.reserv-status{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap}
+.reserv-upcoming{background:#d1fae5;color:#065f46}
+.reserv-past{background:#f3f4f6;color:#6b7280}
+.saved-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:16px}
+.saved-card-icon{font-size:28px}
+.saved-card-info{flex:1}
+.saved-card-num{font-size:16px;font-weight:800;letter-spacing:2px}
+.saved-card-exp{font-size:12px;color:var(--gray);margin-top:2px}
+.delete-card-btn{background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.delete-card-btn:hover{background:#fecaca}
+/* OWNER & DEV PANEL - extra styles */
+.owner-page{display:none}
+.owner-page.active{display:block}
+.dev-page{display:none}
+.dev-page.active{display:block}
+.owner-table-circle{aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;border:2px solid transparent;padding:8px}
+.owner-table-available{background:#d1fae5;color:#065f46}
+.owner-table-maintenance{background:#fee2e2;color:#991b1b}
+.owner-table-reserved{background:#fef3c7;color:#92400e}
+.owner-table-circle:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.owner-menu-item{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.owner-menu-item-name{flex:1;font-weight:700}
+.owner-menu-item-price{color:var(--teal);font-weight:700;margin-right:12px}
+.edit-btn{background:rgba(26,107,107,.1);color:var(--teal);border:none;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;margin-right:6px}
+.delete-btn{background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer}
+/* DEV DASHBOARD */
+.api-key-box{background:var(--teal-dark);color:var(--gold-light);padding:16px 20px;border-radius:12px;font-family:'Courier New',monospace;font-size:13px;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;word-break:break-all}
+.api-key-text{flex:1}
+.copy-btn{background:var(--gold);color:var(--dark);border:none;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;transition:all .2s}
+.copy-btn:hover{background:var(--gold-light)}
+.webhook-check{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;font-weight:600}
+.webhook-check input[type=checkbox]{width:18px;height:18px;accent-color:var(--teal);cursor:pointer;flex-shrink:0}
+.docs-endpoint{background:var(--light);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.docs-method{display:inline-block;padding:2px 10px;border-radius:6px;font-size:11px;font-weight:800;margin-right:8px}
+.docs-method.get{background:#d1fae5;color:#065f46}
+.docs-method.post{background:#dbeafe;color:#1e40af}
+.docs-method.delete{background:#fee2e2;color:#991b1b}
+.docs-path{font-family:'Courier New',monospace;font-size:13px;font-weight:700}
+.docs-desc{font-size:12px;color:var(--gray);margin-top:6px}
+.stat-bar-container{margin-bottom:16px}
+.stat-bar-label{font-size:12px;color:var(--gray);margin-bottom:4px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.stat-bar-track{background:#f0f0f0;border-radius:6px;height:28px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:6px;background:var(--teal);display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:700;color:#fff;transition:width .6s ease;min-width:40px}
 /* FOOTER */
 footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px;display:flex;justify-content:space-between;align-items:center}
 .footer-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
@@ -259,8 +331,13 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
     <input type="text" id="navSearchInput" placeholder="Restoran veya semt ara..." oninput="filterRestaurants()">
   </div>
   <div class="nav-actions">
-    <a href="#" class="btn btn-outline">Giriş yap</a>
+    <a href="#" class="btn btn-outline" id="loginBtn" onclick="openAuthModal(event)">Giriş yap</a>
     <a href="#" class="btn btn-gold">Ücretsiz dene</a>
+    <div class="nav-user" id="navUser">
+      <div class="nav-avatar" id="navAvatar" onclick="openProfile()"></div>
+      <span class="nav-user-name" id="navUserName" onclick="openProfile()"></span>
+      <button class="btn btn-outline" id="ownerPanelBtn" style="display:none" onclick="openOwnerPanel()">🍽️ Restoran Panelim</button>
+    </div>
   </div>
 </nav>
 
@@ -423,13 +500,386 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
   </div>
 </div>
 
+<!-- AUTH MODAL -->
+<div class="overlay" id="authOverlay" onclick="closeAuthIfOutside(event)">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div class="modal-title">Hesabınıza Giriş Yapın</div>
+      <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Giriş Yap</div>
+      <div class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Kayıt Ol</div>
+    </div>
+    <!-- LOGIN FORM -->
+    <div class="auth-form active" id="loginForm">
+      <div class="form-group">
+        <label class="form-label">E-posta</label>
+        <input class="form-input" type="email" id="loginEmail" placeholder="ornek@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Şifre</label>
+        <input class="form-input" type="password" id="loginPassword" placeholder="••••••••">
+      </div>
+      <button class="btn btn-teal" style="width:100%;padding:13px;font-size:15px;border-radius:12px" onclick="doLogin()">Giriş Yap</button>
+      <div class="auth-divider"><span>veya</span></div>
+      <button class="google-btn" onclick="doGoogleLogin()">
+        <span style="font-size:18px">🌐</span> Google ile Giriş
+      </button>
+    </div>
+    <!-- REGISTER FORM -->
+    <div class="auth-form" id="registerForm">
+      <div class="form-group">
+        <label class="form-label">Ad Soyad</label>
+        <input class="form-input" type="text" id="regName" placeholder="Adınız Soyadınız">
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-posta</label>
+        <input class="form-input" type="email" id="regEmail" placeholder="ornek@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Şifre</label>
+        <input class="form-input" type="password" id="regPassword" placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Şifre Tekrar</label>
+        <input class="form-input" type="password" id="regPassword2" placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Hesap Türü</label>
+        <div class="radio-group">
+          <div class="radio-option selected" id="roleMusteri" onclick="selectRole('musteri')">👤 Müşteri</div>
+          <div class="radio-option" id="roleRestoran" onclick="selectRole('restoran')">🍽️ Restoran Sahibi</div>
+        </div>
+      </div>
+      <button class="btn btn-teal" style="width:100%;padding:13px;font-size:15px;border-radius:12px" onclick="doRegister()">Kayıt Ol</button>
+      <div class="auth-divider"><span>veya</span></div>
+      <button class="google-btn" onclick="doGoogleLogin()">
+        <span style="font-size:18px">🌐</span> Google ile Kayıt
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- USER PROFILE OVERLAY -->
+<div class="profile-overlay" id="profileOverlay">
+  <div class="admin-topbar">
+    <div class="admin-logo">👤 Profilim</div>
+    <div style="display:flex;gap:10px">
+      <button class="admin-close-btn" onclick="doLogout()" style="background:rgba(255,80,80,.25)">🚪 Çıkış Yap</button>
+      <button class="admin-close-btn" onclick="closeProfile()">✕ Kapat</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" onclick="showProfileSection('info',this)">👤 Profil Bilgileri</div>
+      <div class="admin-nav-item" onclick="showProfileSection('reservations',this)">📅 Rezervasyonlarım</div>
+      <div class="admin-nav-item" onclick="showProfileSection('cards',this)">💳 Kayıtlı Kartlar</div>
+      <div class="admin-nav-item" onclick="showProfileSection('settings',this)">⚙️ Ayarlar</div>
+    </div>
+    <div class="admin-content">
+      <!-- PROFILE INFO -->
+      <div class="profile-section-content active" id="profileInfoSection">
+        <div class="admin-title">👤 Profil Bilgileri</div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 1px 8px rgba(0,0,0,.06);max-width:500px">
+          <div class="profile-avatar-big" id="profileAvatarBig"></div>
+          <div style="text-align:center;margin-bottom:24px">
+            <div style="font-size:20px;font-weight:800" id="profileDisplayName"></div>
+            <div style="font-size:13px;color:var(--gray);margin-top:4px" id="profileDisplayEmail"></div>
+            <div style="margin-top:8px" id="profileDisplayRole"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Ad Soyad</label><input class="form-input" id="profileName"></div>
+          <div class="form-group"><label class="form-label">E-posta</label><input class="form-input" id="profileEmail" type="email"></div>
+          <div class="form-group"><label class="form-label">Telefon</label><input class="form-input" id="profilePhone" placeholder="+90 555 000 00 00"></div>
+          <button class="btn btn-teal" style="width:100%;padding:13px" onclick="saveProfile()">Değişiklikleri Kaydet</button>
+        </div>
+      </div>
+      <!-- RESERVATIONS -->
+      <div class="profile-section-content" id="profileReservationsSection">
+        <div class="admin-title">📅 Rezervasyonlarım</div>
+        <div id="userReservationsList"></div>
+      </div>
+      <!-- CARDS -->
+      <div class="profile-section-content" id="profileCardsSection">
+        <div class="admin-title">💳 Kayıtlı Kartlar</div>
+        <div id="savedCardsList"></div>
+        <button class="btn btn-teal" style="margin-top:8px" onclick="showAddCardForm()">+ Kart Ekle</button>
+        <div id="addCardForm" style="display:none;background:#fff;border-radius:16px;padding:20px;margin-top:16px;box-shadow:0 1px 8px rgba(0,0,0,.06);max-width:460px">
+          <div style="font-size:15px;font-weight:800;margin-bottom:16px">Yeni Kart Ekle</div>
+          <div class="form-group"><label class="form-label">Kart Üzerindeki İsim</label><input class="form-input" id="newCardName" placeholder="AD SOYAD"></div>
+          <div class="form-group"><label class="form-label">Kart Numarası</label><input class="form-input" id="newCardNum" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCard(this)"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Son Kullanma</label><input class="form-input" id="newCardExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)"></div>
+            <div class="form-group"><label class="form-label">CVV</label><input class="form-input" id="newCardCvv" placeholder="000" maxlength="3" type="password"></div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-outline" style="padding:11px 20px" onclick="document.getElementById('addCardForm').style.display='none'">İptal</button>
+            <button class="btn btn-teal" style="flex:1;padding:11px" onclick="saveNewCard()">Kartı Kaydet</button>
+          </div>
+        </div>
+      </div>
+      <!-- SETTINGS -->
+      <div class="profile-section-content" id="profileSettingsSection">
+        <div class="admin-title">⚙️ Ayarlar</div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06);max-width:500px">
+          <div style="font-size:15px;font-weight:700;margin-bottom:16px">Bildirim Tercihleri</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0">
+            <span style="font-size:14px;font-weight:600">📱 SMS Bildirimleri</span>
+            <label class="toggle-sm"><input type="checkbox" checked><span class="toggle-sm-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0">
+            <span style="font-size:14px;font-weight:600">📧 E-posta Bildirimleri</span>
+            <label class="toggle-sm"><input type="checkbox" checked><span class="toggle-sm-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0">
+            <span style="font-size:14px;font-weight:600">💬 WhatsApp Bildirimleri</span>
+            <label class="toggle-sm"><input type="checkbox" checked><span class="toggle-sm-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0">
+            <span style="font-size:14px;font-weight:600">🔔 Promosyon Bildirimleri</span>
+            <label class="toggle-sm"><input type="checkbox"><span class="toggle-sm-slider"></span></label>
+          </div>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid #f0f0f0">
+            <div style="font-size:15px;font-weight:700;margin-bottom:16px">Dil & Bölge</div>
+            <div class="form-group"><label class="form-label">Dil</label>
+              <select class="form-input"><option>Türkçe</option><option>English</option></select>
+            </div>
+          </div>
+          <button class="btn btn-teal" style="width:100%;padding:13px;margin-top:8px">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESTAURANT OWNER PANEL -->
+<div class="admin-overlay" id="ownerOverlay">
+  <div class="admin-topbar">
+    <div class="admin-logo">🍽️ Restoran Panelim</div>
+    <button class="admin-close-btn" onclick="closeOwnerPanel()">✕ Kapat</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" onclick="showOwnerPage('dashboard',this)">📊 Dashboard</div>
+      <div class="admin-nav-item" onclick="showOwnerPage('reservations',this)">📅 Rezervasyonlar</div>
+      <div class="admin-nav-item" onclick="showOwnerPage('tables',this)">🪑 Masa Yönetimi</div>
+      <div class="admin-nav-item" onclick="showOwnerPage('menu',this)">🍽️ Menü Yönetimi</div>
+      <div class="admin-nav-item" onclick="showOwnerPage('settings',this)">⚙️ Profil & Ayarlar</div>
+    </div>
+    <div class="admin-content">
+      <!-- DASHBOARD -->
+      <div class="owner-page active" id="ownerDashboardPage">
+        <div class="admin-title">📊 Dashboard</div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-card-val">18</div><div class="stat-card-change">+3 yeni ↑</div><div class="stat-card-label">Bugünkü Rezervasyonlar</div></div>
+          <div class="stat-card"><div class="stat-card-val">₺12,400</div><div class="stat-card-change">+22% ↑</div><div class="stat-card-label">Bugünkü Ciro</div></div>
+          <div class="stat-card"><div class="stat-card-val">74%</div><div class="stat-card-change">iyi doluluk ↑</div><div class="stat-card-label">Doluluk Oranı</div></div>
+          <div class="stat-card"><div class="stat-card-val">4.8★</div><div class="stat-card-change">↑ 0.1 bu ay</div><div class="stat-card-label">Ortalama Puan</div></div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">Bu Hafta — Günlük Rezervasyon</div>
+          <div class="bar-chart" id="ownerBarChart"></div>
+          <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap" id="ownerBarLabels"></div>
+        </div>
+      </div>
+      <!-- RESERVATIONS -->
+      <div class="owner-page" id="ownerReservationsPage">
+        <div class="admin-title">📅 Gelen Rezervasyonlar</div>
+        <table class="data-table" id="ownerReservationsTable">
+          <thead><tr><th>#</th><th>Misafir</th><th>Tarih</th><th>Saat</th><th>Kişi</th><th>Masa</th><th>Durum</th><th>İşlem</th></tr></thead>
+          <tbody id="ownerReservationsTbody"></tbody>
+        </table>
+      </div>
+      <!-- TABLE MAP -->
+      <div class="owner-page" id="ownerTablesPage">
+        <div class="admin-title">🪑 Masa Yönetimi</div>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Masalara tıklayarak durumunu değiştirin.</p>
+        <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+          <div class="legend-item"><div class="legend-dot" style="background:#d1fae5;width:14px;height:14px;border-radius:4px"></div><span style="font-size:12px">Müsait</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fee2e2;width:14px;height:14px;border-radius:4px"></div><span style="font-size:12px">Bakımda</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fef3c7;width:14px;height:14px;border-radius:4px"></div><span style="font-size:12px">Rezerveli</span></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06)">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:12px" id="ownerTableGrid"></div>
+        </div>
+      </div>
+      <!-- MENU -->
+      <div class="owner-page" id="ownerMenuPage">
+        <div class="admin-title">🍽️ Menü Yönetimi</div>
+        <button class="btn btn-teal" style="margin-bottom:16px" onclick="showAddMenuItemForm()">+ Yeni Ürün Ekle</button>
+        <div id="addMenuItemForm" style="display:none;background:#fff;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 1px 8px rgba(0,0,0,.06)">
+          <div style="font-size:15px;font-weight:800;margin-bottom:14px">Yeni Ürün</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Ürün Adı</label><input class="form-input" id="newMenuName" placeholder="Ürün adı"></div>
+            <div class="form-group"><label class="form-label">Fiyat (₺)</label><input class="form-input" id="newMenuPrice" type="number" placeholder="0"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Açıklama</label><input class="form-input" id="newMenuDesc" placeholder="Kısa açıklama"></div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-outline" style="padding:10px 18px" onclick="document.getElementById('addMenuItemForm').style.display='none'">İptal</button>
+            <button class="btn btn-teal" style="flex:1;padding:10px" onclick="saveMenuItemOwner()">Kaydet</button>
+          </div>
+        </div>
+        <div id="ownerMenuList"></div>
+      </div>
+      <!-- SETTINGS -->
+      <div class="owner-page" id="ownerSettingsPage">
+        <div class="admin-title">⚙️ Profil & Ayarlar</div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06);max-width:560px">
+          <div class="form-group"><label class="form-label">Restoran Adı</label><input class="form-input" id="ownerRestName" value="Benim Restoranım"></div>
+          <div class="form-group"><label class="form-label">Adres</label><input class="form-input" id="ownerRestAddress" placeholder="Tam adres"></div>
+          <div class="form-group"><label class="form-label">Telefon</label><input class="form-input" id="ownerRestPhone" placeholder="+90 212 000 00 00"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Açılış Saati</label><input class="form-input" type="time" id="ownerOpenTime" value="11:00"></div>
+            <div class="form-group"><label class="form-label">Kapanış Saati</label><input class="form-input" type="time" id="ownerCloseTime" value="23:00"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Mutfak Türü</label>
+            <select class="form-input" id="ownerCuisine">
+              <option>Türk Mutfağı</option><option>Balık / Deniz Ürünleri</option><option>Kebap</option>
+              <option>Pizza / İtalyan</option><option>Steakhouse</option><option>Fine Dining</option><option>Fusion</option>
+            </select>
+          </div>
+          <button class="btn btn-teal" style="width:100%;padding:13px" onclick="alert('Bilgiler kaydedildi! ✅')">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEVELOPER DASHBOARD -->
+<div class="admin-overlay" id="devOverlay">
+  <div class="admin-topbar">
+    <div class="admin-logo">⚡ Developer Dashboard</div>
+    <button class="admin-close-btn" onclick="closeDevDashboard()">✕ Kapat</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" onclick="showDevPage('apikeys',this)">🔑 API Anahtarları</div>
+      <div class="admin-nav-item" onclick="showDevPage('stats',this)">📊 İstatistikler</div>
+      <div class="admin-nav-item" onclick="showDevPage('webhooks',this)">🔗 Webhook Ayarları</div>
+      <div class="admin-nav-item" onclick="showDevPage('docs',this)">📄 Dokümantasyon</div>
+    </div>
+    <div class="admin-content">
+      <!-- API KEYS -->
+      <div class="dev-page active" id="devApikeysPage">
+        <div class="admin-title">🔑 API Anahtarları</div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06)">
+          <div style="font-size:13px;color:var(--gray);margin-bottom:12px;font-weight:600">Canlı API Anahtarı</div>
+          <div class="api-key-box">
+            <span class="api-key-text" id="liveApiKey">masa_live_sk_k8Rp2xLmQnV4wZ9cYuDjHbT3</span>
+            <button class="copy-btn" onclick="copyApiKey('liveApiKey')">📋 Kopyala</button>
+          </div>
+          <div style="font-size:13px;color:var(--gray);margin-bottom:12px;margin-top:16px;font-weight:600">Test API Anahtarı</div>
+          <div class="api-key-box">
+            <span class="api-key-text" id="testApiKey">masa_test_sk_aX5mN9pRqW2vK7eJfGcBiLs0</span>
+            <button class="copy-btn" onclick="copyApiKey('testApiKey')">📋 Kopyala</button>
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid #f0f0f0;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-outline" onclick="regenerateApiKey()">🔄 Yeniden Oluştur</button>
+            <div style="font-size:12px;color:var(--gray);display:flex;align-items:center">⚠️ Anahtarı güvenli saklayın, kimseyle paylaşmayın.</div>
+          </div>
+        </div>
+      </div>
+      <!-- STATS -->
+      <div class="dev-page" id="devStatsPage">
+        <div class="admin-title">📊 API İstatistikleri</div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-card-val">48,291</div><div class="stat-card-change">+18% ↑</div><div class="stat-card-label">Toplam API Çağrısı</div></div>
+          <div class="stat-card"><div class="stat-card-val">124ms</div><div class="stat-card-change">↓ 12ms iyileşme</div><div class="stat-card-label">Ort. Yanıt Süresi</div></div>
+          <div class="stat-card"><div class="stat-card-val">99.94%</div><div class="stat-card-change">↑ uptime</div><div class="stat-card-label">SLA</div></div>
+          <div class="stat-card"><div class="stat-card-val">3</div><div class="stat-card-change">son 30 gün</div><div class="stat-card-label">Hata Sayısı</div></div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">Endpoint Kullanımı</div>
+          <div class="stat-bar-container"><div class="stat-bar-label"><span>GET /api/restaurants</span><span>21,430 çağrı</span></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:88%">88%</div></div></div>
+          <div class="stat-bar-container"><div class="stat-bar-label"><span>POST /api/reservations</span><span>14,280 çağrı</span></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:59%">59%</div></div></div>
+          <div class="stat-bar-container"><div class="stat-bar-label"><span>GET /api/reservations</span><span>8,920 çağrı</span></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:37%">37%</div></div></div>
+          <div class="stat-bar-container"><div class="stat-bar-label"><span>DELETE /api/reservations/:id</span><span>2,140 çağrı</span></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:9%">9%</div></div></div>
+          <div class="stat-bar-container"><div class="stat-bar-label"><span>GET /api/menu/:id</span><span>1,521 çağrı</span></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:6%">6%</div></div></div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">Son 7 Gün — Günlük Çağrı Sayısı</div>
+          <div class="bar-chart" id="devBarChart"></div>
+          <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap" id="devBarLabels"></div>
+        </div>
+      </div>
+      <!-- WEBHOOKS -->
+      <div class="dev-page" id="devWebhooksPage">
+        <div class="admin-title">🔗 Webhook Ayarları</div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06);max-width:600px">
+          <div class="form-group">
+            <label class="form-label">Webhook URL</label>
+            <input class="form-input" id="webhookUrl" placeholder="https://sizin-sunucunuz.com/webhook">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gizli Anahtar (Secret)</label>
+            <input class="form-input" id="webhookSecret" placeholder="whsec_...">
+          </div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;margin-top:4px">Dinlenecek Olaylar</div>
+          <div class="webhook-check"><input type="checkbox" checked id="wh1"><label for="wh1">reservation.created — Yeni rezervasyon oluşturuldu</label></div>
+          <div class="webhook-check"><input type="checkbox" checked id="wh2"><label for="wh2">reservation.cancelled — Rezervasyon iptal edildi</label></div>
+          <div class="webhook-check"><input type="checkbox" id="wh3"><label for="wh3">reservation.updated — Rezervasyon güncellendi</label></div>
+          <div class="webhook-check"><input type="checkbox" checked id="wh4"><label for="wh4">payment.completed — Ödeme tamamlandı</label></div>
+          <div class="webhook-check"><input type="checkbox" id="wh5"><label for="wh5">payment.failed — Ödeme başarısız</label></div>
+          <div class="webhook-check"><input type="checkbox" id="wh6"><label for="wh6">restaurant.updated — Restoran bilgisi güncellendi</label></div>
+          <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-teal" style="flex:1;padding:12px" onclick="alert('Webhook ayarları kaydedildi! ✅')">Kaydet</button>
+            <button class="btn btn-outline" style="padding:12px 20px" onclick="alert('Test webhook gönderildi! 📨')">Test Et</button>
+          </div>
+        </div>
+      </div>
+      <!-- DOCS -->
+      <div class="dev-page" id="devDocsPage">
+        <div class="admin-title">📄 API Dokümantasyonu</div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06)">
+          <div style="font-size:16px;font-weight:800;margin-bottom:4px">MASA REST API — v1.0</div>
+          <div style="font-size:13px;color:var(--gray);margin-bottom:20px">Base URL: <code style="background:var(--light);padding:2px 8px;border-radius:6px">https://api.masa.com.tr/v1</code></div>
+          <div style="font-size:14px;font-weight:800;margin-bottom:12px;color:var(--teal)">Restoranlar</div>
+          <div class="docs-endpoint">
+            <span class="docs-method get">GET</span><span class="docs-path">/api/restaurants</span>
+            <div class="docs-desc">Tüm restoranları listeler. Opsiyonel: ?neighborhood=Beşiktaş&cuisine=Balık&price=2</div>
+          </div>
+          <div class="docs-endpoint">
+            <span class="docs-method get">GET</span><span class="docs-path">/api/restaurants/:id</span>
+            <div class="docs-desc">Tek restoran detayını döner. Menü, saatler, masa durumu dahil.</div>
+          </div>
+          <div class="docs-endpoint">
+            <span class="docs-method get">GET</span><span class="docs-path">/api/restaurants/:id/availability</span>
+            <div class="docs-desc">Belirli tarih ve saat için müsait masaları döner.</div>
+          </div>
+          <div style="font-size:14px;font-weight:800;margin:16px 0 12px;color:var(--teal)">Rezervasyonlar</div>
+          <div class="docs-endpoint">
+            <span class="docs-method post">POST</span><span class="docs-path">/api/reservations</span>
+            <div class="docs-desc">Yeni rezervasyon oluşturur. Body: { restaurantId, date, time, people, tableId, preorderItems }</div>
+          </div>
+          <div class="docs-endpoint">
+            <span class="docs-method get">GET</span><span class="docs-path">/api/reservations/:id</span>
+            <div class="docs-desc">Rezervasyon detayını döner.</div>
+          </div>
+          <div class="docs-endpoint">
+            <span class="docs-method delete">DELETE</span><span class="docs-path">/api/reservations/:id</span>
+            <div class="docs-desc">Rezervasyonu iptal eder. 24 saat öncesine kadar ücretsiz iptal.</div>
+          </div>
+          <div style="font-size:14px;font-weight:800;margin:16px 0 12px;color:var(--teal)">Kimlik Doğrulama</div>
+          <div style="background:var(--light);border-radius:10px;padding:14px 16px;font-family:'Courier New',monospace;font-size:12px;color:var(--dark)">
+            Authorization: Bearer masa_live_sk_...
+          </div>
+          <div style="font-size:12px;color:var(--gray);margin-top:8px">Her istekte Authorization header gönderilmelidir.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo" id="footerLogoAdmin" onclick="adminClickHandler()">
     <div class="logo-mark" style="background:rgba(201,168,76,.2);color:var(--gold-light)">M</div>
     <span class="logo-text">MASA</span>
   </div>
-  <div class="footer-right">© 2026 MASA. Türkiye'nin rezervasyon platformu.</div>
+  <div class="footer-right" style="display:flex;align-items:center;gap:16px">
+    © 2026 MASA. Türkiye'nin rezervasyon platformu.
+    <span id="devApiBtn" onclick="openDevDashboard()" style="font-size:10px;color:rgba(255,255,255,.2);cursor:pointer;user-select:none;font-weight:700;letter-spacing:.5px;padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,.1);transition:all .2s" onmouseover="this.style.color='rgba(255,255,255,.5)'" onmouseout="this.style.color='rgba(255,255,255,.2)'">API</span>
+  </div>
 </footer>
 
 <script>
@@ -786,10 +1236,304 @@ function renderAdminData(){
     <tr><td>USR-${1000+i}</td><td>${name}</td><td>${[12,8,24,5,18][i]}</td><td>₺${[4800,2100,9600,1500,7200][i]}</td><td>${['2 saat önce','5 saat önce','Dün','3 gün önce','Bugün'][i]}</td></tr>`).join('');
 }
 
+// ===== AUTH =====
+let selectedRole='musteri';
+
+function openAuthModal(e){if(e)e.preventDefault();document.getElementById('authOverlay').classList.add('open');}
+function closeAuthModal(){document.getElementById('authOverlay').classList.remove('open');}
+function closeAuthIfOutside(e){if(e.target===document.getElementById('authOverlay'))closeAuthModal();}
+function switchAuthTab(tab){
+  document.getElementById('tabLogin').classList.toggle('active',tab==='login');
+  document.getElementById('tabRegister').classList.toggle('active',tab==='register');
+  document.getElementById('loginForm').classList.toggle('active',tab==='login');
+  document.getElementById('registerForm').classList.toggle('active',tab==='register');
+}
+function selectRole(role){
+  selectedRole=role;
+  document.getElementById('roleMusteri').classList.toggle('selected',role==='musteri');
+  document.getElementById('roleRestoran').classList.toggle('selected',role==='restoran');
+}
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value;
+  if(!email||!pass){alert('Lütfen e-posta ve şifrenizi girin.');return;}
+  const user={name:email.split('@')[0].charAt(0).toUpperCase()+email.split('@')[0].slice(1),email,role:'musteri'};
+  loginUser(user);
+}
+function doGoogleLogin(){
+  const user={name:'Google Kullanıcı',email:'kullanici@gmail.com',role:selectedRole||'musteri'};
+  loginUser(user);
+}
+function doRegister(){
+  const name=document.getElementById('regName').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pass=document.getElementById('regPassword').value;
+  const pass2=document.getElementById('regPassword2').value;
+  if(!name||!email||!pass||!pass2){alert('Lütfen tüm alanları doldurun.');return;}
+  if(pass!==pass2){alert('Şifreler eşleşmiyor!');return;}
+  const user={name,email,role:selectedRole};
+  loginUser(user);
+}
+function loginUser(user){
+  localStorage.setItem('masaUser',JSON.stringify(user));
+  updateNavForUser(user);
+  closeAuthModal();
+}
+function updateNavForUser(user){
+  document.getElementById('loginBtn').style.display='none';
+  const navUser=document.getElementById('navUser');
+  navUser.style.display='flex';
+  const initials=user.name.split(' ').map(w=>w[0]).join('').toUpperCase().substring(0,2);
+  document.getElementById('navAvatar').textContent=initials;
+  document.getElementById('navUserName').textContent=user.name;
+  if(user.role==='restoran'){
+    document.getElementById('ownerPanelBtn').style.display='block';
+  }
+}
+function doLogout(){
+  if(!confirm('Çıkış yapmak istediğinizden emin misiniz?'))return;
+  localStorage.removeItem('masaUser');
+  document.getElementById('loginBtn').style.display='';
+  document.getElementById('navUser').style.display='none';
+  document.getElementById('ownerPanelBtn').style.display='none';
+  closeProfile();
+}
+
+// ===== USER PROFILE =====
+function openProfile(){
+  const user=JSON.parse(localStorage.getItem('masaUser')||'{}');
+  if(!user.name)return;
+  // Populate fields
+  const initials=user.name.split(' ').map(w=>w[0]).join('').toUpperCase().substring(0,2);
+  document.getElementById('profileAvatarBig').textContent=initials;
+  document.getElementById('profileDisplayName').textContent=user.name;
+  document.getElementById('profileDisplayEmail').textContent=user.email;
+  document.getElementById('profileDisplayRole').innerHTML=user.role==='restoran'?'<span class="status-badge" style="background:#fef3c7;color:#92400e">🍽️ Restoran Sahibi</span>':'<span class="status-badge status-confirmed">👤 Müşteri</span>';
+  document.getElementById('profileName').value=user.name;
+  document.getElementById('profileEmail').value=user.email;
+  // Render reservations
+  renderUserReservations();
+  // Render cards
+  renderSavedCards();
+  document.getElementById('profileOverlay').classList.add('open');
+  showProfileSection('info',document.querySelector('#profileOverlay .admin-nav-item'));
+}
+function closeProfile(){document.getElementById('profileOverlay').classList.remove('open');}
+function showProfileSection(section,btn){
+  document.querySelectorAll('.profile-section-content').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#profileOverlay .admin-nav-item').forEach(b=>b.classList.remove('active'));
+  const map={info:'profileInfoSection',reservations:'profileReservationsSection',cards:'profileCardsSection',settings:'profileSettingsSection'};
+  const el=document.getElementById(map[section]);
+  if(el)el.classList.add('active');
+  // find the right btn by index
+  const items=document.querySelectorAll('#profileOverlay .admin-nav-item');
+  const idx={info:0,reservations:1,cards:2,settings:3}[section];
+  if(items[idx])items[idx].classList.add('active');
+}
+function saveProfile(){
+  const user=JSON.parse(localStorage.getItem('masaUser')||'{}');
+  user.name=document.getElementById('profileName').value;
+  user.email=document.getElementById('profileEmail').value;
+  localStorage.setItem('masaUser',JSON.stringify(user));
+  updateNavForUser(user);
+  alert('Profil güncellendi! ✅');
+}
+const mockReservations=[
+  {id:'RES-1001',restaurant:'Nusr-Et Beşiktaş',emoji:'🥩',date:'2026-03-25',time:'20:00',people:2,status:'upcoming',total:680},
+  {id:'RES-1002',restaurant:'Mikla',emoji:'🌃',date:'2026-04-02',time:'19:30',people:4,status:'upcoming',total:1200},
+  {id:'RES-1003',restaurant:'Balıkçı Sabahattin',emoji:'🐟',date:'2026-02-14',time:'13:00',people:2,status:'past',total:480},
+  {id:'RES-1004',restaurant:'Ciya Sofrası',emoji:'🥗',date:'2026-01-30',time:'12:00',people:3,status:'past',total:320},
+];
+function renderUserReservations(){
+  const list=document.getElementById('userReservationsList');
+  list.innerHTML=mockReservations.map(r=>`
+    <div class="reserv-card">
+      <div class="reserv-card-icon">${r.emoji}</div>
+      <div class="reserv-card-info">
+        <div class="reserv-card-name">${r.restaurant}</div>
+        <div class="reserv-card-meta">📅 ${r.date} • ⏰ ${r.time} • 👥 ${r.people} kişi • 💰 ₺${r.total}</div>
+      </div>
+      <span class="reserv-status ${r.status==='upcoming'?'reserv-upcoming':'reserv-past'}">${r.status==='upcoming'?'✅ Yaklaşan':'📋 Geçmiş'}</span>
+    </div>`).join('');
+}
+function getSavedCards(){return JSON.parse(localStorage.getItem('masaCards')||'[]');}
+function saveSavedCards(cards){localStorage.setItem('masaCards',JSON.stringify(cards));}
+function renderSavedCards(){
+  const cards=getSavedCards();
+  const list=document.getElementById('savedCardsList');
+  if(!cards.length){list.innerHTML='<div style="color:var(--gray);font-size:13px;padding:16px 0">Kayıtlı kart bulunamadı.</div>';return;}
+  list.innerHTML=cards.map((c,i)=>`
+    <div class="saved-card">
+      <div class="saved-card-icon">💳</div>
+      <div class="saved-card-info">
+        <div class="saved-card-num">•••• •••• •••• ${c.last4}</div>
+        <div class="saved-card-exp">${c.name} • ${c.expiry}</div>
+      </div>
+      <button class="delete-card-btn" onclick="deleteCard(${i})">🗑 Sil</button>
+    </div>`).join('');
+}
+function showAddCardForm(){document.getElementById('addCardForm').style.display='block';}
+function saveNewCard(){
+  const name=document.getElementById('newCardName').value.trim();
+  const num=document.getElementById('newCardNum').value.replace(/\s/g,'');
+  const expiry=document.getElementById('newCardExpiry').value;
+  const cvv=document.getElementById('newCardCvv').value;
+  if(!name||num.length<16||!expiry||cvv.length<3){alert('Lütfen kart bilgilerini eksiksiz doldurun.');return;}
+  const cards=getSavedCards();
+  cards.push({name,last4:num.slice(-4),expiry});
+  saveSavedCards(cards);
+  document.getElementById('addCardForm').style.display='none';
+  document.getElementById('newCardName').value='';document.getElementById('newCardNum').value='';document.getElementById('newCardExpiry').value='';document.getElementById('newCardCvv').value='';
+  renderSavedCards();
+}
+function deleteCard(i){
+  if(!confirm('Bu kartı silmek istediğinizden emin misiniz?'))return;
+  const cards=getSavedCards();
+  cards.splice(i,1);
+  saveSavedCards(cards);
+  renderSavedCards();
+}
+
+// ===== OWNER PANEL =====
+let ownerMenuItems=[
+  {name:'İmza Burger',price:320,desc:'Özel sos ile'},
+  {name:'Deniz Ürünleri Tabağı',price:580,desc:'Günlük taze'},
+  {name:'Izgara Kuzu Pirzola',price:480,desc:'Fırın patates ile'},
+  {name:'Çorbalar',price:120,desc:'Günlük değişen'},
+  {name:'Tatlı Tabağı',price:180,desc:'Seasonal desserts'},
+];
+let ownerTableData=Array.from({length:16},(_,i)=>({num:i+1,status:['available','available','reserved','available','maintenance','available','available','reserved','available','available','available','reserved','available','available','maintenance','available'][i]}));
+
+function openOwnerPanel(){renderOwnerData();document.getElementById('ownerOverlay').classList.add('open');}
+function closeOwnerPanel(){document.getElementById('ownerOverlay').classList.remove('open');}
+function showOwnerPage(page,btn){
+  document.querySelectorAll('.owner-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#ownerOverlay .admin-nav-item').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('owner'+page.charAt(0).toUpperCase()+page.slice(1)+'Page');
+  if(el)el.classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+function renderOwnerData(){
+  // Bar chart
+  const days=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+  const vals=[12,18,15,22,28,35,18];
+  const maxVal=Math.max(...vals);
+  const chart=document.getElementById('ownerBarChart');
+  const labels=document.getElementById('ownerBarLabels');
+  chart.innerHTML=vals.map((v,i)=>`<div class="bar" style="height:${(v/maxVal)*100}%" title="${v} rezervasyon"><span class="bar-label">${days[i]}</span></div>`).join('');
+  labels.innerHTML=vals.map((v,i)=>`<span style="font-size:11px;color:var(--gray);flex:1;text-align:center">${v}</span>`).join('');
+  // Reservations
+  const guests=['Ahmet Y.','Zeynep K.','Mert A.','Elif B.','Can Ş.','Fatma D.','Ali R.'];
+  document.getElementById('ownerReservationsTbody').innerHTML=guests.map((g,i)=>`
+    <tr>
+      <td>#R${100+i}</td><td>${g}</td><td>18.03.2026</td>
+      <td>${['19:00','20:00','13:00','20:30','19:30','21:00','12:00'][i]}</td>
+      <td>${[4,2,6,3,2,4,2][i]}</td><td>T${[5,3,8,1,7,4,9][i]}</td>
+      <td><span class="status-badge ${['status-pending','status-confirmed','status-pending','status-confirmed','status-pending','status-confirmed','status-pending'][i]}">${['Bekliyor','Onaylandı','Bekliyor','Onaylandı','Bekliyor','Onaylandı','Bekliyor'][i]}</span></td>
+      <td style="display:flex;gap:6px">
+        <button class="edit-btn" onclick="ownerAcceptRes(this)">✅ Onayla</button>
+        <button class="delete-btn" onclick="ownerRejectRes(this)">❌ Reddet</button>
+      </td>
+    </tr>`).join('');
+  // Table map
+  const statusClass={available:'owner-table-available',maintenance:'owner-table-maintenance',reserved:'owner-table-reserved'};
+  const statusLabel={available:'Müsait',maintenance:'Bakımda',reserved:'Rezerveli'};
+  document.getElementById('ownerTableGrid').innerHTML=ownerTableData.map((t,i)=>`
+    <div class="owner-table-circle ${statusClass[t.status]}" onclick="toggleOwnerTable(${i})" title="Masa ${t.num}">
+      <div style="font-size:18px">🪑</div>
+      <div style="font-size:11px;font-weight:800">T${t.num}</div>
+      <div style="font-size:9px;margin-top:2px">${statusLabel[t.status]}</div>
+    </div>`).join('');
+  // Menu
+  renderOwnerMenu();
+}
+function toggleOwnerTable(i){
+  const cycle={available:'maintenance',maintenance:'reserved',reserved:'available'};
+  ownerTableData[i].status=cycle[ownerTableData[i].status];
+  renderOwnerData();
+}
+function ownerAcceptRes(btn){const td=btn.closest('td');td.innerHTML='<span class="status-badge status-confirmed">✅ Onaylandı</span>';}
+function ownerRejectRes(btn){const td=btn.closest('td');td.innerHTML='<span class="status-badge status-cancelled">❌ Reddedildi</span>';}
+function renderOwnerMenu(){
+  document.getElementById('ownerMenuList').innerHTML=ownerMenuItems.map((item,i)=>`
+    <div class="owner-menu-item">
+      <div style="font-size:24px">🍽️</div>
+      <div class="owner-menu-item-name">${item.name}<br><span style="font-size:11px;color:var(--gray);font-weight:400">${item.desc}</span></div>
+      <div class="owner-menu-item-price">₺${item.price}</div>
+      <button class="edit-btn" onclick="editMenuOwner(${i})">✏️ Düzenle</button>
+      <button class="delete-btn" onclick="deleteMenuOwner(${i})">🗑</button>
+    </div>`).join('');
+}
+function showAddMenuItemForm(){document.getElementById('addMenuItemForm').style.display='block';}
+function saveMenuItemOwner(){
+  const name=document.getElementById('newMenuName').value.trim();
+  const price=parseInt(document.getElementById('newMenuPrice').value)||0;
+  const desc=document.getElementById('newMenuDesc').value.trim();
+  if(!name||!price){alert('Ürün adı ve fiyat gereklidir.');return;}
+  ownerMenuItems.push({name,price,desc});
+  renderOwnerMenu();
+  document.getElementById('addMenuItemForm').style.display='none';
+  document.getElementById('newMenuName').value='';document.getElementById('newMenuPrice').value='';document.getElementById('newMenuDesc').value='';
+}
+function editMenuOwner(i){
+  const item=ownerMenuItems[i];
+  const newName=prompt('Ürün adı:',item.name);if(!newName)return;
+  const newPrice=prompt('Fiyat:',item.price);if(!newPrice)return;
+  ownerMenuItems[i]={...item,name:newName,price:parseInt(newPrice)||item.price};
+  renderOwnerMenu();
+}
+function deleteMenuOwner(i){
+  if(!confirm('Bu ürünü silmek istediğinizden emin misiniz?'))return;
+  ownerMenuItems.splice(i,1);
+  renderOwnerMenu();
+}
+
+// ===== DEV DASHBOARD =====
+function openDevDashboard(){
+  renderDevStats();
+  document.getElementById('devOverlay').classList.add('open');
+}
+function closeDevDashboard(){document.getElementById('devOverlay').classList.remove('open');}
+function showDevPage(page,btn){
+  document.querySelectorAll('.dev-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#devOverlay .admin-nav-item').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('dev'+page.charAt(0).toUpperCase()+page.slice(1)+'Page');
+  if(el)el.classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+function renderDevStats(){
+  const days=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+  const vals=[5800,7200,6400,8900,11200,9400,7100];
+  const maxVal=Math.max(...vals);
+  const chart=document.getElementById('devBarChart');
+  const labels=document.getElementById('devBarLabels');
+  if(!chart||!labels)return;
+  chart.innerHTML=vals.map((v,i)=>`<div class="bar" style="height:${(v/maxVal)*100}%;background:var(--gold)" title="${v} çağrı"><span class="bar-label">${days[i]}</span></div>`).join('');
+  labels.innerHTML=vals.map((v,i)=>`<span style="font-size:10px;color:var(--gray);flex:1;text-align:center">${(v/1000).toFixed(1)}k</span>`).join('');
+}
+function copyApiKey(id){
+  const text=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>alert('API anahtarı kopyalandı! 📋')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('API anahtarı kopyalandı! 📋');
+  });
+}
+function regenerateApiKey(){
+  if(!confirm('API anahtarını yenilemek istediğinizden emin misiniz? Mevcut anahtar geçersiz olacak.'))return;
+  const chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const rand=n=>Array.from({length:n},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  document.getElementById('liveApiKey').textContent='masa_live_sk_'+rand(24);
+  alert('Yeni API anahtarı oluşturuldu! ✅');
+}
+
 // ===== INIT =====
 renderRestaurants();
 // Init chat
 document.getElementById('chatMessages').innerHTML='';
+// Check existing login
+(function(){
+  const user=JSON.parse(localStorage.getItem('masaUser')||'null');
+  if(user)updateNavForUser(user);
+})();
 </script>
 </body>
 </html>
