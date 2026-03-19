@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MASA Restaurant Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#1a6b6b;--teal-dark:#0f4444;--teal-light:#2a8a8a;--gold:#c9a84c;--gold-light:#e8c46a;--dark:#1a1a1a;--gray:#666;--light:#f5f5f0;--white:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark);min-height:100vh}
+
+/* LOGIN */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,var(--teal-dark),var(--teal))}
+.login-card{background:#fff;border-radius:24px;padding:40px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;justify-content:center}
+.login-logo-mark{width:48px;height:48px;background:var(--teal);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-weight:900;font-size:22px}
+.login-logo-text{font-size:22px;font-weight:800;color:var(--teal-dark)}
+.login-logo-sub{font-size:12px;color:var(--gray);text-align:center;margin-bottom:28px;background:var(--light);padding:8px 16px;border-radius:8px}
+.login-title{font-size:22px;font-weight:800;margin-bottom:6px}
+.login-sub{font-size:14px;color:var(--gray);margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.form-input{width:100%;padding:11px 14px;border:1.5px solid #e5e5e5;border-radius:10px;font-size:14px;outline:none;transition:border-color .2s;font-family:'Inter',sans-serif}
+.form-input:focus{border-color:var(--teal)}
+.btn{padding:11px 22px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;display:inline-block;text-align:center}
+.btn-teal{background:var(--teal);color:#fff;width:100%;padding:13px}
+.btn-teal:hover{background:var(--teal-light)}
+.btn-gold{background:var(--gold);color:var(--dark)}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-outline{background:transparent;border:1.5px solid var(--teal);color:var(--teal)}
+.btn-outline:hover{background:var(--teal);color:#fff}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-danger:hover{background:#c0392b}
+.btn-sm{padding:6px 14px;font-size:12px;border-radius:7px}
+.demo-hint{background:rgba(26,107,107,.06);border:1px solid rgba(26,107,107,.15);border-radius:10px;padding:12px;margin-top:16px;font-size:12px;color:var(--gray)}
+.demo-hint b{color:var(--teal)}
+
+/* APP LAYOUT */
+.app{display:none;min-height:100vh}
+.app.visible{display:flex}
+.sidebar{width:220px;background:var(--teal-dark);flex-shrink:0;display:flex;flex-direction:column;min-height:100vh;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sidebar-logo{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px}
+.sidebar-logo-mark{width:34px;height:34px;background:rgba(201,168,76,.25);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-weight:900;font-size:16px}
+.sidebar-logo-text{color:#fff;font-size:16px;font-weight:800}
+.sidebar-logo-sub{font-size:10px;color:rgba(255,255,255,.45);margin-top:1px}
+.sidebar-nav{flex:1;padding:12px 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 18px;color:rgba(255,255,255,.6);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-item.active{color:#fff;background:rgba(255,255,255,.1);border-left-color:var(--gold)}
+.nav-item-icon{font-size:16px;width:20px;text-align:center}
+.sidebar-bottom{padding:12px 0;border-top:1px solid rgba(255,255,255,.1)}
+.sidebar-user{padding:12px 18px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.user-avatar{width:34px;height:34px;background:rgba(201,168,76,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-weight:700;font-size:13px;flex-shrink:0}
+.user-name{color:#fff;font-size:13px;font-weight:600;line-height:1.2}
+.user-role{color:rgba(255,255,255,.45);font-size:11px}
+
+/* MAIN CONTENT */
+.main{margin-left:220px;flex:1;padding:28px;min-height:100vh}
+.page{display:none}
+.page.active{display:block}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.page-title{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.page-sub{font-size:14px;color:var(--gray);margin-top:2px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.stat-icon{font-size:24px;margin-bottom:10px}
+.stat-val{font-size:26px;font-weight:900;color:var(--dark);letter-spacing:-1px}
+.stat-change{font-size:11px;font-weight:600;margin-top:2px}
+.stat-change.up{color:#2ecc71}
+.stat-change.down{color:#e74c3c}
+.stat-label{font-size:12px;color:var(--gray);margin-top:4px}
+
+/* CARDS */
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 1px 8px rgba(0,0,0,.05);margin-bottom:16px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{background:var(--light);padding:11px 14px;font-size:12px;font-weight:700;text-align:left;color:var(--gray);text-transform:uppercase;letter-spacing:.4px}
+.data-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid #f5f5f5}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#fafafa}
+.badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;display:inline-block}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-yellow{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.badge-gray{background:#f3f4f6;color:#6b7280}
+
+/* ALERTS */
+.alert-list{display:flex;flex-direction:column;gap:10px}
+.alert-item{display:flex;align-items:center;gap:12px;background:var(--light);border-radius:12px;padding:13px 16px}
+.alert-icon{font-size:20px}
+.alert-text{flex:1;font-size:13px;font-weight:600}
+.alert-action{font-size:12px;color:var(--teal);font-weight:700;cursor:pointer}
+
+/* TABLE MAP */
+.table-map-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.table-circle{aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative}
+.table-circle.musait{background:#d1fae5;color:#065f46}
+.table-circle.dolu{background:#fee2e2;color:#991b1b}
+.table-circle.bakim{background:#f3f4f6;color:#6b7280}
+.table-circle.rezerve{background:#fef3c7;color:#92400e}
+.table-circle:hover{transform:scale(1.08)}
+.table-legend{display:flex;gap:16px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* MENU ITEMS */
+.menu-item-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #f5f5f5}
+.menu-item-row:last-child{border-bottom:none}
+.menu-img{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.menu-info{flex:1}
+.menu-name{font-size:14px;font-weight:700}
+.menu-desc{font-size:12px;color:var(--gray)}
+.menu-category{font-size:11px;background:rgba(26,107,107,.08);color:var(--teal);padding:2px 8px;border-radius:6px;font-weight:600;margin-top:3px;display:inline-block}
+.menu-price{font-size:15px;font-weight:800;color:var(--teal);margin-right:12px}
+.menu-actions{display:flex;gap:6px;align-items:center}
+
+/* TOGGLE */
+.toggle-switch{position:relative;width:44px;height:24px;cursor:pointer;display:inline-block}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:24px;transition:.3s}
+.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle-switch input:checked+.toggle-slider{background:var(--teal)}
+.toggle-switch input:checked+.toggle-slider:before{transform:translateX(20px)}
+
+/* PHOTO SLOTS */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.photo-slot{aspect-ratio:4/3;border-radius:12px;border:2px dashed #e5e5e5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;background:var(--light)}
+.photo-slot:hover{border-color:var(--teal);background:rgba(26,107,107,.04)}
+.photo-slot.filled{border-style:solid;border-color:#e5e5e5}
+.photo-slot-icon{font-size:28px;color:#ccc;margin-bottom:6px}
+.photo-slot-text{font-size:12px;color:var(--gray)}
+.photo-slot-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px}
+.photo-slot-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;border-radius:10px}
+.photo-slot:hover .photo-slot-overlay{display:flex}
+
+/* HOURS TABLE */
+.hours-table{width:100%;border-collapse:collapse}
+.hours-table td{padding:10px 8px;font-size:13px}
+.hours-table input[type=time]{border:1.5px solid #e5e5e5;border-radius:8px;padding:6px 10px;font-size:13px;font-family:'Inter',sans-serif;outline:none}
+.hours-table input[type=time]:focus{border-color:var(--teal)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#fff;border-radius:20px;width:100%;max-width:540px;max-height:88vh;overflow-y:auto;padding:28px;transform:translateY(16px);transition:transform .25s}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-title{font-size:18px;font-weight:800}
+.modal-close{width:32px;height:32px;border-radius:50%;border:none;background:var(--light);cursor:pointer;font-size:16px}
+
+/* PRE-ORDER CARDS */
+.preorder-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 8px rgba(0,0,0,.05);margin-bottom:12px}
+.preorder-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f5f5f5}
+.preorder-table-badge{background:var(--teal);color:#fff;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700}
+.preorder-items{display:flex;flex-direction:column;gap:8px}
+.preorder-item{display:flex;align-items:center;gap:10px;font-size:13px}
+.preorder-item-ready{width:20px;height:20px;border-radius:50%;border:2px solid #e5e5e5;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.preorder-item-ready.done{background:#2ecc71;border-color:#2ecc71;color:#fff}
+.preorder-item-name{flex:1}
+.preorder-item-qty{background:var(--light);padding:2px 8px;border-radius:6px;font-weight:700;font-size:12px}
+
+/* REVENUE */
+.revenue-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+
+/* RESPONSIVE */
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0}.stat-grid{grid-template-columns:1fr 1fr}.revenue-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-mark">M</div>
+      <div>
+        <div class="login-logo-text">MASA</div>
+        <div style="font-size:11px;color:var(--gray)">Restaurant Portal</div>
+      </div>
+    </div>
+    <div class="login-logo-sub">🔒 Bu portal yalnızca MASA iş ortaklarına özeldir</div>
+    <div class="login-title">Hoşgeldiniz</div>
+    <div class="login-sub">Restoran hesabınıza giriş yapın</div>
+    <div class="form-group">
+      <label class="form-label">E-posta</label>
+      <input class="form-input" type="email" id="loginEmail" placeholder="restoran@email.com" value="demo@restaurant.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Şifre</label>
+      <input class="form-input" type="password" id="loginPass" placeholder="••••••••" value="demo123">
+    </div>
+    <button class="btn btn-teal" style="margin-top:8px" onclick="doLogin()">Giriş Yap →</button>
+    <div class="demo-hint">
+      Demo giriş: <b>demo@restaurant.com</b> / <b>demo123</b>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-mark">M</div>
+      <div>
+        <div class="sidebar-logo-text">MASA</div>
+        <div class="sidebar-logo-sub">Restaurant Portal</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-item-icon">🏠</span>Dashboard</a>
+      <a class="nav-item" onclick="showPage('reservations',this)"><span class="nav-item-icon">📅</span>Rezervasyonlar</a>
+      <a class="nav-item" onclick="showPage('preorders',this)"><span class="nav-item-icon">🛍️</span>Pre-Order'lar</a>
+      <a class="nav-item" onclick="showPage('tables',this)"><span class="nav-item-icon">🗺️</span>Masa Yönetimi</a>
+      <a class="nav-item" onclick="showPage('menu',this)"><span class="nav-item-icon">📋</span>Menü Yönetimi</a>
+      <a class="nav-item" onclick="showPage('revenue',this)"><span class="nav-item-icon">📊</span>Gelir Takibi</a>
+      <a class="nav-item" onclick="showPage('profile',this)"><span class="nav-item-icon">🖼️</span>Profil & Fotoğraflar</a>
+      <a class="nav-item" onclick="showPage('settings',this)"><span class="nav-item-icon">⚙️</span>Ayarlar</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="userAvatar">V</div>
+        <div>
+          <div class="user-name" id="userName">Vogue Restaurant</div>
+          <div class="user-role">Restoran Sahibi</div>
+        </div>
+      </div>
+      <a class="nav-item" onclick="doLogout()" style="color:rgba(231,76,60,.8)"><span class="nav-item-icon">🚪</span>Çıkış Yap</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="dashboardPage">
+      <div class="page-header">
+        <div>
+          <div class="page-title">🏠 Dashboard</div>
+          <div class="page-sub" id="welcomeText">Hoşgeldiniz, Vogue Restaurant!</div>
+        </div>
+        <div style="font-size:13px;color:var(--gray)" id="currentDate"></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">12</div><div class="stat-change up">+3 dün</div><div class="stat-label">Bugün Rezervasyon</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val">38</div><div class="stat-change up">+8%</div><div class="stat-label">Beklenen Misafir</div></div>
+        <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-val">₺18,400</div><div class="stat-change up">+15%</div><div class="stat-label">Tahmini Gelir</div></div>
+        <div class="stat-card"><div class="stat-icon">📊</div><div class="stat-val">%76</div><div class="stat-change up">Yüksek</div><div class="stat-label">Doluluk Oranı</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card">
+          <div class="card-title">⏰ Yaklaşan Rezervasyonlar</div>
+          <table class="data-table">
+            <thead><tr><th>Saat</th><th>İsim</th><th>Kişi</th><th>Masa</th><th>Durum</th></tr></thead>
+            <tbody>
+              <tr><td><b>19:00</b></td><td>Ahmet Y. 🍽️</td><td>4</td><td>T7</td><td><span class="badge badge-green">Onaylandı</span></td></tr>
+              <tr><td><b>19:30</b></td><td>Zeynep K.</td><td>2</td><td>T3</td><td><span class="badge badge-yellow">Bekliyor</span></td></tr>
+              <tr><td><b>20:00</b></td><td>Mert A. 🍽️</td><td>6</td><td>T12</td><td><span class="badge badge-green">Onaylandı</span></td></tr>
+              <tr><td><b>20:30</b></td><td>Elif B.</td><td>3</td><td>T5</td><td><span class="badge badge-yellow">Bekliyor</span></td></tr>
+              <tr><td><b>21:00</b></td><td>Can S.</td><td>5</td><td>T9</td><td><span class="badge badge-green">Onaylandı</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title">🔔 Uyarılar</div>
+          <div class="alert-list">
+            <div class="alert-item"><div class="alert-icon">🛍️</div><div class="alert-text">3 pre-order onay bekliyor</div><div class="alert-action" onclick="showPage('preorders',null)">Gör →</div></div>
+            <div class="alert-item"><div class="alert-icon">⭐</div><div class="alert-text">2 yeni yorum geldi</div><div class="alert-action">Gör →</div></div>
+            <div class="alert-item"><div class="alert-icon">📊</div><div class="alert-text">Bu hafta doluluk %94 — Cumartesi tam dolu!</div><div class="alert-action">Detay →</div></div>
+            <div class="alert-item"><div class="alert-icon">💰</div><div class="alert-text">Mart ayı komisyon faturası hazır</div><div class="alert-action" onclick="showPage('revenue',null)">İncele →</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REZERVASYONLAR -->
+    <div class="page" id="reservationsPage">
+      <div class="page-header">
+        <div><div class="page-title">📅 Rezervasyonlar</div><div class="page-sub">Tüm rezervasyonları yönetin</div></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div style="display:flex;gap:10px;margin-bottom:16px">
+          <button class="btn btn-teal btn-sm" onclick="filterRes('today',this)">Bugün</button>
+          <button class="btn btn-outline btn-sm" onclick="filterRes('week',this)">Bu Hafta</button>
+          <button class="btn btn-outline btn-sm" onclick="filterRes('month',this)">Bu Ay</button>
+        </div>
+        <table class="data-table" id="resTable">
+          <thead><tr><th>#</th><th>Saat</th><th>İsim</th><th>Kişi</th><th>Masa</th><th>Pre-Order</th><th>Durum</th><th>İşlemler</th></tr></thead>
+          <tbody id="resTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRE-ORDERS -->
+    <div class="page" id="preordersPage">
+      <div class="page-header">
+        <div><div class="page-title">🛍️ Pre-Order'lar</div><div class="page-sub">Mutfak sipariş takibi</div></div>
+        <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Yazdır</button>
+      </div>
+      <div id="preorderCards"></div>
+    </div>
+
+    <!-- MASA YÖNETİMİ -->
+    <div class="page" id="tablesPage">
+      <div class="page-header">
+        <div><div class="page-title">🗺️ Masa Yönetimi</div><div class="page-sub">Masaları tıklayarak durumunu değiştir</div></div>
+        <div id="occupancyBadge" style="background:var(--teal);color:#fff;padding:7px 16px;border-radius:10px;font-size:13px;font-weight:700"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Salon Planı</div>
+        <div class="table-map-grid" id="tableMapGrid"></div>
+        <div class="table-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#d1fae5"></div>Müsait</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fee2e2"></div>Dolu</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fef3c7"></div>Rezerve</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f3f4f6"></div>Bakımda</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENÜ YÖNETİMİ -->
+    <div class="page" id="menuPage">
+      <div class="page-header">
+        <div><div class="page-title">📋 Menü Yönetimi</div><div class="page-sub">Ürünlerinizi yönetin</div></div>
+        <button class="btn btn-gold" onclick="openMenuModal()">+ Yeni Ürün Ekle</button>
+      </div>
+      <div class="card">
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+          <button class="btn btn-teal btn-sm" onclick="filterMenu('all',this)">Tümü</button>
+          <button class="btn btn-outline btn-sm" onclick="filterMenu('meze',this)">🥗 Mezeler</button>
+          <button class="btn btn-outline btn-sm" onclick="filterMenu('ana',this)">🍽️ Ana Yemek</button>
+          <button class="btn btn-outline btn-sm" onclick="filterMenu('tatli',this)">🍰 Tatlı</button>
+          <button class="btn btn-outline btn-sm" onclick="filterMenu('icecek',this)">🥤 İçecek</button>
+        </div>
+        <div id="menuList"></div>
+      </div>
+    </div>
+
+    <!-- GELİR TAKİBİ -->
+    <div class="page" id="revenuePage">
+      <div class="page-header">
+        <div><div class="page-title">📊 Gelir Takibi</div><div class="page-sub">MASA komisyon özeti</div></div>
+        <button class="btn btn-outline btn-sm" onclick="alert('PDF indirme hazırlanıyor...')">📄 Fatura İndir</button>
+      </div>
+      <div class="revenue-row">
+        <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">312</div><div class="stat-label">Bu Ay Rezervasyon</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val">876</div><div class="stat-label">Toplam Misafir</div></div>
+        <div class="stat-card"><div class="stat-icon">💳</div><div class="stat-val">₺61,320</div><div class="stat-change down">Ödenecek</div><div class="stat-label">Komisyon Borcu (876 × ₺70)</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Haftalık Döküm — Mart 2026</div>
+        <table class="data-table">
+          <thead><tr><th>Hafta</th><th>Rezervasyon</th><th>Misafir</th><th>Komisyon</th><th>Durum</th></tr></thead>
+          <tbody>
+            <tr><td>1-7 Mart</td><td>68</td><td>189</td><td>₺13,230</td><td><span class="badge badge-green">Ödendi</span></td></tr>
+            <tr><td>8-14 Mart</td><td>74</td><td>213</td><td>₺14,910</td><td><span class="badge badge-green">Ödendi</span></td></tr>
+            <tr><td>15-21 Mart</td><td>89</td><td>258</td><td>₺18,060</td><td><span class="badge badge-yellow">Bekliyor</span></td></tr>
+            <tr><td>22-31 Mart</td><td>81</td><td>216</td><td>₺15,120</td><td><span class="badge badge-yellow">Bekliyor</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Ödeme Geçmişi</div>
+        <table class="data-table">
+          <thead><tr><th>Ay</th><th>Misafir</th><th>Komisyon</th><th>Ödeme Tarihi</th><th>Durum</th></tr></thead>
+          <tbody>
+            <tr><td>Şubat 2026</td><td>743</td><td>₺52,010</td><td>05.03.2026</td><td><span class="badge badge-green">Ödendi</span></td></tr>
+            <tr><td>Ocak 2026</td><td>612</td><td>₺42,840</td><td>05.02.2026</td><td><span class="badge badge-green">Ödendi</span></td></tr>
+            <tr><td>Aralık 2025</td><td>891</td><td>₺62,370</td><td>05.01.2026</td><td><span class="badge badge-green">Ödendi</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PROFİL & FOTOĞRAFLAR -->
+    <div class="page" id="profilePage">
+      <div class="page-header">
+        <div><div class="page-title">🖼️ Profil & Fotoğraflar</div><div class="page-sub">Restoran bilgilerinizi güncelleyin</div></div>
+        <button class="btn btn-teal" onclick="alert('Kaydedildi! ✅')">Kaydet</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card">
+          <div class="card-title">Restoran Bilgileri</div>
+          <div class="form-group"><label class="form-label">Restoran Adı</label><input class="form-input" value="Vogue Restaurant & Bar"></div>
+          <div class="form-group"><label class="form-label">Adres</label><input class="form-input" value="Akaretler, Beşiktaş, İstanbul"></div>
+          <div class="form-group"><label class="form-label">Telefon</label><input class="form-input" value="+90 212 555 0123"></div>
+          <div class="form-group"><label class="form-label">E-posta</label><input class="form-input" value="info@voguerestaurant.com"></div>
+          <div class="form-group"><label class="form-label">Website</label><input class="form-input" value="www.voguerestaurant.com"></div>
+          <div class="form-group"><label class="form-label">Mutfak Türü</label>
+            <select class="form-input"><option>Modern Türk</option><option>Akdeniz</option><option>İtalyan</option><option>Japon</option><option>Fine Dining</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Fiyat Aralığı</label>
+            <select class="form-input"><option>₺</option><option>₺₺</option><option selected>₺₺₺</option><option>₺₺₺₺</option></select>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-title">Çalışma Saatleri</div>
+            <table class="hours-table">
+              <tr><td style="font-weight:600;width:80px">Pazartesi</td><td><input type="time" value="12:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="23:00"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td style="font-weight:600">Salı</td><td><input type="time" value="12:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="23:00"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td style="font-weight:600">Çarşamba</td><td><input type="time" value="12:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="23:00"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td style="font-weight:600">Perşembe</td><td><input type="time" value="12:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="23:30"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td style="font-weight:600">Cuma</td><td><input type="time" value="12:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="00:00"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td style="font-weight:600">Cumartesi</td><td><input type="time" value="12:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="00:00"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td style="font-weight:600">Pazar</td><td><input type="time" value="13:00"></td><td style="padding:0 8px">—</td><td><input type="time" value="22:00"></td><td><label class="toggle-switch" style="margin-left:8px"><input type="checkbox"><span class="toggle-slider"></span></label></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-title">📸 Kapak Fotoğrafı</div>
+        <div class="photo-grid" style="grid-template-columns:1fr">
+          <div class="photo-slot" style="aspect-ratio:3/1" onclick="fakeUpload(this,'kapak')">
+            <div class="photo-slot-icon">🖼️</div>
+            <div class="photo-slot-text">Kapak fotoğrafı yükle (1200×400 önerilir)</div>
+            <div class="photo-slot-overlay"><span style="color:#fff;font-size:13px;font-weight:600">Değiştir</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+        <div class="card">
+          <div class="card-title">🏠 İç Mekan Fotoğrafları</div>
+          <div class="photo-grid" style="grid-template-columns:1fr 1fr">
+            <div class="photo-slot" onclick="fakeUpload(this,'ic1')"><div class="photo-slot-icon">📷</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'ic2')"><div class="photo-slot-icon">📷</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'ic3')"><div class="photo-slot-icon">📷</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'ic4')"><div class="photo-slot-icon">📷</div><div class="photo-slot-text">Ekle</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">🍽️ Yemek Fotoğrafları</div>
+          <div class="photo-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="photo-slot" onclick="fakeUpload(this,'y1')"><div class="photo-slot-icon">🍽️</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'y2')"><div class="photo-slot-icon">🍽️</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'y3')"><div class="photo-slot-icon">🍽️</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'y4')"><div class="photo-slot-icon">🍽️</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'y5')"><div class="photo-slot-icon">🍽️</div><div class="photo-slot-text">Ekle</div></div>
+            <div class="photo-slot" onclick="fakeUpload(this,'y6')"><div class="photo-slot-icon">🍽️</div><div class="photo-slot-text">Ekle</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AYARLAR -->
+    <div class="page" id="settingsPage">
+      <div class="page-header">
+        <div><div class="page-title">⚙️ Ayarlar</div><div class="page-sub">Hesap ve bildirim ayarları</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card">
+          <div class="card-title">🔔 Bildirimler</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px;font-weight:600">💬 WhatsApp Bildirimleri</div><div style="font-size:12px;color:var(--gray)">Yeni rezervasyon ve iptal bildirimleri</div></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px;font-weight:600">📧 E-posta Bildirimleri</div><div style="font-size:12px;color:var(--gray)">Günlük özet ve fatura</div></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px;font-weight:600">🔔 Pre-Order Bildirimleri</div><div style="font-size:12px;color:var(--gray)">Yeni ön sipariş geldiğinde</div></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📋 Rezervasyon Ayarları</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px;font-weight:600">✅ Otomatik Onay</div><div style="font-size:12px;color:var(--gray)">Rezervasyonları otomatik onayla</div></div><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">Minimum Önceden Rezervasyon</label>
+              <select class="form-input"><option>1 saat</option><option selected>2 saat</option><option>4 saat</option><option>24 saat</option></select>
+            </div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">Maksimum Kişi Sayısı</label>
+              <select class="form-input"><option>6</option><option>8</option><option selected>10</option><option>15</option><option>20</option></select>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">🔑 Şifre Değiştir</div>
+          <div class="form-group"><label class="form-label">Mevcut Şifre</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">Yeni Şifre</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">Yeni Şifre (Tekrar)</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <button class="btn btn-teal" onclick="alert('Şifre güncellendi! ✅')">Şifreyi Güncelle</button>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:#e74c3c">⚠️ Tehlikeli Bölge</div>
+          <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Bu işlemler geri alınamaz. Lütfen dikkatli olun.</p>
+          <button class="btn btn-danger" onclick="if(confirm('Hesabınızı askıya almak istediğinizden emin misiniz? MASA ile tüm rezervasyonlarınız durdurulacak.'))alert('Hesap askıya alındı. MASA ekibi sizi arayacak.')">Hesabı Askıya Al</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MENU MODAL -->
+<div class="modal-overlay" id="menuModal" onclick="if(event.target===this)closeMenuModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="menuModalTitle">Yeni Ürün Ekle</div>
+      <button class="modal-close" onclick="closeMenuModal()">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Ürün Adı</label><input class="form-input" id="mName" placeholder="Örn: Izgara Somon"></div>
+    <div class="form-group"><label class="form-label">Açıklama</label><input class="form-input" id="mDesc" placeholder="Kısa açıklama"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="form-group"><label class="form-label">Fiyat (₺)</label><input class="form-input" type="number" id="mPrice" placeholder="0"></div>
+      <div class="form-group"><label class="form-label">Kategori</label>
+        <select class="form-input" id="mCat">
+          <option value="meze">🥗 Mezeler</option>
+          <option value="ana">🍽️ Ana Yemek</option>
+          <option value="tatli">🍰 Tatlı</option>
+          <option value="icecek">🥤 İçecek</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Fotoğraf</label>
+      <div class="photo-slot" style="aspect-ratio:2/1" onclick="fakeUpload(this,'menu-photo')" id="menuPhotoSlot">
+        <div class="photo-slot-icon">📷</div>
+        <div class="photo-slot-text">Fotoğraf yükle</div>
+      </div>
+    </div>
+    <button class="btn btn-teal" style="width:100%;margin-top:8px" onclick="saveMenuItem()">Kaydet →</button>
+  </div>
+</div>
+
+<!-- RESERVATION DETAIL MODAL -->
+<div class="modal-overlay" id="resDetailModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Rezervasyon Detayı</div>
+      <button class="modal-close" onclick="document.getElementById('resDetailModal').classList.remove('open')">✕</button>
+    </div>
+    <div id="resDetailContent"></div>
+  </div>
+</div>
+
+<script>
+// ===== AUTH =====
+function doLogin(){
+  const email=document.getElementById('loginEmail').value;
+  const pass=document.getElementById('loginPass').value;
+  if(email&&pass){
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('app').classList.add('visible');
+    document.getElementById('currentDate').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    initData();
+  } else {alert('Lütfen e-posta ve şifre girin!');}
+}
+function doLogout(){if(confirm('Çıkış yapmak istiyor musunuz?')){document.getElementById('app').classList.remove('visible');document.getElementById('loginPage').style.display='flex';}}
+
+// ===== NAVIGATION =====
+function showPage(page,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById(page+'Page').classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+
+// ===== DATA =====
+const reservations=[
+  {id:1001,time:'19:00',name:'Ahmet Yılmaz',people:4,table:'T7',preorder:true,status:'confirmed',items:['Humus x2','Izgara Somon x1','Cheesecake x2']},
+  {id:1002,time:'19:30',name:'Zeynep Kaya',people:2,table:'T3',preorder:false,status:'pending',items:[]},
+  {id:1003,time:'20:00',name:'Mert Aslan',people:6,table:'T12',preorder:true,status:'confirmed',items:['Carpaccio x3','Carbonara x2','Tiramisu x3','Prosecco x6']},
+  {id:1004,time:'20:30',name:'Elif Bozkurt',people:3,table:'T5',preorder:false,status:'pending',items:[]},
+  {id:1005,time:'21:00',name:'Can Şahin',people:5,table:'T9',preorder:true,status:'confirmed',items:['Risotto x2','Kuzu Tandır x3','Cheese Board x1']},
+  {id:1006,time:'21:30',name:'Fatma Demir',people:2,table:'T2',preorder:false,status:'cancelled',items:[]},
+];
+
+const menuItems=[
+  {id:1,name:'Carpaccio',desc:'İnce dilimlenmiş sığır eti, roka ve parmesan',price:380,cat:'meze',emoji:'🥩',active:true},
+  {id:2,name:'Humus Tabağı',desc:'Ev yapımı humus, zeytinyağı ve sumak',price:180,cat:'meze',emoji:'🫙',active:true},
+  {id:3,name:'Risotto',desc:'Trüf mantarlı kremsi risotto',price:340,cat:'ana',emoji:'🍚',active:true},
+  {id:4,name:'Kuzu Tandır',desc:'12 saat pişirilmiş kuzu, patates püresiyle',price:520,cat:'ana',emoji:'🍖',active:true},
+  {id:5,name:'Tiramisu',desc:'Klasik İtalyan tatlısı',price:200,cat:'tatli',emoji:'🍰',active:true},
+  {id:6,name:'Cheese Board',desc:'5 çeşit peynir, üzüm ve ceviz',price:280,cat:'meze',emoji:'🧀',active:true},
+  {id:7,name:'Prosecco',desc:'İtalyan köpüklü şarap, kadeh',price:220,cat:'icecek',emoji:'🥂',active:true},
+  {id:8,name:'Espresso',desc:'Çift shot espresso',price:80,cat:'icecek',emoji:'☕',active:false},
+];
+
+let tableStates=Array.from({length:15},(_,i)=>['musait','musait','dolu','musait','rezerve','dolu','musait','dolu','rezerve','musait','bakim','musait','dolu','musait','rezerve'][i]);
+
+// ===== RESERVATIONS =====
+function renderReservations(filter){
+  const tbody=document.getElementById('resTbody');
+  tbody.innerHTML=reservations.map(r=>`
+    <tr>
+      <td>#${r.id}</td>
+      <td><b>${r.time}</b></td>
+      <td>${r.name}</td>
+      <td>${r.people}</td>
+      <td>${r.table}</td>
+      <td>${r.preorder?'🍽️ Var':'—'}</td>
+      <td><span class="badge ${r.status==='confirmed'?'badge-green':r.status==='pending'?'badge-yellow':'badge-red'}">${r.status==='confirmed'?'Onaylandı':r.status==='pending'?'Bekliyor':'İptal'}</span></td>
+      <td style="display:flex;gap:6px">
+        ${r.status==='pending'?`<button class="btn btn-teal btn-sm" onclick="confirmRes(${r.id})">✅</button><button class="btn btn-danger btn-sm" onclick="rejectRes(${r.id})">❌</button>`:''}
+        <button class="btn btn-outline btn-sm" onclick="showResDetail(${r.id})">👁️</button>
+      </td>
+    </tr>`).join('');
+}
+function filterRes(f,btn){document.querySelectorAll('.reservationsPage .btn').forEach(b=>b.classList.remove('btn-teal'));btn.classList.add('btn-teal');renderReservations(f);}
+function confirmRes(id){const r=reservations.find(x=>x.id===id);if(r)r.status='confirmed';renderReservations();alert('✅ Rezervasyon onaylandı!');}
+function rejectRes(id){const r=reservations.find(x=>x.id===id);if(r)r.status='cancelled';renderReservations();alert('❌ Rezervasyon reddedildi.');}
+function showResDetail(id){
+  const r=reservations.find(x=>x.id===id);
+  document.getElementById('resDetailContent').innerHTML=`
+    <div style="background:var(--light);border-radius:12px;padding:16px;margin-bottom:16px">
+      <div style="font-size:16px;font-weight:800;margin-bottom:12px">${r.name}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+        <div><b>Saat:</b> ${r.time}</div>
+        <div><b>Kişi:</b> ${r.people}</div>
+        <div><b>Masa:</b> ${r.table}</div>
+        <div><b>Durum:</b> ${r.status==='confirmed'?'✅ Onaylandı':r.status==='pending'?'⏳ Bekliyor':'❌ İptal'}</div>
+      </div>
+    </div>
+    ${r.preorder&&r.items.length?`<div><div style="font-size:14px;font-weight:700;margin-bottom:10px">🍽️ Pre-Order Siparişleri</div>${r.items.map(i=>`<div style="padding:8px 12px;background:var(--light);border-radius:8px;margin-bottom:6px;font-size:13px">${i}</div>`).join('')}</div>`:'<p style="color:var(--gray);font-size:13px">Pre-order yok.</p>'}
+    <div style="display:flex;gap:10px;margin-top:20px">
+      ${r.status==='pending'?`<button class="btn btn-teal" style="flex:1" onclick="confirmRes(${r.id});document.getElementById('resDetailModal').classList.remove('open')">✅ Onayla</button><button class="btn btn-danger" style="flex:1" onclick="rejectRes(${r.id});document.getElementById('resDetailModal').classList.remove('open')">❌ Reddet</button>`:''}
+    </div>`;
+  document.getElementById('resDetailModal').classList.add('open');
+}
+
+// ===== PRE-ORDERS =====
+function renderPreorders(){
+  const el=document.getElementById('preorderCards');
+  const withPreorder=reservations.filter(r=>r.preorder&&r.items.length);
+  el.innerHTML=withPreorder.map(r=>`
+    <div class="preorder-card">
+      <div class="preorder-card-header">
+        <div><div style="font-size:15px;font-weight:800">${r.name}</div><div style="font-size:12px;color:var(--gray)">${r.time} • ${r.people} kişi</div></div>
+        <div><span class="preorder-table-badge">${r.table}</span></div>
+      </div>
+      <div class="preorder-items">
+        ${r.items.map((item,i)=>`
+          <div class="preorder-item">
+            <div class="preorder-item-ready" id="pre-${r.id}-${i}" onclick="togglePreorderItem(${r.id},${i})">✓</div>
+            <div class="preorder-item-name">${item}</div>
+          </div>`).join('')}
+      </div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid #f5f5f5;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:var(--gray)">${r.items.length} ürün</span>
+        <button class="btn btn-teal btn-sm" onclick="alert('Mutfak bildirimi gönderildi! ✅')">Mutfağa Bildir</button>
+      </div>
+    </div>`).join('');
+}
+function togglePreorderItem(rid,idx){const el=document.getElementById(`pre-${rid}-${idx}`);el.classList.toggle('done');}
+
+// ===== TABLE MAP =====
+const tableStatusLabels={musait:'Müsait',dolu:'Dolu',rezerve:'Rezerve',bakim:'Bakım'};
+const tableStatusCycle={musait:'dolu',dolu:'bakim',bakim:'rezerve',rezerve:'musait'};
+function renderTableMap(){
+  const grid=document.getElementById('tableMapGrid');
+  grid.innerHTML=tableStates.map((s,i)=>`<div class="table-circle ${s}" onclick="cycleTable(${i})" title="T${i+1}"><span style="font-size:13px">T${i+1}</span><span style="font-size:9px;margin-top:2px">${tableStatusLabels[s]}</span></div>`).join('');
+  const occupied=tableStates.filter(s=>s!=='musait').length;
+  document.getElementById('occupancyBadge').textContent=`Doluluk: %${Math.round(occupied/tableStates.length*100)} (${occupied}/${tableStates.length})`;
+}
+function cycleTable(i){tableStates[i]=tableStatusCycle[tableStates[i]];renderTableMap();}
+
+// ===== MENU =====
+let menuFilter='all';
+function renderMenu(){
+  const list=document.getElementById('menuList');
+  const filtered=menuItems.filter(i=>menuFilter==='all'||i.cat===menuFilter);
+  const catLabels={meze:'🥗 Meze',ana:'🍽️ Ana',tatli:'🍰 Tatlı',icecek:'🥤 İçecek'};
+  list.innerHTML=filtered.map(item=>`
+    <div class="menu-item-row">
+      <div class="menu-img">${item.emoji}</div>
+      <div class="menu-info">
+        <div class="menu-name">${item.name}</div>
+        <div class="menu-desc">${item.desc}</div>
+        <span class="menu-category">${catLabels[item.cat]}</span>
+      </div>
+      <div class="menu-price">₺${item.price}</div>
+      <div class="menu-actions">
+        <label class="toggle-switch"><input type="checkbox" ${item.active?'checked':''} onchange="toggleMenuItem(${item.id},this.checked)"><span class="toggle-slider"></span></label>
+        <button class="btn btn-outline btn-sm" onclick="editMenuItem(${item.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteMenuItem(${item.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+function filterMenu(cat,btn){menuFilter=cat;document.querySelectorAll('.menuPage .btn').forEach(b=>b.classList.remove('btn-teal'));btn.classList.add('btn-teal');renderMenu();}
+function toggleMenuItem(id,val){const item=menuItems.find(x=>x.id===id);if(item)item.active=val;}
+function deleteMenuItem(id){if(confirm('Ürünü silmek istiyor musunuz?')){menuItems.splice(menuItems.findIndex(x=>x.id===id),1);renderMenu();}}
+function editMenuItem(id){const item=menuItems.find(x=>x.id===id);document.getElementById('menuModalTitle').textContent='Ürünü Düzenle';document.getElementById('mName').value=item.name;document.getElementById('mDesc').value=item.desc;document.getElementById('mPrice').value=item.price;document.getElementById('mCat').value=item.cat;document.getElementById('menuModal').classList.add('open');}
+function openMenuModal(){document.getElementById('menuModalTitle').textContent='Yeni Ürün Ekle';document.getElementById('mName').value='';document.getElementById('mDesc').value='';document.getElementById('mPrice').value='';document.getElementById('menuModal').classList.add('open');}
+function closeMenuModal(){document.getElementById('menuModal').classList.remove('open');}
+function saveMenuItem(){
+  const name=document.getElementById('mName').value;
+  const price=parseInt(document.getElementById('mPrice').value)||0;
+  if(!name){alert('Ürün adı gerekli!');return;}
+  menuItems.push({id:Date.now(),name,desc:document.getElementById('mDesc').value,price,cat:document.getElementById('mCat').value,emoji:'🍽️',active:true});
+  closeMenuModal();renderMenu();alert('✅ Ürün eklendi!');
+}
+
+// ===== PHOTO UPLOAD =====
+const photoColors=['#d1fae5','#dbeafe','#fef3c7','#fce7f3','#ede9fe','#fee2e2'];
+function fakeUpload(el,name){
+  const color=photoColors[Math.floor(Math.random()*photoColors.length)];
+  el.style.background=color;el.style.borderStyle='solid';el.style.borderColor='#ccc';el.classList.add('filled');
+  el.innerHTML=`<div style="font-size:13px;font-weight:600;color:var(--dark)">${name}.jpg ✅</div><div class="photo-slot-overlay"><span style="color:#fff;font-size:13px;font-weight:600">Değiştir</span></div>`;
+}
+
+// ===== INIT =====
+function initData(){renderReservations();renderPreorders();renderTableMap();renderMenu();}
+</script>
+</body>
+</html>
