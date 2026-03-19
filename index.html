@@ -1493,108 +1493,6 @@ curl -X POST "https://api.masa.com.tr/v1/reservations" \
   </div>
 </div>
 
-<!-- Revenue Calculator -->
-    <div class="calc-section">
-      <div class="calc-title">💡 Kazancınızı Hesaplayın</div>
-      <div class="calc-inputs">
-        <div class="calc-field">
-          <label class="calc-label">Aylık kaç rezervasyon alıyorsunuz?</label>
-          <div class="calc-value-display" id="calcResCount">100</div>
-          <input type="range" class="calc-slider" id="calcResSlider" min="10" max="500" step="5" value="100" oninput="updateCalculator()">
-        </div>
-        <div class="calc-field">
-          <label class="calc-label">Ortalama hesap tutarı ₺</label>
-          <input type="number" class="calc-input-num" id="calcAvgCheck" value="500" min="50" max="10000" step="50" oninput="updateCalculator()" placeholder="500">
-        </div>
-      </div>
-      <div class="calc-results" id="calcResults">
-        <div class="calc-result-main">
-          MASA'dan aylık <strong id="calcAddedRes">20</strong> rezervasyon = <strong id="calcNewCustomers">20</strong> yeni müşteri = <strong id="calcExtraRevenue">₺10,000</strong> ek gelir
-        </div>
-        <div class="calc-result-commission">
-          <span class="calc-result-commission-label">Komisyon maliyetiniz:</span>
-          <span class="calc-result-commission-val" id="calcCommission">₺700/ay</span>
-        </div>
-      </div>
-      <div class="calc-cta-wrap">
-        <button class="btn-restaurant-cta" onclick="openRestaurantSignup()">Hemen Başvur →</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-    <div class="faq-section">
-      <div class="faq-title">Sıkça Sorulan Sorular</div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span>%7 komisyon tam olarak nasıl işliyor?</span>
-          <span class="faq-question-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Yalnızca tamamlanan rezervasyonlar için komisyon alınır. Müşteri gelmediğinde veya rezervasyon iptal edildiğinde hiçbir ücret tahsil edilmez. Komisyon, ay sonunda otomatik olarak hesabınızdan düşülür.</div>
-        </div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span>Başlamak için ne kadar süre gerekiyor?</span>
-          <span class="faq-question-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Başvurunuzu aldıktan sonra 48 saat içinde ekibimiz sizinle iletişime geçer. Genellikle aynı gün içinde restoranınız MASA platformunda yayına alınır. Onboarding süreci ortalama 1-2 saat sürer.</div>
-        </div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span>Mevcut rezervasyon sistemimle entegre olabilir miyim?</span>
-          <span class="faq-question-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Evet! MASA, popüler POS sistemleri ve rezervasyon yazılımlarıyla entegre olur. Ayrıca RESTful API ve Webhook desteğimiz sayesinde özel entegrasyonlar da yapabilirsiniz.</div>
-        </div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span>İstediğimde ayrılabilir miyim?</span>
-          <span class="faq-question-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Evet, sözleşme veya bağlayıcı dönem yoktur. İstediğiniz zaman üyeliğinizi sonlandırabilirsiniz. Tüm verilerinizi dışa aktarabilirsiniz.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESTAURANT SIGNUP MODAL -->
-<div class="overlay" id="restaurantSignupOverlay" onclick="closeRestSignupIfOutside(event)">
-  <div class="modal rest-modal">
-    <div class="modal-header">
-      <div>
-        <div style="font-size:12px;color:var(--gray);margin-bottom:2px">MASA Partner Programı</div>
-        <div class="modal-title" id="restSignupTitle">Restoranınızı Ekleyin</div>
-      </div>
-      <button class="modal-close" onclick="closeRestaurantSignup()">✕</button>
-    </div>
-    <!-- Step progress bar -->
-    <div class="rest-steps-bar" id="restStepsBar">
-      <div class="rest-step-item active" id="restStepItem1">
-        <div class="rest-step-circle">1</div>
-        <div class="rest-step-label">Restoran</div>
-      </div>
-      <div class="rest-step-item" id="restStepItem2">
-        <div class="rest-step-circle">2</div>
-        <div class="rest-step-label">İletişim</div>
-      </div>
-      <div class="rest-step-item" id="restStepItem3">
-        <div class="rest-step-circle">3</div>
-        <div class="rest-step-label">Tamamlandı</div>
-      </div>
-    </div>
-    <div id="restSignupContent"></div>
-  </div>
-</div>
-
 <!-- SÜRPRIZ MASA MODAL -->
 <div class="overlay" id="surprizOverlay" onclick="closeSurprizIfOutside(event)">
   <div class="modal" style="max-width:480px">
@@ -3258,4 +3156,5 @@ document.getElementById('chatMessages').innerHTML='';
 </script>
 </body>
 </html>
+
 
