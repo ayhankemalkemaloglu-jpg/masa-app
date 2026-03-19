@@ -1827,6 +1827,30 @@ function renderStep(){
           <span style="font-size:13px;color:var(--gray);margin-left:8px">kişi</span>
         </div>
       </div>
+      <div class="form-group"><label class="form-label">📍 Oturmak İstediğiniz Yer</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="location-option ${reservationData.location==='pencere'?'selected':''}" onclick="selectLocation('pencere',this)" style="border:2px solid ${reservationData.location==='pencere'?'var(--teal)':'#e5e5e5'};background:${reservationData.location==='pencere'?'rgba(26,107,107,.06)':'#fff'};border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .15s">
+            <div style="font-size:24px;margin-bottom:6px">🪟</div>
+            <div style="font-size:13px;font-weight:700">Pencere Kenarı</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">Manzaralı</div>
+          </div>
+          <div class="location-option ${reservationData.location==='kose'?'selected':''}" onclick="selectLocation('kose',this)" style="border:2px solid ${reservationData.location==='kose'?'var(--teal)':'#e5e5e5'};background:${reservationData.location==='kose'?'rgba(26,107,107,.06)':'#fff'};border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .15s">
+            <div style="font-size:24px;margin-bottom:6px">🛋️</div>
+            <div style="font-size:13px;font-weight:700">Köşe</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">Sakin & Gizli</div>
+          </div>
+          <div class="location-option ${reservationData.location==='orta'?'selected':''}" onclick="selectLocation('orta',this)" style="border:2px solid ${reservationData.location==='orta'?'var(--teal)':'#e5e5e5'};background:${reservationData.location==='orta'?'rgba(26,107,107,.06)':'#fff'};border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .15s">
+            <div style="font-size:24px;margin-bottom:6px">🍽️</div>
+            <div style="font-size:13px;font-weight:700">Orta</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">Merkezi</div>
+          </div>
+          <div class="location-option ${reservationData.location==='terrace'?'selected':''}" onclick="selectLocation('terrace',this)" style="border:2px solid ${reservationData.location==='terrace'?'var(--teal)':'#e5e5e5'};background:${reservationData.location==='terrace'?'rgba(26,107,107,.06)':'#fff'};border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .15s">
+            <div style="font-size:24px;margin-bottom:6px">🌿</div>
+            <div style="font-size:13px;font-weight:700">Teras</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">Açık Hava</div>
+          </div>
+        </div>
+      </div>
       <div style="display:flex;gap:10px;margin-top:8px">
         <button class="btn btn-teal" style="flex:1;padding:14px" onclick="if(!reservationData.date||!reservationData.time){alert('Lütfen tarih ve saat seçin!');return;}if(!reservationData.people)reservationData.people=2;nextStep()">Devam Et →</button>
       </div>`;
@@ -1952,6 +1976,7 @@ function renderStep(){
 
 function setDate(d,btn){reservationData.date=d;document.querySelectorAll('.form-group .btn-teal,.form-group .btn-outline').forEach(b=>{b.classList.remove('btn-teal');b.classList.add('btn-outline');});if(btn){btn.classList.remove('btn-outline');btn.classList.add('btn-teal');}}
 function changePeople(delta){let p=(reservationData.people||2)+delta;p=Math.max(1,Math.min(10,p));reservationData.people=p;document.getElementById('peopleVal').textContent=p;}
+function selectLocation(loc,el){reservationData.location=loc;document.querySelectorAll('.location-option').forEach(o=>{o.style.border='2px solid #e5e5e5';o.style.background='#fff';});el.style.border='2px solid var(--teal)';el.style.background='rgba(26,107,107,.06)';}
 function selectTable(n,el){reservationData.table=n;document.querySelectorAll('.table-circle:not(.occupied)').forEach(t=>t.classList.remove('selected'));el.classList.add('selected');}
 function toggleMenuItem(name,price,checked){if(checked){reservationData.preorderItems.push({name,price});}else{reservationData.preorderItems=reservationData.preorderItems.filter(x=>x.name!==name);}document.getElementById('preorderTotal').textContent='₺'+reservationData.preorderItems.reduce((s,x)=>s+x.price,0);}
 
@@ -2049,6 +2074,7 @@ function skipToSuccess(){
         <div class="success-detail-row"><span>Saat</span><span>${reservationData.time||''}</span></div>
         <div class="success-detail-row"><span>Kişi</span><span>${reservationData.people||2}</span></div>
         <div class="success-detail-row"><span>Masa</span><span>T${reservationData.table||'-'}</span></div>
+        ${reservationData.location?`<div class="success-detail-row"><span>Lokasyon</span><span>${{pencere:'🪟 Pencere',kose:'🛋️ Köşe',orta:'🍽️ Orta',terrace:'🌿 Teras'}[reservationData.location]||reservationData.location}</span></div>`:''}
       </div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <a href="https://wa.me/?text=${waText}" target="_blank" class="btn" style="background:#25D366;color:#fff;padding:12px 24px">💬 WhatsApp'ta Görüntüle</a>
@@ -3388,6 +3414,7 @@ function switchInstallTab(tab){
 </script>
 </body>
 </html>
+
 
 
 
