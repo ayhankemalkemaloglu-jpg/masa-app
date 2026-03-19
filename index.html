@@ -1803,7 +1803,7 @@ function renderStep(){
       </div>
       <div style="display:flex;gap:10px;margin-top:14px">
         <button class="btn btn-outline" style="padding:12px 20px" onclick="prevStep()">← Geri</button>
-        <button class="btn btn-teal" style="flex:1;padding:12px" onclick="saveSpecialReq();nextStep()">Ödemeye Geç →</button>
+        <button class="btn btn-teal" style="flex:1;padding:12px" onclick="if(reservationData.preorderItems.length===0){alert('⚠️ Lütfen en az bir ürün seçin!');return;}saveSpecialReq();nextStep()">Ödemeye Geç →</button>
       </div>`;
   }
 
@@ -1953,6 +1953,17 @@ function recalcWithPoints(baseTotal,curPoints){
 }
 
 function completePayment(){
+  // Validate payment method
+  if(reservationData.payMethod==='card'||!reservationData.payMethod){
+    const cardName=document.getElementById('cardName');
+    const cardNum=document.getElementById('cardNum');
+    const cardExpiry=document.getElementById('cardExpiry');
+    const cardCvv=document.getElementById('cardCvv');
+    if(!cardName||!cardName.value.trim()){alert('⚠️ Lütfen kart üzerindeki ismi girin!');return;}
+    if(!cardNum||cardNum.value.replace(/\s/g,'').length<16){alert('⚠️ Lütfen geçerli bir kart numarası girin!');return;}
+    if(!cardExpiry||cardExpiry.value.length<5){alert('⚠️ Lütfen son kullanma tarihini girin!');return;}
+    if(!cardCvv||cardCvv.value.length<3){alert('⚠️ Lütfen CVV kodunu girin!');return;}
+  }
   launchConfetti();
   // Award points: total spent = points earned
   const earned=reservationData.total||0;
