@@ -1532,6 +1532,87 @@ curl -X POST "https://api.masa.com.tr/v1/reservations" \
 </div>
 
 <!-- FOOTER -->
+<!-- ANA EKRANA EKLE BANNER -->
+<div style="background:linear-gradient(135deg,#0f4444,#1a6b6b);padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+  <div style="font-size:32px">📱</div>
+  <div style="flex:1;min-width:200px">
+    <div style="color:#fff;font-size:16px;font-weight:800;letter-spacing:-.3px">MASA'yı Ana Ekrana Ekle</div>
+    <div style="color:rgba(255,255,255,.7);font-size:13px;margin-top:3px">Uygulama gibi kullan — indirme yok, ücretsiz!</div>
+  </div>
+  <button onclick="document.getElementById('installGuideModal').style.display='flex'" style="background:#c9a84c;color:#1a1a1a;border:none;border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap">Nasıl Yapılır? →</button>
+</div>
+
+<!-- INSTALL GUIDE MODAL -->
+<div id="installGuideModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:9999;align-items:flex-end;justify-content:center;padding:16px">
+  <div style="background:#fff;border-radius:24px;width:100%;max-width:480px;padding:26px;box-shadow:0 -8px 60px rgba(0,0,0,.25)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div style="font-size:18px;font-weight:900;color:#0f4444">📱 Ana Ekrana Ekle</div>
+      <button onclick="document.getElementById('installGuideModal').style.display='none'" style="background:#f5f5f0;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:18px">
+      <button id="iBtnIos" onclick="switchIG('ios')" style="flex:1;padding:9px;border-radius:9px;border:none;background:#0f4444;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">🍎 iPhone / iPad</button>
+      <button id="iBtnAnd" onclick="switchIG('android')" style="flex:1;padding:9px;border-radius:9px;border:1.5px solid #e5e5e5;background:#fff;color:#666;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">🤖 Android</button>
+    </div>
+    <div id="igIos">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:12px;background:#f5f5f0;border-radius:12px;padding:13px">
+          <div style="width:34px;height:34px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0">1</div>
+          <div><div style="font-size:14px;font-weight:700">Safari'de bu sayfayı aç</div><div style="font-size:12px;color:#666;margin-top:1px">Başka tarayıcı varsa Safari'ye geç</div></div>
+          <div style="font-size:24px;margin-left:auto">🧭</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f5f5f0;border-radius:12px;padding:13px">
+          <div style="width:34px;height:34px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0">2</div>
+          <div><div style="font-size:14px;font-weight:700">Alttaki <b style="color:#0f4444">⬆️ Paylaş</b>'a bas</div><div style="font-size:12px;color:#666;margin-top:1px">Ekranın alt ortasındaki ok ikonu</div></div>
+          <div style="font-size:24px;margin-left:auto">⬆️</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f5f5f0;border-radius:12px;padding:13px">
+          <div style="width:34px;height:34px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0">3</div>
+          <div><div style="font-size:14px;font-weight:700"><b style="color:#0f4444">⊕ Ana Ekrana Ekle</b>'yi seç</div><div style="font-size:12px;color:#666;margin-top:1px">Aşağı kaydır, bul ve dokun</div></div>
+          <div style="font-size:24px;margin-left:auto">⊕</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f0fdf4;border-radius:12px;padding:13px;border:1px solid #86efac">
+          <div style="width:34px;height:34px;background:#c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1a1a1a;font-weight:800;font-size:14px;flex-shrink:0">4</div>
+          <div><div style="font-size:14px;font-weight:700">Sağ üstten <b style="color:#0f4444">Ekle</b>'ye bas</div><div style="font-size:12px;color:#666;margin-top:1px">MASA artık ana ekranında! 🎉</div></div>
+          <div style="font-size:24px;margin-left:auto">✅</div>
+        </div>
+      </div>
+    </div>
+    <div id="igAndroid" style="display:none">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:12px;background:#f5f5f0;border-radius:12px;padding:13px">
+          <div style="width:34px;height:34px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0">1</div>
+          <div><div style="font-size:14px;font-weight:700">Chrome'da bu sayfayı aç</div><div style="font-size:12px;color:#666;margin-top:1px">Chrome tarayıcısını kullan</div></div>
+          <div style="font-size:24px;margin-left:auto">🌐</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f5f5f0;border-radius:12px;padding:13px">
+          <div style="width:34px;height:34px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0">2</div>
+          <div><div style="font-size:14px;font-weight:700">Sağ üst <b style="color:#0f4444">⋮</b> menüsüne bas</div><div style="font-size:12px;color:#666;margin-top:1px">Üç nokta ikonuna dokun</div></div>
+          <div style="font-size:24px;margin-left:auto">⋮</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f5f5f0;border-radius:12px;padding:13px">
+          <div style="width:34px;height:34px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0">3</div>
+          <div><div style="font-size:14px;font-weight:700"><b style="color:#0f4444">Ana ekrana ekle</b>'yi seç</div><div style="font-size:12px;color:#666;margin-top:1px">Menüden bul ve dokun</div></div>
+          <div style="font-size:24px;margin-left:auto">📲</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f0fdf4;border-radius:12px;padding:13px;border:1px solid #86efac">
+          <div style="width:34px;height:34px;background:#c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1a1a1a;font-weight:800;font-size:14px;flex-shrink:0">4</div>
+          <div><div style="font-size:14px;font-weight:700"><b style="color:#0f4444">Ekle</b>'ye bas</div><div style="font-size:12px;color:#666;margin-top:1px">MASA artık ana ekranında! 🎉</div></div>
+          <div style="font-size:24px;margin-left:auto">✅</div>
+        </div>
+      </div>
+    </div>
+    <button onclick="document.getElementById('installGuideModal').style.display='none'" style="width:100%;margin-top:16px;padding:13px;background:#0f4444;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">Anladım ✓</button>
+  </div>
+</div>
+<script>
+function switchIG(tab){
+  document.getElementById('igIos').style.display=tab==='ios'?'block':'none';
+  document.getElementById('igAndroid').style.display=tab==='android'?'block':'none';
+  document.getElementById('iBtnIos').style.cssText='flex:1;padding:9px;border-radius:9px;border:'+(tab==='ios'?'none':'1.5px solid #e5e5e5')+';background:'+(tab==='ios'?'#0f4444':'#fff')+';color:'+(tab==='ios'?'#fff':'#666')+';font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif';
+  document.getElementById('iBtnAnd').style.cssText='flex:1;padding:9px;border-radius:9px;border:'+(tab==='android'?'none':'1.5px solid #e5e5e5')+';background:'+(tab==='android'?'#0f4444':'#fff')+';color:'+(tab==='android'?'#fff':'#666')+';font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif';
+}
+</script>
+
 <footer>
   <div class="footer-logo" id="footerLogoAdmin" onclick="adminClickHandler()">
     <div class="logo-mark" style="background:rgba(201,168,76,.2);color:var(--gold-light)">M</div>
