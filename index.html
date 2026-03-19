@@ -1649,7 +1649,9 @@ const restaurants = [
   {id:20,name:'Tuğra',neighborhood:'Çırağan',cuisine:'Ottoman Fine Dining',price:4,rating:4.9,reviews:654,emoji:'👑',desc:'Çırağan Sarayı\'nın efsanevi restoranı. 300 yıllık Osmanlı saray mutfağı gelenekleri yaşatılıyor.',gradient:'linear-gradient(135deg,#7f0000,#c9a84c)',times:['19:00','19:30','20:00','20:30'],menu:[{name:'Saraylı Mezeler',price:580},{name:'Osmanlı Dolması',price:380},{name:'Hükümdar Kebabı',price:920},{name:'Saray Baklavası',price:280},{name:'Osmanlı Şerbeti',price:120},{name:'Nargile Hizmeti',price:200}]}
 ];
 
+const API_URL = 'https://masa-api.ayhankemalkemaloglu.workers.dev';
 let currentFilter='all', currentPriceFilter=0, searchTerm='', currentRestaurant=null, currentStep=1, reservationData={}, adminClickCount=0, adminClickTimer=null;
+let dynamicRestaurants = []; // loaded from API or localStorage fallback
 
 // ===== WORKING HOURS =====
 const restaurantPhotos = {
@@ -1683,42 +1685,126 @@ function isRestaurantOpen(){
   return (mins>=720&&mins<900)||(mins>=1080&&mins<1380);
 }
 
+// ===== EMPTY STATE =====
+function showEmptyState(){
+  const grid=document.getElementById('restaurantGrid');
+  grid.innerHTML=`
+    <div style="grid-column:1/-1;text-align:center;padding:60px 20px">
+      <div style="font-size:56px;margin-bottom:16px">🍽️</div>
+      <div style="font-size:20px;font-weight:800;color:var(--teal-dark);margin-bottom:10px">Henüz restoran kayıtlı değil</div>
+      <div style="font-size:14px;color:var(--gray);max-width:400px;margin:0 auto;line-height:1.7">En iyi İstanbul restoranları çok yakında burada olacak. Takipte kalın! 🚀</div>
+    </div>`;
+  document.getElementById('resultsCount').textContent='0 restoran';
+}
+
+// ===== LOAD RESTAURANTS FROM API =====
+async function loadRestaurantsFromAPI(){
+  try {
+    const res = await fetch(API_URL+'/api/restaurants',{
+      method:'GET',
+      headers:{'Content-Type':'application/json'},
+      signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    if(Array.isArray(data) && data.length > 0){
+      dynamicRestaurants = data.map(mapApiRestaurant);
+      renderRestaurants();
+      return;
+    }
+  } catch(e){
+    console.log('API unavailable, trying localStorage fallback:', e.message);
+  }
+  // Fallback: localStorage
+  try {
+    const stored = localStorage.getItem('masaApprovedRestaurants');
+    if(stored){
+      const parsed = JSON.parse(stored);
+      if(Array.isArray(parsed) && parsed.length > 0){
+        dynamicRestaurants = parsed.map(mapApiRestaurant);
+        renderRestaurants();
+        return;
+      }
+    }
+  } catch(e2){ console.log('localStorage fallback failed:', e2); }
+  // Show empty state
+  showEmptyState();
+}
+
+// Map API restaurant format to display format
+function mapApiRestaurant(r){
+  const priceRangeSymbols={1:'₺',2:'₺₺',3:'₺₺₺'};
+  return {
+    id: r.id,
+    name: r.name||'',
+    neighborhood: r.neighborhood||'',
+    cuisine: r.cuisine||'',
+    price: r.priceRange||1,
+    priceSymbol: priceRangeSymbols[r.priceRange]||'₺',
+    rating: r.rating||0,
+    reviews: r.reviewCount||0,
+    emoji: '🍽️',
+    desc: r.description||'',
+    gradient: 'linear-gradient(135deg,var(--teal-dark),var(--teal))',
+    times: ['12:00','13:00','19:00','20:00','21:00'],
+    menu: [],
+    phone: r.phone||'',
+    openHours: r.openHours||'',
+    avgPrice: r.avgPrice||0,
+  };
+}
+
 // ===== RENDER =====
 function renderRestaurants(){
   const grid=document.getElementById('restaurantGrid');
-  const priceStr=r=>'₺'.repeat(r.price);
+  // If dynamic restaurants loaded from API, show them alongside static ones
+  // Static restaurants (hardcoded) always show as base content
+  const allRestaurants = [...restaurants];
+  for(const dr of dynamicRestaurants){
+    const exists = allRestaurants.find(r=>String(r.id)===String(dr.id));
+    if(!exists) allRestaurants.push(dr);
+  }
+  const priceStr=r=>{
+    if(r.priceSymbol) return r.priceSymbol;
+    return '₺'.repeat(r.price||1);
+  };
   const isOpen=isRestaurantOpen();
-  let filtered=restaurants.filter(r=>{
+  let filtered=allRestaurants.filter(r=>{
     const matchFilter=currentFilter==='all'||r.neighborhood===currentFilter;
     const matchPrice=currentPriceFilter===0||r.price===currentPriceFilter;
     const matchSearch=!searchTerm||r.name.toLowerCase().includes(searchTerm.toLowerCase())||r.neighborhood.toLowerCase().includes(searchTerm.toLowerCase())||r.cuisine.toLowerCase().includes(searchTerm.toLowerCase());
     return matchFilter&&matchPrice&&matchSearch;
   });
   document.getElementById('resultsCount').textContent=filtered.length+' restoran';
+  if(filtered.length===0){
+    showEmptyState();
+    return;
+  }
   const openBadge=isOpen?'<span class="open-badge">🟢 Açık</span>':'<span class="closed-badge">🔴 Kapalı</span>';
   grid.innerHTML=filtered.map(r=>{
-    const photo=restaurantPhotos[r.id]||'';
+    const photo=(restaurantPhotos&&restaurantPhotos[r.id])||'';
+    const price=priceStr(r);
     return `
-    <div class="rest-card" onclick="openDetail(${r.id})">
-      <div class="rest-card-img-bg" style="background-image:url('${photo}'),${r.gradient};background-color:${r.gradient}">
+    <div class="rest-card" onclick="openDetail('${r.id}')">
+      <div class="rest-card-img-bg" style="${photo?`background-image:url('${photo}'),`:''}${r.gradient};background-color:${r.gradient}">
         <span class="emoji-overlay"></span>
-        <div class="rest-badge">${priceStr(r)}</div>
+        <div class="rest-badge">${price}</div>
         <div class="status-overlay">${openBadge}</div>
       </div>
       <div class="rest-card-body">
         <div class="rest-card-name">${r.name}</div>
         <div class="rest-card-meta">
-          <span class="rest-card-rating">★ ${r.rating}</span>
-          <span>(${r.reviews.toLocaleString()})</span>
+          <span class="rest-card-rating">★ ${r.rating||'—'}</span>
+          ${r.reviews?`<span>(${(r.reviews||0).toLocaleString()})</span>`:''}
           <span>• ${r.neighborhood}</span>
         </div>
         <div class="rest-card-tags">
           <span class="tag">${r.cuisine}</span>
-          <span class="tag">${priceStr(r)}</span>
+          <span class="tag">${price}</span>
         </div>
         <div class="rest-card-footer">
           <span class="price-range">${r.neighborhood}</span>
-          <button class="rest-reserve-btn" ${!isOpen?'disabled title="Şu an kapalı"':''} onclick="event.stopPropagation();${isOpen?`openReserve(${r.id})`:'alert(\"Restoran şu an kapalıdır. Açılış: 12:00 veya 18:00\")'}">${isOpen?'Rezervasyon Yap':'🔴 Şu An Kapalı'}</button>
+          <button class="rest-reserve-btn" ${!isOpen?'disabled title="Şu an kapalı"':''} onclick="event.stopPropagation();${isOpen?`openReserve('${r.id}')`:'alert(\"Restoran şu an kapalıdır. Açılış: 12:00 veya 18:00\")'}">${isOpen?'Rezervasyon Yap':'🔴 Şu An Kapalı'}</button>
         </div>
       </div>
     </div>`;
@@ -1744,7 +1830,9 @@ function scrollToGrid(){document.getElementById('gridSection').scrollIntoView({b
 
 // ===== DETAIL MODAL =====
 function openDetail(id){
-  const r=restaurants.find(x=>x.id===id);
+  // Support both numeric (static) and string (API) ids
+  const allRestaurants=[...restaurants,...dynamicRestaurants];
+  const r=allRestaurants.find(x=>String(x.id)===String(id));
   currentRestaurant=r;
   document.getElementById('detailTitle').textContent=r.name;
   const today=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
@@ -1773,7 +1861,8 @@ function closeDetailIfOutside(e){if(e.target===document.getElementById('detailOv
 
 // ===== RESERVATION =====
 function openReserve(id){
-  const r=restaurants.find(x=>x.id===id);
+  const allRestaurants=[...restaurants,...dynamicRestaurants];
+  const r=allRestaurants.find(x=>String(x.id)===String(id));
   currentRestaurant=r;currentStep=1;reservationData={restaurantId:id,restaurantName:r.name,preorderItems:[],payMethod:'card'};
   document.getElementById('reserveRestName').textContent=r.name;
   updateStepBar();renderStep();
@@ -3281,7 +3370,9 @@ function updateDiscountBanners(){
 }
 
 // ===== INIT =====
+// Load restaurants: show static ones immediately + load dynamic from API
 renderRestaurants();
+loadRestaurantsFromAPI(); // will re-render with API restaurants merged in
 renderFlashDeals();
 updateCalculator();
 // Init chat
@@ -3411,6 +3502,7 @@ function switchInstallTab(tab){
   document.getElementById('tabAndroid').style.color=tab==='android'?'#fff':'#666';
   document.getElementById('tabAndroid').style.border=tab==='android'?'none':'1.5px solid #e5e5e5';
 }
+
 </script>
 </body>
 </html>
