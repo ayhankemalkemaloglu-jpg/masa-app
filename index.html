@@ -314,6 +314,66 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
 .footer-logo .logo-mark{background:rgba(255,255,255,.1)}
 .footer-logo .logo-text{color:#fff;font-size:17px}
 .footer-right{font-size:13px}
+/* REVENUE DASHBOARD */
+.rev-overlay{position:fixed;inset:0;z-index:1000;background:#f5f5f5;display:none;flex-direction:column}
+.rev-overlay.open{display:flex}
+.rev-section{display:none}
+.rev-section.active{display:block}
+.rev-bar-wrap{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.rev-bar-chart{display:flex;align-items:flex-end;gap:6px;height:120px;margin-bottom:28px}
+.rev-bar{background:var(--teal);border-radius:4px 4px 0 0;width:100%;position:relative;cursor:pointer;transition:opacity .2s;min-height:4px}
+.rev-bar:hover{opacity:.8}
+.rev-bar-val{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--teal);white-space:nowrap}
+.rev-bar-label{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--gray);white-space:nowrap}
+.rev-stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.rev-stat-val{font-size:22px;font-weight:900;color:var(--dark);letter-spacing:-1px}
+.rev-stat-change-pos{font-size:11px;font-weight:600;color:#10b981}
+.rev-stat-change-neg{font-size:11px;font-weight:600;color:#ef4444}
+.rev-stat-label{font-size:12px;color:var(--gray);margin-top:4px}
+.rev-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.rev-table th{background:var(--teal-dark);color:#fff;padding:11px 14px;font-size:11px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;user-select:none;transition:background .15s}
+.rev-table th:hover{background:var(--teal)}
+.rev-table td{padding:11px 14px;font-size:13px;border-bottom:1px solid #f5f5f5}
+.rev-table tr:last-child td{border-bottom:none}
+.rev-table tr:hover td{background:#fafafa}
+.rev-breakdown-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rev-breakdown-bar-track{flex:1;background:#f0f0f0;border-radius:6px;height:22px;overflow:hidden}
+.rev-breakdown-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:11px;font-weight:700;color:#fff;min-width:32px}
+.rev-chart-toggle{display:flex;gap:6px;margin-bottom:16px}
+.rev-toggle-btn{padding:6px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #e5e5e5;background:#fff;color:var(--gray);transition:all .15s}
+.rev-toggle-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+/* LIVE MONITOR */
+.api-log-box{background:#0f1117;border-radius:12px;overflow:hidden;max-height:320px;overflow-y:auto}
+.api-log-entry{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.06);font-size:11.5px;font-family:'Courier New',monospace;animation:logIn .3s ease}
+@keyframes logIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.api-log-entry:last-child{border-bottom:none}
+.api-status-200{color:#10b981;font-weight:800;min-width:36px}
+.api-status-404{color:#f59e0b;font-weight:800;min-width:36px}
+.api-status-500{color:#ef4444;font-weight:800;min-width:36px}
+.api-log-method{color:#60a5fa;font-weight:700;min-width:44px}
+.api-log-path{color:#e8c46a;flex:1}
+.api-log-time{color:#6b7280;min-width:50px;text-align:right}
+.api-log-ts{color:#4b5563;font-size:10px;min-width:70px;text-align:right}
+.live-counter-box{background:#fff;border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,.06);margin-bottom:16px}
+.live-counter-num{font-size:42px;font-weight:900;color:var(--teal);letter-spacing:-2px}
+.live-pulse{display:inline-block;width:10px;height:10px;border-radius:50%;background:#10b981;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+/* SDK */
+.code-block-wrap{background:#1a1a2e;border-radius:12px;overflow:hidden;margin-bottom:16px}
+.code-block-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.08)}
+.code-lang-badge{font-size:11px;font-weight:700;color:#e8c46a;text-transform:uppercase;letter-spacing:.5px}
+.code-copy-btn{background:rgba(201,168,76,.2);color:var(--gold-light);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s}
+.code-copy-btn:hover{background:rgba(201,168,76,.4)}
+.code-content{padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.7;color:#e8f4f8;overflow-x:auto;white-space:pre}
+/* STATUS PAYOUT */
+.status-paid{background:#d1fae5;color:#065f46}
+.status-waiting{background:#fef3c7;color:#92400e}
+.status-cancelled-rev{background:#fee2e2;color:#991b1b}
+/* REVENUE QUICK WIDGET */
+.rev-mini-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 8px}
+.rev-mini-card{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;border-radius:12px;padding:14px}
+.rev-mini-val{font-size:18px;font-weight:900;letter-spacing:-0.5px}
+.rev-mini-label{font-size:11px;opacity:.75;margin-top:3px}
 /* RESPONSIVE */
 @media(max-width:768px){nav{padding:12px 16px}.nav-search,.nav-actions .btn-outline{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:32px}.hero-search{flex-direction:column;border-radius:14px}.hero-search input,.hero-search select,.hero-search button{border:none;border-radius:0;padding:14px 16px}.hero-stats{gap:20px}.filters-bar{padding:12px 16px}.grid-section{padding:24px 16px}.restaurant-grid{grid-template-columns:1fr 1fr}.stat-cards{grid-template-columns:1fr 1fr}.admin-sidebar{display:none}footer{flex-direction:column;gap:12px;padding:28px 16px;text-align:center}}
 </style>
@@ -337,6 +397,7 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
       <div class="nav-avatar" id="navAvatar" onclick="openProfile()"></div>
       <span class="nav-user-name" id="navUserName" onclick="openProfile()"></span>
       <button class="btn btn-outline" id="ownerPanelBtn" style="display:none" onclick="openOwnerPanel()">🍽️ Restoran Panelim</button>
+      <button class="btn btn-outline" id="gelirlerNavBtn" style="display:none" onclick="openRevDashboard()">💰 Gelirler</button>
     </div>
   </div>
 </nav>
@@ -455,6 +516,7 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
       <div class="admin-nav-item" onclick="showAdminPage('reservations',this)">📅 Rezervasyonlar</div>
       <div class="admin-nav-item" onclick="showAdminPage('restaurants',this)">🍽️ Restoranlar</div>
       <div class="admin-nav-item" onclick="showAdminPage('users',this)">👥 Kullanıcılar</div>
+      <div class="admin-nav-item" onclick="openRevDashboard()" style="border-top:1px solid rgba(255,255,255,.1);margin-top:8px;padding-top:14px">💰 Gelirler</div>
     </div>
     <div class="admin-content">
       <!-- OVERVIEW -->
@@ -470,6 +532,27 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
           <div class="chart-title">Son 7 Gün — Rezervasyon</div>
           <div class="bar-chart" id="barChart"></div>
           <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap" id="barLabels"></div>
+        </div>
+        <!-- REVENUE QUICK WIDGET -->
+        <div class="chart-section" style="border-left:4px solid var(--gold)">
+          <div class="chart-title">💰 Bu Ay Gelir Özeti</div>
+          <div class="rev-mini-cards">
+            <div class="rev-mini-card">
+              <div class="rev-mini-val">₺184,500</div>
+              <div class="rev-mini-label">Brüt Gelir</div>
+            </div>
+            <div class="rev-mini-card" style="background:linear-gradient(135deg,#7b5e1a,var(--gold))">
+              <div class="rev-mini-val">₺14,760</div>
+              <div class="rev-mini-label">Komisyon (%8)</div>
+            </div>
+            <div class="rev-mini-card" style="background:linear-gradient(135deg,#0f4444,#1a8585)">
+              <div class="rev-mini-val">₺168,140</div>
+              <div class="rev-mini-label">Net Kâr</div>
+            </div>
+          </div>
+          <div style="text-align:right;margin-top:8px">
+            <a href="#" onclick="openRevDashboard();return false;" style="color:var(--teal);font-size:13px;font-weight:700;text-decoration:none">Detaylı Rapor →</a>
+          </div>
         </div>
       </div>
       <!-- RESERVATIONS -->
@@ -755,6 +838,8 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
     <div class="admin-sidebar">
       <div class="admin-nav-item active" onclick="showDevPage('apikeys',this)">🔑 API Anahtarları</div>
       <div class="admin-nav-item" onclick="showDevPage('stats',this)">📊 İstatistikler</div>
+      <div class="admin-nav-item" onclick="showDevPage('live',this)">📡 Canlı İzleme</div>
+      <div class="admin-nav-item" onclick="showDevPage('sdk',this)">📦 SDK & Entegrasyon</div>
       <div class="admin-nav-item" onclick="showDevPage('webhooks',this)">🔗 Webhook Ayarları</div>
       <div class="admin-nav-item" onclick="showDevPage('docs',this)">📄 Dokümantasyon</div>
     </div>
@@ -800,6 +885,132 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
           <div class="chart-title">Son 7 Gün — Günlük Çağrı Sayısı</div>
           <div class="bar-chart" id="devBarChart"></div>
           <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap" id="devBarLabels"></div>
+        </div>
+      </div>
+      <!-- LIVE MONITOR -->
+      <div class="dev-page" id="devLivePage">
+        <div class="admin-title">📡 Canlı İzleme</div>
+        <div class="live-counter-box">
+          <div>
+            <div style="font-size:13px;color:var(--gray);font-weight:600;margin-bottom:4px">Toplam API Çağrısı <span class="live-pulse"></span></div>
+            <div class="live-counter-num" id="liveCallCount">48,291</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:12px;color:var(--gray);margin-bottom:4px">Ort. Yanıt</div>
+            <div style="font-size:22px;font-weight:800;color:var(--teal)" id="liveAvgResp">124ms</div>
+            <div style="font-size:11px;color:#10b981;margin-top:2px">↑ Canlı</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title" style="display:flex;align-items:center;gap:8px">
+            Son API Çağrıları
+            <span class="live-pulse"></span>
+            <span style="font-size:11px;color:var(--gray);font-weight:400">Her 3 saniyede otomatik güncellenir</span>
+          </div>
+          <div class="api-log-box" id="apiLogBox">
+            <div style="padding:20px;text-align:center;color:#4b5563;font-size:13px">Yükleniyor...</div>
+          </div>
+        </div>
+      </div>
+      <!-- SDK & ENTEGRASYON -->
+      <div class="dev-page" id="devSdkPage">
+        <div class="admin-title">📦 SDK & Entegrasyon</div>
+        <div class="chart-section">
+          <div class="chart-title">⚙️ Kurulum</div>
+          <div style="font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:16px">MASA API'sini projenize entegre etmek için aşağıdaki adımları izleyin. API anahtarınızı <b>API Anahtarları</b> bölümünden alabilirsiniz.</div>
+          <div class="code-block-wrap">
+            <div class="code-block-header">
+              <span class="code-lang-badge">npm / yarn</span>
+              <button class="code-copy-btn" onclick="copyCodeBlock('sdkInstallCode')">📋 Kopyala</button>
+            </div>
+            <div class="code-content" id="sdkInstallCode">npm install @masa/api-client
+# ya da
+yarn add @masa/api-client</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">JavaScript / Node.js</div>
+          <div class="code-block-wrap">
+            <div class="code-block-header">
+              <span class="code-lang-badge">JavaScript</span>
+              <button class="code-copy-btn" onclick="copyCodeBlock('sdkJsCode')">📋 Kopyala</button>
+            </div>
+            <div class="code-content" id="sdkJsCode">import MasaClient from '@masa/api-client';
+
+const masa = new MasaClient({
+  apiKey: 'masa_live_sk_k8Rp2xLmQnV4wZ9cYuDjHbT3'
+});
+
+// Restoranları listele
+const restaurants = await masa.restaurants.list({
+  neighborhood: 'Beşiktaş',
+  cuisine: 'Steakhouse'
+});
+
+// Rezervasyon oluştur
+const reservation = await masa.reservations.create({
+  restaurantId: 1,
+  date: '2026-03-25',
+  time: '20:00',
+  people: 2,
+  tableId: 5
+});
+
+console.log('Rezervasyon:', reservation.id);</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">Python</div>
+          <div class="code-block-wrap">
+            <div class="code-block-header">
+              <span class="code-lang-badge">Python</span>
+              <button class="code-copy-btn" onclick="copyCodeBlock('sdkPyCode')">📋 Kopyala</button>
+            </div>
+            <div class="code-content" id="sdkPyCode">pip install masa-python
+
+# ---
+import masa
+
+client = masa.Client(api_key="masa_live_sk_k8Rp2xLmQnV4wZ9cYuDjHbT3")
+
+# Restoranları listele
+restaurants = client.restaurants.list(neighborhood="Beşiktaş")
+
+# Rezervasyon oluştur
+reservation = client.reservations.create(
+    restaurant_id=1,
+    date="2026-03-25",
+    time="20:00",
+    people=2,
+    table_id=5
+)
+print(f"Rezervasyon ID: {reservation.id}")</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">cURL</div>
+          <div class="code-block-wrap">
+            <div class="code-block-header">
+              <span class="code-lang-badge">cURL</span>
+              <button class="code-copy-btn" onclick="copyCodeBlock('sdkCurlCode')">📋 Kopyala</button>
+            </div>
+            <div class="code-content" id="sdkCurlCode"># Restoranları listele
+curl -X GET "https://api.masa.com.tr/v1/restaurants?neighborhood=Beşiktaş" \
+  -H "Authorization: Bearer masa_live_sk_k8Rp2xLmQnV4wZ9cYuDjHbT3" \
+  -H "Content-Type: application/json"
+
+# Rezervasyon oluştur
+curl -X POST "https://api.masa.com.tr/v1/reservations" \
+  -H "Authorization: Bearer masa_live_sk_k8Rp2xLmQnV4wZ9cYuDjHbT3" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "restaurantId": 1,
+    "date": "2026-03-25",
+    "time": "20:00",
+    "people": 2,
+    "tableId": 5
+  }'</div>
+          </div>
         </div>
       </div>
       <!-- WEBHOOKS -->
@@ -866,6 +1077,198 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
           <div style="font-size:12px;color:var(--gray);margin-top:8px">Her istekte Authorization header gönderilmelidir.</div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVENUE DASHBOARD -->
+<div class="rev-overlay" id="revOverlay">
+  <div class="admin-topbar">
+    <div class="admin-logo">💰 Gelir Dashboard</div>
+    <button class="admin-close-btn" onclick="closeRevDashboard()">✕ Kapat</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" onclick="showRevSection('overview',this)">📊 Genel Bakış</div>
+      <div class="admin-nav-item" onclick="showRevSection('chart',this)">📈 Gelir Grafiği</div>
+      <div class="admin-nav-item" onclick="showRevSection('byrest',this)">🍽️ Restoran Bazlı</div>
+      <div class="admin-nav-item" onclick="showRevSection('profit',this)">💹 Gider & Kâr</div>
+      <div class="admin-nav-item" onclick="showRevSection('payouts',this)">💳 Ödemeler</div>
+    </div>
+    <div class="admin-content">
+
+      <!-- GENEL BAKIŞ -->
+      <div class="rev-section active" id="revOverviewSection">
+        <div class="admin-title">📊 Genel Bakış</div>
+        <div class="stat-cards" style="grid-template-columns:repeat(4,1fr)">
+          <div class="stat-card">
+            <div class="stat-card-val">₺12,450</div>
+            <div class="stat-card-change rev-stat-change-pos">+14% ↑ dün'e göre</div>
+            <div class="stat-card-label">Bugün Geliri</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val">₺84,300</div>
+            <div class="stat-card-change rev-stat-change-pos">+9% ↑ geçen haftaya</div>
+            <div class="stat-card-label">Bu Hafta</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val">₺184,500</div>
+            <div class="stat-card-change rev-stat-change-pos">+15% ↑ geçen aya</div>
+            <div class="stat-card-label">Bu Ay</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val">₺1,240,000</div>
+            <div class="stat-card-change rev-stat-change-pos">+28% ↑ geçen yıla</div>
+            <div class="stat-card-label">Yıllık</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">💰 Gelir Kırılımı</div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:160px">Komisyon %8</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:57%;background:var(--teal)">₺14,760</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--teal);min-width:80px;text-align:right">57%</div>
+          </div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:160px">Premium Üyelik</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:32%;background:var(--gold)">₺8,200</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--gold);min-width:80px;text-align:right">32%</div>
+          </div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:160px">Reklam Geliri</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:13%;background:#8b5cf6">₺3,400</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#8b5cf6;min-width:80px;text-align:right">13%</div>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f0;display:flex;justify-content:space-between;font-weight:700;font-size:14px">
+            <span>Toplam Bu Ay</span><span style="color:var(--teal)">₺26,360</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GELİR GRAFİĞİ -->
+      <div class="rev-section" id="revChartSection">
+        <div class="admin-title">📈 Gelir Grafiği</div>
+        <div class="rev-chart-toggle">
+          <button class="rev-toggle-btn active" onclick="switchRevChart('daily',this)">Günlük</button>
+          <button class="rev-toggle-btn" onclick="switchRevChart('weekly',this)">Haftalık</button>
+          <button class="rev-toggle-btn" onclick="switchRevChart('monthly',this)">Aylık</button>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title" id="revChartTitle">Günlük — Bu Hafta</div>
+          <div class="rev-bar-chart" id="revBarChart" style="height:160px;align-items:flex-end;gap:10px;display:flex"></div>
+          <div style="display:flex;gap:0;margin-top:28px" id="revBarLabels"></div>
+        </div>
+      </div>
+
+      <!-- RESTORAN BAZLI -->
+      <div class="rev-section" id="revByrestSection">
+        <div class="admin-title">🍽️ Restoran Bazlı Gelir (Top 10)</div>
+        <div style="overflow-x:auto">
+          <table class="rev-table" id="revRestTable">
+            <thead>
+              <tr>
+                <th onclick="sortRevTable(0)">#</th>
+                <th onclick="sortRevTable(1)">Restoran ↕</th>
+                <th onclick="sortRevTable(2)">Rezervasyon ↕</th>
+                <th onclick="sortRevTable(3)">Komisyon ↕</th>
+                <th onclick="sortRevTable(4)">Ort. Sipariş ↕</th>
+              </tr>
+            </thead>
+            <tbody id="revRestTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- GİDER & KÂR -->
+      <div class="rev-section" id="revProfitSection">
+        <div class="admin-title">💹 Gider & Kâr Analizi</div>
+        <div class="stat-cards" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+          <div class="stat-card">
+            <div class="stat-card-val" style="color:var(--teal)">₺26,360</div>
+            <div class="stat-card-change rev-stat-change-pos">+15% ↑</div>
+            <div class="stat-card-label">Toplam Gelir (Bu Ay)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val" style="color:#ef4444">₺15,900</div>
+            <div class="stat-card-change rev-stat-change-neg">+8% ↑ gider</div>
+            <div class="stat-card-label">Toplam Gider (Bu Ay)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val" style="color:#10b981">₺10,460</div>
+            <div class="stat-card-change rev-stat-change-pos">+24% ↑</div>
+            <div class="stat-card-label">Net Kâr — %39.7 marjı</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">📋 Gider Kırılımı</div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:180px">🖥️ Sunucu Maliyeti</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:15%;background:#ef4444">₺2,400</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#ef4444;min-width:70px;text-align:right">15%</div>
+          </div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:180px">📣 Pazarlama</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:53%;background:#f59e0b">₺8,500</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#f59e0b;min-width:70px;text-align:right">53%</div>
+          </div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:180px">🎧 Destek</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:20%;background:#8b5cf6">₺3,200</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#8b5cf6;min-width:70px;text-align:right">20%</div>
+          </div>
+          <div class="rev-breakdown-row">
+            <div style="font-size:13px;font-weight:700;min-width:180px">📦 Diğer</div>
+            <div class="rev-breakdown-bar-track">
+              <div class="rev-breakdown-bar-fill" style="width:11%;background:#6b7280">₺1,800</div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#6b7280;min-width:70px;text-align:right">11%</div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-title">📅 Aylık Karşılaştırma</div>
+          <table class="rev-table">
+            <thead><tr><th>Ay</th><th>Gelir</th><th>Gider</th><th>Net Kâr</th><th>Marj</th></tr></thead>
+            <tbody>
+              <tr><td><b>Mart 2026</b></td><td style="color:var(--teal);font-weight:700">₺26,360</td><td style="color:#ef4444;font-weight:700">₺15,900</td><td style="color:#10b981;font-weight:700">₺10,460</td><td><span style="background:#d1fae5;color:#065f46;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">39.7%</span></td></tr>
+              <tr><td>Şubat 2026</td><td style="color:var(--teal)">₺22,900</td><td style="color:#ef4444">₺14,200</td><td style="color:#10b981">₺8,700</td><td><span style="background:#d1fae5;color:#065f46;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">38.0%</span></td></tr>
+              <tr><td>Ocak 2026</td><td style="color:var(--teal)">₺19,400</td><td style="color:#ef4444">₺13,500</td><td style="color:#10b981">₺5,900</td><td><span style="background:#fef3c7;color:#92400e;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">30.4%</span></td></tr>
+              <tr><td>Aralık 2025</td><td style="color:var(--teal)">₺31,200</td><td style="color:#ef4444">₺18,400</td><td style="color:#10b981">₺12,800</td><td><span style="background:#d1fae5;color:#065f46;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">41.0%</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ÖDEMELER -->
+      <div class="rev-section" id="revPayoutsSection">
+        <div class="admin-title">💳 Ödemeler</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+          <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:#92400e">
+            ⏳ Bekleyen Ödemeler: <span style="font-size:18px;font-weight:900">₺4,280</span>
+          </div>
+          <button class="btn btn-teal" onclick="payAllPending()">💸 Tüm Bekleyenleri Öde</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="rev-table" id="revPayoutTable">
+            <thead>
+              <tr><th>Tarih</th><th>Restoran</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr>
+            </thead>
+            <tbody id="revPayoutTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1289,6 +1692,11 @@ function updateNavForUser(user){
   if(user.role==='restoran'){
     document.getElementById('ownerPanelBtn').style.display='block';
   }
+  // Show Gelirler for admin users (any logged-in user for demo)
+  document.getElementById('gelirlerNavBtn').style.display='block';
+}
+function doLogoutExtra(){
+  document.getElementById('gelirlerNavBtn').style.display='none';
 }
 function doLogout(){
   if(!confirm('Çıkış yapmak istediğinizden emin misiniz?'))return;
@@ -1296,6 +1704,7 @@ function doLogout(){
   document.getElementById('loginBtn').style.display='';
   document.getElementById('navUser').style.display='none';
   document.getElementById('ownerPanelBtn').style.display='none';
+  document.getElementById('gelirlerNavBtn').style.display='none';
   closeProfile();
 }
 
@@ -1488,18 +1897,242 @@ function deleteMenuOwner(i){
   renderOwnerMenu();
 }
 
+// ===== REVENUE DASHBOARD =====
+function openRevDashboard(){
+  renderRevData();
+  document.getElementById('revOverlay').classList.add('open');
+}
+function closeRevDashboard(){document.getElementById('revOverlay').classList.remove('open');}
+function showRevSection(section,btn){
+  document.querySelectorAll('.rev-section').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#revOverlay .admin-nav-item').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('rev'+section.charAt(0).toUpperCase()+section.slice(1)+'Section');
+  if(el)el.classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(section==='chart')renderRevChart('daily');
+  if(section==='byrest')renderRevRestTable();
+  if(section==='payouts')renderRevPayouts();
+}
+
+const revRestData=[
+  {name:'Nusr-Et Beşiktaş',reservations:142,commission:3204,avgOrder:2258},
+  {name:'Mikla',reservations:128,commission:2880,avgOrder:2250},
+  {name:'Tuğra',reservations:98,commission:2940,avgOrder:3000},
+  {name:'Mürver',reservations:114,commission:2166,avgOrder:1900},
+  {name:'Nicole Restaurant',reservations:87,commission:2088,avgOrder:2400},
+  {name:'Sunset Grill',reservations:103,commission:1854,avgOrder:1800},
+  {name:'Poseidon',reservations:119,commission:1785,avgOrder:1500},
+  {name:'Balıkçı Sabahattin',reservations:134,commission:1608,avgOrder:1200},
+  {name:'Neolokal',reservations:76,commission:1368,avgOrder:1800},
+  {name:'Vogue',reservations:95,commission:1140,avgOrder:1200},
+];
+let revSortCol=3, revSortAsc=false;
+
+function renderRevData(){
+  // Always render overview items (stat cards already static HTML)
+  renderRevRestTable();
+  renderRevPayouts();
+}
+
+function sortRevTable(col){
+  if(revSortCol===col)revSortAsc=!revSortAsc;
+  else{revSortCol=col;revSortAsc=col===0||col===1;}
+  renderRevRestTable();
+}
+
+function renderRevRestTable(){
+  const data=[...revRestData];
+  data.sort((a,b)=>{
+    const keys=[null,'name','reservations','commission','avgOrder'];
+    if(revSortCol===0)return revSortAsc?revRestData.indexOf(a)-revRestData.indexOf(b):revRestData.indexOf(b)-revRestData.indexOf(a);
+    const k=keys[revSortCol];
+    if(typeof a[k]==='string')return revSortAsc?a[k].localeCompare(b[k]):b[k].localeCompare(a[k]);
+    return revSortAsc?a[k]-b[k]:b[k]-a[k];
+  });
+  const tbody=document.getElementById('revRestTbody');
+  if(!tbody)return;
+  tbody.innerHTML=data.map((r,i)=>`
+    <tr>
+      <td style="font-weight:700;color:var(--gray)">${i+1}</td>
+      <td style="font-weight:700">${r.name}</td>
+      <td>${r.reservations}</td>
+      <td style="color:var(--teal);font-weight:700">₺${r.commission.toLocaleString('tr-TR')}</td>
+      <td>₺${r.avgOrder.toLocaleString('tr-TR')}</td>
+    </tr>`).join('');
+}
+
+let revChartMode='daily';
+function switchRevChart(mode,btn){
+  revChartMode=mode;
+  document.querySelectorAll('.rev-toggle-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  renderRevChart(mode);
+}
+
+function renderRevChart(mode){
+  const chart=document.getElementById('revBarChart');
+  const labels=document.getElementById('revBarLabels');
+  const title=document.getElementById('revChartTitle');
+  if(!chart)return;
+  let data, labelArr, titleText;
+  if(mode==='daily'){
+    data=[8200,9400,11200,10800,12450,13800,10600];
+    labelArr=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+    titleText='Günlük — Bu Hafta (₺)';
+  } else if(mode==='weekly'){
+    data=[68000,72400,79800,84300];
+    labelArr=['Hafta 1','Hafta 2','Hafta 3','Bu Hafta'];
+    titleText='Haftalık — Mart 2026 (₺)';
+  } else {
+    data=[156000,164000,184500];
+    labelArr=['Ocak','Şubat','Mart'];
+    titleText='Aylık — 2026 (₺)';
+  }
+  if(title)title.textContent=titleText;
+  const maxVal=Math.max(...data);
+  chart.innerHTML=data.map((v,i)=>`
+    <div class="rev-bar-wrap">
+      <div class="rev-bar" style="height:${Math.max((v/maxVal)*100,4)}%" title="₺${v.toLocaleString('tr-TR')}">
+        <span class="rev-bar-val">₺${(v/1000).toFixed(0)}k</span>
+        <span class="rev-bar-label">${labelArr[i]}</span>
+      </div>
+    </div>`).join('');
+  if(labels)labels.innerHTML=labelArr.map(l=>`<span style="flex:1;text-align:center;font-size:10px;color:var(--gray)">${l}</span>`).join('');
+}
+
+const revPayoutData=[
+  {date:'18.03.2026',restaurant:'Nusr-Et Beşiktaş',amount:3204,status:'pending'},
+  {date:'18.03.2026',restaurant:'Mikla',amount:2880,status:'pending'},
+  {date:'15.03.2026',restaurant:'Tuğra',amount:2940,status:'paid'},
+  {date:'15.03.2026',restaurant:'Mürver',amount:2166,status:'paid'},
+  {date:'12.03.2026',restaurant:'Nicole Restaurant',amount:2088,status:'paid'},
+  {date:'10.03.2026',restaurant:'Sunset Grill',amount:1854,status:'cancelled'},
+  {date:'10.03.2026',restaurant:'Poseidon',amount:1785,status:'paid'},
+  {date:'08.03.2026',restaurant:'Balıkçı Sabahattin',amount:1608,status:'paid'},
+  {date:'05.03.2026',restaurant:'Neolokal',amount:1368,status:'paid'},
+  {date:'01.03.2026',restaurant:'Vogue',amount:1140,status:'paid'},
+];
+
+function renderRevPayouts(){
+  const tbody=document.getElementById('revPayoutTbody');
+  if(!tbody)return;
+  tbody.innerHTML=revPayoutData.map((p,i)=>{
+    const statusMap={paid:{cls:'status-paid',label:'✅ Ödendi'},pending:{cls:'status-waiting',label:'⏳ Bekliyor'},cancelled:{cls:'status-cancelled-rev',label:'❌ İptal'}};
+    const s=statusMap[p.status]||statusMap.paid;
+    return `<tr>
+      <td>${p.date}</td>
+      <td style="font-weight:600">${p.restaurant}</td>
+      <td style="font-weight:700;color:var(--teal)">₺${p.amount.toLocaleString('tr-TR')}</td>
+      <td><span class="status-badge ${s.cls}">${s.label}</span></td>
+      <td>${p.status==='pending'?`<button class="btn btn-teal" style="padding:5px 12px;font-size:12px" onclick="payPayout(${i})">Ödeme Yap</button>`:'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function payPayout(i){
+  revPayoutData[i].status='paid';
+  renderRevPayouts();
+  // update pending total display
+  const pending=revPayoutData.filter(p=>p.status==='pending').reduce((s,p)=>s+p.amount,0);
+  const box=document.querySelector('#revPayoutsSection .admin-body .chart-section,#revPayoutsSection [style*="bekleyen"]');
+  // find and update the pending display
+  const pendingSpan=document.querySelector('#revPayoutsSection span[style*="font-size:18px"]');
+  if(pendingSpan)pendingSpan.textContent='₺'+pending.toLocaleString('tr-TR');
+}
+
+function payAllPending(){
+  revPayoutData.forEach(p=>{if(p.status==='pending')p.status='paid';});
+  renderRevPayouts();
+  const pendingSpan=document.querySelector('#revPayoutsSection span[style*="font-size:18px"]');
+  if(pendingSpan)pendingSpan.textContent='₺0';
+  alert('Tüm bekleyen ödemeler tamamlandı! ✅');
+}
+
 // ===== DEV DASHBOARD =====
 function openDevDashboard(){
   renderDevStats();
   document.getElementById('devOverlay').classList.add('open');
 }
 function closeDevDashboard(){document.getElementById('devOverlay').classList.remove('open');}
+
+// Live monitor state
+let liveCallCounter=48291;
+let liveMonitorInterval=null;
+const liveEndpoints=['/api/restaurants','/api/reservations','/api/menu/:id','/api/restaurants/:id','/api/reservations/:id','/api/users/:id/profile','/api/availability'];
+const liveMethods=['GET','GET','GET','GET','POST','GET','DELETE'];
+const liveStatuses=[200,200,200,200,200,404,500];
+let liveLogEntries=[];
+
+function getRandomEntry(){
+  const idx=Math.floor(Math.random()*liveEndpoints.length);
+  const statuses=[200,200,200,200,200,404,500];
+  const status=statuses[Math.floor(Math.random()*statuses.length)];
+  const methods=['GET','GET','GET','POST','DELETE'];
+  const method=methods[Math.floor(Math.random()*methods.length)];
+  const respTime=Math.floor(Math.random()*200)+50;
+  const now=new Date();
+  const ts=now.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  return {method,endpoint:liveEndpoints[idx],status,respTime,ts};
+}
+
+function renderLiveLog(){
+  const box=document.getElementById('apiLogBox');
+  if(!box)return;
+  if(!liveLogEntries.length){box.innerHTML='<div style="padding:20px;text-align:center;color:#4b5563;font-size:13px">İzleme başlıyor...</div>';return;}
+  box.innerHTML=[...liveLogEntries].reverse().map(e=>{
+    const sc=e.status===200?'api-status-200':e.status===404?'api-status-404':'api-status-500';
+    return `<div class="api-log-entry">
+      <span class="${sc}">${e.status}</span>
+      <span class="api-log-method">${e.method}</span>
+      <span class="api-log-path">${e.endpoint}</span>
+      <span class="api-log-time">${e.respTime}ms</span>
+      <span class="api-log-ts">${e.ts}</span>
+    </div>`;
+  }).join('');
+}
+
+function startLiveMonitor(){
+  if(liveMonitorInterval)return;
+  // add initial entries
+  for(let i=0;i<5;i++)liveLogEntries.push(getRandomEntry());
+  renderLiveLog();
+  liveMonitorInterval=setInterval(()=>{
+    liveCallCounter+=Math.floor(Math.random()*3)+1;
+    const el=document.getElementById('liveCallCount');
+    if(el)el.textContent=liveCallCounter.toLocaleString('tr-TR');
+    // avg response
+    const avgEl=document.getElementById('liveAvgResp');
+    if(avgEl)avgEl.textContent=(Math.floor(Math.random()*60)+90)+'ms';
+    // add new log entry
+    liveLogEntries.push(getRandomEntry());
+    if(liveLogEntries.length>10)liveLogEntries.shift();
+    // only render if page visible
+    if(document.getElementById('devLivePage')&&document.getElementById('devLivePage').classList.contains('active')){
+      renderLiveLog();
+    }
+  },2500);
+}
+
 function showDevPage(page,btn){
   document.querySelectorAll('.dev-page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('#devOverlay .admin-nav-item').forEach(b=>b.classList.remove('active'));
   const el=document.getElementById('dev'+page.charAt(0).toUpperCase()+page.slice(1)+'Page');
   if(el)el.classList.add('active');
   if(btn)btn.classList.add('active');
+  if(page==='live')startLiveMonitor();
+}
+function copyCodeBlock(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const text=el.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=el.closest('.code-block-wrap').querySelector('.code-copy-btn');
+    if(btn){const old=btn.textContent;btn.textContent='✅ Kopyalandı!';setTimeout(()=>btn.textContent=old,1500);}
+  }).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    const btn=el.closest('.code-block-wrap').querySelector('.code-copy-btn');
+    if(btn){const old=btn.textContent;btn.textContent='✅ Kopyalandı!';setTimeout(()=>btn.textContent=old,1500);}
+  });
 }
 function renderDevStats(){
   const days=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
