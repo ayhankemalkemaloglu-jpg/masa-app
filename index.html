@@ -1884,7 +1884,7 @@ function renderStep(){
       </div>
       <div style="display:flex;gap:10px;margin-top:14px">
         <button class="btn btn-outline" style="padding:12px 20px" onclick="prevStep()">← Geri</button>
-        <button class="btn btn-teal" style="flex:1;padding:12px" onclick="saveSpecialReq();nextStep()">Ödemeye Geç →</button>
+        <button class="btn btn-teal" style="flex:1;padding:12px" onclick="saveSpecialReq();if(reservationData.preorderItems.length===0){skipToSuccess();}else{nextStep();}">Devam Et →</button>
       </div>`;
   }
 
@@ -2031,6 +2031,31 @@ function recalcWithPoints(baseTotal,curPoints){
   reservationData.total=newTotal;
   const el=document.getElementById('finalTotalDisplay');
   if(el)el.textContent='₺'+newTotal;
+}
+
+function skipToSuccess(){
+  // Skip payment, go directly to success screen
+  launchConfetti();
+  const r=currentRestaurant;
+  const waText=encodeURIComponent('✅ Rezervasyon Onaylandı!\n\nRestoran: '+r.name+'\nTarih: '+(reservationData.date||'')+' '+(reservationData.time||'')+'\nKişi: '+(reservationData.people||2)+'\nMasa: T'+(reservationData.table||'-')+'\n\nMASA uygulaması ile rezervasyon yapıldı.');
+  document.getElementById('reserveContent').innerHTML=`
+    <div class="success-screen">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Rezervasyon Onaylandı!</div>
+      <div class="success-subtitle">Rezervasyonunuz başarıyla oluşturuldu 🎉</div>
+      <div class="success-details">
+        <div class="success-detail-row"><span>Restoran</span><span>${r.name}</span></div>
+        <div class="success-detail-row"><span>Tarih</span><span>${reservationData.date||''}</span></div>
+        <div class="success-detail-row"><span>Saat</span><span>${reservationData.time||''}</span></div>
+        <div class="success-detail-row"><span>Kişi</span><span>${reservationData.people||2}</span></div>
+        <div class="success-detail-row"><span>Masa</span><span>T${reservationData.table||'-'}</span></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a href="https://wa.me/?text=${waText}" target="_blank" class="btn" style="background:#25D366;color:#fff;padding:12px 24px">💬 WhatsApp'ta Görüntüle</a>
+        <button class="btn btn-outline" onclick="closeReserve()">Kapat</button>
+      </div>
+    </div>`;
+  document.getElementById('stepsBar').style.display='none';
 }
 
 function completePayment(){
