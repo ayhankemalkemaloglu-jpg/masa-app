@@ -1620,7 +1620,7 @@ function renderRestaurants(){
     return `
     <div class="rest-card" onclick="openDetail(${r.id})">
       <div class="rest-card-img-bg" style="background-image:url('${photo}'),${r.gradient};background-color:${r.gradient}">
-        <span class="emoji-overlay">${r.emoji}</span>
+        <span class="emoji-overlay"></span>
         <div class="rest-badge">${priceStr(r)}</div>
         <div class="status-overlay">${openBadge}</div>
       </div>
@@ -1670,7 +1670,7 @@ function openDetail(id){
   const tomorrow=new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
   const rPhoto=restaurantPhotos[r.id]||'';
   document.getElementById('detailContent').innerHTML=`
-    <div class="detail-hero" style="background-image:url('${rPhoto}'),${r.gradient};background-size:cover;background-position:center;font-size:60px">${r.emoji}</div>
+    <div class="detail-hero" style="background-image:url('${rPhoto}'),${r.gradient};background-size:cover;background-position:center;font-size:60px"></div>
     <div class="detail-name">${r.name}</div>
     <div class="detail-meta">
       <span>★ ${r.rating} (${r.reviews.toLocaleString()} yorum)</span>
@@ -2082,7 +2082,7 @@ function renderAdminData(){
     <tr><td>#${1000+i}</td><td>${restaurants[i%restaurants.length].name}</td><td>18.03.2026</td><td>${['19:00','20:00','13:00','20:30','19:30','21:00','12:00','20:00'][i]}</td><td>${[4,2,6,3,2,4,2,5][i]}</td><td><span class="status-badge status-${statuses[i]}">${statusLabels[statuses[i]]}</span></td><td>₺${[680,320,450,890,280,560,180,740][i]}</td></tr>`).join('');
   // Restaurants admin
   document.getElementById('adminRestaurantsTbody').innerHTML=restaurants.map(r=>`
-    <tr><td>${r.emoji} ${r.name}</td><td>${r.neighborhood}</td><td>${r.cuisine}</td><td>★ ${r.rating}</td><td><label class="toggle-sm"><input type="checkbox" checked><span class="toggle-sm-slider"></span></label></td></tr>`).join('');
+    <tr><td> ${r.name}</td><td>${r.neighborhood}</td><td>${r.cuisine}</td><td>★ ${r.rating}</td><td><label class="toggle-sm"><input type="checkbox" checked><span class="toggle-sm-slider"></span></label></td></tr>`).join('');
   // Users with win-back
   const adminUsers=[
     {id:'USR-1000',name:'Ahmet Yılmaz',reservations:12,spending:4800,lastVisit:'2 saat önce',daysAgo:0},
@@ -2263,7 +2263,7 @@ function renderUserReservations(){
     const isUpcoming=r.status==='upcoming';
     return `
     <div class="reserv-card" style="${isCancelled?'opacity:.6':''}">
-      <div class="reserv-card-icon">${r.emoji}</div>
+      <div class="reserv-card-icon"></div>
       <div class="reserv-card-info">
         <div class="reserv-card-name">${r.restaurant}</div>
         <div class="reserv-card-meta">📅 ${r.date} • ⏰ ${r.time} • 👥 ${r.people} kişi • 💰 ₺${r.total}</div>
@@ -3103,7 +3103,7 @@ function renderFlashDeals(){
     const photo=restaurantPhotos[r.id]||'';
     return `<div class="flash-card" onclick="openReserve(${r.id})">
       <div class="flash-card-img" style="background-image:url('${photo}'),${r.gradient};background-size:cover;background-position:center">
-        <span class="flash-emoji-overlay">${r.emoji}</span>
+        <span class="flash-emoji-overlay"></span>
         <div class="flash-discount-badge">🔥 ${deal.label}</div>
         <div class="flash-countdown">⏰ <span class="flash-timer" data-expires="${deal.expires}">${getCountdown(deal.expires)}</span></div>
       </div>
@@ -3156,6 +3156,7 @@ document.getElementById('chatMessages').innerHTML='';
 </script>
 </body>
 </html>
+
 
 
 
