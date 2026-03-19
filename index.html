@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -527,6 +527,53 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
 .winback-campaign-btn:hover{background:var(--teal-light)}
 /* RESPONSIVE */
 @media(max-width:768px){nav{padding:12px 16px}.nav-search,.nav-actions .btn-outline{display:none}.hero{padding:80px 16px 40px}.hero h1{font-size:32px}.hero-search{flex-direction:column;border-radius:14px}.hero-search input,.hero-search select,.hero-search button{border:none;border-radius:0;padding:14px 16px}.hero-stats{gap:20px}.filters-bar{padding:12px 16px}.grid-section{padding:24px 16px}.restaurant-grid{grid-template-columns:1fr 1fr}.stat-cards{grid-template-columns:1fr 1fr}.admin-sidebar{display:none}footer{flex-direction:column;gap:12px;padding:28px 16px;text-align:center}.rest-landing{padding:60px 16px}.rest-landing h2{font-size:30px}.rest-landing-sub{font-size:16px}.rest-feature-cards{grid-template-columns:1fr}.calc-inputs{grid-template-columns:1fr}.calc-section{padding:24px 16px}.pricing-section{padding:60px 16px}.pricing-header h2{font-size:32px}.pricing-card{padding:32px 20px}.pricing-price{font-size:64px}}
+/* ===== NEW FEATURES ===== */
+/* FLASH DEALS */
+.flash-deals{padding:36px 48px 20px;background:linear-gradient(180deg,#fff8f0 0%,#fff 100%)}
+.flash-deals-title{font-size:24px;font-weight:800;margin-bottom:4px;letter-spacing:-.5px}
+.flash-deals-subtitle{font-size:13px;color:var(--gray);margin-bottom:22px}
+.flash-deals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.flash-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.09);border:1px solid rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.flash-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.14)}
+.flash-card-img{height:140px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;position:relative;font-size:46px}
+.flash-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,rgba(0,0,0,.1) 100%)}
+.flash-discount-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;z-index:2;letter-spacing:.3px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.flash-countdown{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;z-index:2;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px)}
+.flash-emoji-overlay{position:relative;z-index:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+.flash-card-body{padding:14px}
+.flash-card-name{font-size:15px;font-weight:800;margin-bottom:3px}
+.flash-card-meta{font-size:12px;color:var(--gray);margin-bottom:10px}
+.flash-reserve-btn{width:100%;background:linear-gradient(135deg,var(--teal),var(--teal-light));color:#fff;border:none;padding:10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .2s;font-family:'Inter',sans-serif}
+.flash-reserve-btn:hover{opacity:.88}
+/* POINTS BADGE */
+.points-badge{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--dark);font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.points-badge:hover{opacity:.88}
+/* OPEN/CLOSED BADGE */
+.open-badge{background:#d1fae5;color:#065f46;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-flex;align-items:center;gap:3px;margin-left:4px}
+.closed-badge{background:#fee2e2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-flex;align-items:center;gap:3px;margin-left:4px}
+.rest-reserve-btn:disabled{opacity:.5;cursor:not-allowed;transform:none !important}
+/* REST CARD PHOTO BG */
+.rest-card-img-bg{height:160px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
+.rest-card-img-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.2)}
+.rest-card-img-bg .emoji-overlay{position:relative;z-index:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.rest-card-img-bg .rest-badge{position:absolute;top:10px;right:10px;z-index:2}
+.rest-card-img-bg .status-overlay{position:absolute;top:10px;left:10px;z-index:2}
+/* DISCOUNT BANNERS */
+.discount-banner{border-radius:12px;padding:11px 14px;margin-bottom:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;animation:fadeIn .3s ease}
+.discount-banner-early{background:#d1fae5;color:#065f46;border:1px solid #a7f3d0}
+.discount-banner-group{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+/* CANCEL / MODIFY */
+.cancel-reserv-btn{background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;margin-right:6px;transition:background .15s}
+.cancel-reserv-btn:hover{background:#fecaca}
+.modify-reserv-btn{background:rgba(26,107,107,.1);color:var(--teal);border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;transition:background .15s}
+.modify-reserv-btn:hover{background:rgba(26,107,107,.2)}
+/* POINTS IN PROFILE */
+.points-info-card{background:linear-gradient(135deg,var(--teal-dark),var(--teal));border-radius:16px;padding:20px;color:#fff;margin-bottom:16px;position:relative;overflow:hidden}
+.points-info-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:rgba(201,168,76,.15)}
+.points-balance-big{font-size:36px;font-weight:900;color:var(--gold-light);position:relative}
+.points-redeem-btn{background:var(--gold);color:var(--dark);border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;font-family:'Inter',sans-serif;transition:background .2s}
+.points-redeem-btn:hover{background:var(--gold-light)}
+@media(max-width:768px){.flash-deals{padding:24px 16px}.flash-deals-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -542,12 +589,13 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
     <input type="text" id="navSearchInput" placeholder="Restoran veya semt ara..." oninput="filterRestaurants()">
   </div>
   <div class="nav-actions">
-    <a href="#restaurantSection" class="btn btn-outline" onclick="event.preventDefault();document.getElementById('restaurantSection').scrollIntoView({behavior:'smooth'})">🍽️ Restoranlar İçin</a>
+    
     <a href="#" class="btn btn-outline" id="loginBtn" onclick="openAuthModal(event)">Giriş yap</a>
     <a href="#" class="btn btn-gold">Ücretsiz dene</a>
     <div class="nav-user" id="navUser">
       <div class="nav-avatar" id="navAvatar" onclick="openProfile()"></div>
       <span class="nav-user-name" id="navUserName" onclick="openProfile()"></span>
+      <div class="points-badge" id="navPointsBadge" style="display:none" onclick="openProfile();setTimeout(()=>showProfileSection('vip',null),200)">⭐ <span id="navPointsVal">0</span> Puan</div>
       <button class="btn btn-outline" id="ownerPanelBtn" style="display:none" onclick="openOwnerPanel()">🍽️ Restoran Panelim</button>
       <button class="btn btn-outline" id="gelirlerNavBtn" style="display:none" onclick="openRevDashboard()">💰 Gelirler</button>
     </div>
@@ -577,6 +625,13 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
       <div><div class="hstat-num">4.9<span>★</span></div><div class="hstat-label">Kullanıcı puanı</div></div>
     </div>
   </div>
+</div>
+
+<!-- FLASH DEALS -->
+<div class="flash-deals" id="flashDealsSection">
+  <div class="flash-deals-title">🔥 Bugünün Fırsatları</div>
+  <div class="flash-deals-subtitle">Sadece bu akşam geçerli özel indirimler — kaçırmayın!</div>
+  <div class="flash-deals-grid" id="flashDealsGrid"></div>
 </div>
 
 <!-- FILTERS -->
@@ -1438,32 +1493,7 @@ curl -X POST "https://api.masa.com.tr/v1/reservations" \
   </div>
 </div>
 
-<!-- RESTAURANT LANDING SECTION -->
-<section id="restaurantSection" class="rest-landing">
-  <div class="rest-landing-inner">
-    <div class="rest-landing-hero">
-      <div class="rest-landing-badge">🍽️ Restoran Sahipleri İçin</div>
-      <h2>Restoranınızı <span>MASA'ya</span> Ekleyin</h2>
-      <p class="rest-landing-sub">Her rezervasyondan sadece <strong style="color:var(--gold-light)">%7 komisyon</strong>. Başka ücret yok.</p>
-    </div>
-    <div class="rest-feature-cards">
-      <div class="rest-feature-card">
-        <div class="rest-feature-card-icon">🚀</div>
-        <div class="rest-feature-card-title">Ücretsiz Başlayın</div>
-        <div class="rest-feature-card-desc">Kayıt ücreti yok, kurulum ücreti yok, aylık sabit ücret yok. Sadece başarılı rezervasyonlardan komisyon.</div>
-      </div>
-      <div class="rest-feature-card">
-        <div class="rest-feature-card-icon">💰</div>
-        <div class="rest-feature-card-title">Sadece %7 Komisyon</div>
-        <div class="rest-feature-card-desc">Sektördeki en düşük komisyon oranı. Rezervasyon gerçekleşmediğinde tek kuruş ödemezsiniz.</div>
-      </div>
-      <div class="rest-feature-card">
-        <div class="rest-feature-card-icon">📈</div>
-        <div class="rest-feature-card-title">30 Günde ROI</div>
-        <div class="rest-feature-card-desc">Ortalama restoranımız 30 gün içinde yatırımını geri alıyor. Yeni müşteri kazanım maliyetiniz sıfıra iniyor.</div>
-      </div>
-    </div>
-    <!-- Revenue Calculator -->
+<!-- Revenue Calculator -->
     <div class="calc-section">
       <div class="calc-title">💡 Kazancınızı Hesaplayın</div>
       <div class="calc-inputs">
@@ -1493,33 +1523,7 @@ curl -X POST "https://api.masa.com.tr/v1/reservations" \
   </div>
 </section>
 
-<!-- PRICING SECTION -->
-<section id="pricingSection" class="pricing-section">
-  <div class="pricing-inner">
-    <div class="pricing-header">
-      <h2>Şeffaf Fiyatlandırma</h2>
-      <p>Gizli ücret yok. Sadece kazandığınızda ödeme yaparsınız.</p>
-    </div>
-    <div class="pricing-card">
-      <div class="pricing-card-badge">En Popüler</div>
-      <div class="pricing-plan-name">MASA Partner</div>
-      <div class="pricing-price">%7</div>
-      <div class="pricing-price-sub">her başarılı rezervasyondan</div>
-      <ul class="pricing-features">
-        <li>✅ Sınırsız rezervasyon</li>
-        <li>✅ WhatsApp anlık bildirim</li>
-        <li>✅ Canlı masa haritası</li>
-        <li>✅ AI yoğunluk tahmini</li>
-        <li>✅ Dashboard & analitik</li>
-        <li>✅ Müşteri review yönetimi</li>
-        <li>✅ 7/24 destek</li>
-        <li class="no">❌ Aylık sabit ücret yok</li>
-        <li class="no">❌ Kurulum ücreti yok</li>
-        <li class="no">❌ Sözleşme yok</li>
-      </ul>
-      <button class="btn-pricing-cta" onclick="openRestaurantSignup()">Ücretsiz Başlayın</button>
-    </div>
-    <!-- FAQ -->
+<!-- FAQ -->
     <div class="faq-section">
       <div class="faq-title">Sıkça Sorulan Sorular</div>
       <div class="faq-item" onclick="toggleFaq(this)">
@@ -1613,6 +1617,22 @@ curl -X POST "https://api.masa.com.tr/v1/reservations" \
   </div>
 </div>
 
+<!-- CANCEL CONFIRMATION MODAL -->
+<div class="overlay" id="cancelConfirmOverlay" onclick="if(event.target===this)closeCancelConfirm()">
+  <div class="modal" style="max-width:400px;text-align:center">
+    <div class="modal-header" style="justify-content:center;flex-direction:column;gap:8px">
+      <div style="font-size:48px">⚠️</div>
+      <div class="modal-title" style="text-align:center">Rezervasyon İptal</div>
+    </div>
+    <p style="font-size:14px;color:var(--gray);margin-bottom:24px">Rezervasyonunuzu iptal etmek istediğinizden emin misiniz?</p>
+    <p style="font-size:13px;color:#991b1b;background:#fee2e2;border-radius:10px;padding:10px;margin-bottom:24px">⚠️ Bu işlem geri alınamaz.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline" style="flex:1;padding:12px" onclick="closeCancelConfirm()">Vazgeç</button>
+      <button class="btn" style="flex:1;padding:12px;background:#ef4444;color:#fff;border-radius:9px;font-weight:700;cursor:pointer" onclick="confirmCancelReservation()">Evet, İptal Et</button>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo" id="footerLogoAdmin" onclick="adminClickHandler()">
@@ -1652,10 +1672,43 @@ const restaurants = [
 
 let currentFilter='all', currentPriceFilter=0, searchTerm='', currentRestaurant=null, currentStep=1, reservationData={}, adminClickCount=0, adminClickTimer=null;
 
+// ===== WORKING HOURS =====
+const restaurantPhotos = {
+  1:'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop',
+  2:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop',
+  3:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop',
+  4:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=300&fit=crop',
+  5:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop',
+  6:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop',
+  7:'https://images.unsplash.com/photo-1484659619207-9165d119dafe?w=400&h=300&fit=crop',
+  8:'https://images.unsplash.com/photo-1606788075761-2d9a7d8e3e2a?w=400&h=300&fit=crop',
+  9:'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&h=300&fit=crop',
+  10:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=300&fit=crop',
+  11:'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=300&fit=crop',
+  12:'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400&h=300&fit=crop',
+  13:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop',
+  14:'https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&h=300&fit=crop',
+  15:'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&h=300&fit=crop',
+  16:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop',
+  17:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop',
+  18:'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=400&h=300&fit=crop',
+  19:'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop',
+  20:'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&h=300&fit=crop',
+};
+
+function isRestaurantOpen(){
+  const now=new Date();
+  const h=now.getHours();const m=now.getMinutes();
+  const mins=h*60+m;
+  // lunch: 12:00-15:00 (720-900), dinner: 18:00-23:00 (1080-1380)
+  return (mins>=720&&mins<900)||(mins>=1080&&mins<1380);
+}
+
 // ===== RENDER =====
 function renderRestaurants(){
   const grid=document.getElementById('restaurantGrid');
   const priceStr=r=>'₺'.repeat(r.price);
+  const isOpen=isRestaurantOpen();
   let filtered=restaurants.filter(r=>{
     const matchFilter=currentFilter==='all'||r.neighborhood===currentFilter;
     const matchPrice=currentPriceFilter===0||r.price===currentPriceFilter;
@@ -1663,11 +1716,15 @@ function renderRestaurants(){
     return matchFilter&&matchPrice&&matchSearch;
   });
   document.getElementById('resultsCount').textContent=filtered.length+' restoran';
-  grid.innerHTML=filtered.map(r=>`
+  const openBadge=isOpen?'<span class="open-badge">🟢 Açık</span>':'<span class="closed-badge">🔴 Kapalı</span>';
+  grid.innerHTML=filtered.map(r=>{
+    const photo=restaurantPhotos[r.id]||'';
+    return `
     <div class="rest-card" onclick="openDetail(${r.id})">
-      <div class="rest-card-img" style="background:${r.gradient}">
-        ${r.emoji}
+      <div class="rest-card-img-bg" style="background-image:url('${photo}'),${r.gradient};background-color:${r.gradient}">
+        <span class="emoji-overlay">${r.emoji}</span>
         <div class="rest-badge">${priceStr(r)}</div>
+        <div class="status-overlay">${openBadge}</div>
       </div>
       <div class="rest-card-body">
         <div class="rest-card-name">${r.name}</div>
@@ -1682,10 +1739,11 @@ function renderRestaurants(){
         </div>
         <div class="rest-card-footer">
           <span class="price-range">${r.neighborhood}</span>
-          <button class="rest-reserve-btn" onclick="event.stopPropagation();openReserve(${r.id})">Rezervasyon Yap</button>
+          <button class="rest-reserve-btn" ${!isOpen?'disabled title="Şu an kapalı"':''} onclick="event.stopPropagation();${isOpen?`openReserve(${r.id})`:'alert(\"Restoran şu an kapalıdır. Açılış: 12:00 veya 18:00\")'}">${isOpen?'Rezervasyon Yap':'🔴 Şu An Kapalı'}</button>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function setFilter(val,btn){
@@ -1712,8 +1770,9 @@ function openDetail(id){
   document.getElementById('detailTitle').textContent=r.name;
   const today=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
   const tomorrow=new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
+  const rPhoto=restaurantPhotos[r.id]||'';
   document.getElementById('detailContent').innerHTML=`
-    <div class="detail-hero" style="background:${r.gradient}">${r.emoji}</div>
+    <div class="detail-hero" style="background-image:url('${rPhoto}'),${r.gradient};background-size:cover;background-position:center;font-size:60px">${r.emoji}</div>
     <div class="detail-name">${r.name}</div>
     <div class="detail-meta">
       <span>★ ${r.rating} (${r.reviews.toLocaleString()} yorum)</span>
@@ -1762,29 +1821,37 @@ function renderStep(){
 
   if(currentStep===1){
     document.getElementById('reserveStep').textContent='Tarih & Saat Seç';
+    if(!reservationData.people)reservationData.people=2;
+    if(!reservationData.date)reservationData.date=today;
+    // Check early reservation (3+ days ahead)
+    const selectedDate=reservationData.date||today;
+    const daysAhead=Math.floor((new Date(selectedDate)-new Date(today))/(86400000));
+    const isEarly=daysAhead>=3;
+    const isGroup=(reservationData.people||2)>=6;
     c.innerHTML=`
       <div class="form-group"><label class="form-label">Tarih</label>
-        <div style="display:flex;gap:10px">
-          <button class="btn ${reservationData.date===today?'btn-teal':'btn-outline'}" onclick="setDate('${today}',this)">${new Date().toLocaleDateString('tr-TR',{weekday:'short',day:'numeric',month:'short'})}</button>
-          <button class="btn ${reservationData.date===tomorrow?'btn-teal':'btn-outline'}" onclick="setDate('${tomorrow}',this)">${new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{weekday:'short',day:'numeric',month:'short'})}</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn ${reservationData.date===today?'btn-teal':'btn-outline'}" onclick="setDate('${today}',this);updateDiscountBanners()">Bugün</button>
+          <button class="btn ${reservationData.date===tomorrow?'btn-teal':'btn-outline'}" onclick="setDate('${tomorrow}',this);updateDiscountBanners()">Yarın</button>
+          <input type="date" class="form-input" id="customDateInput" style="max-width:170px" min="${today}" value="${reservationData.date!==today&&reservationData.date!==tomorrow?reservationData.date:''}" onchange="setDate(this.value,null);updateDiscountBanners()">
         </div>
       </div>
+      <div id="discountBannersArea"></div>
       <div class="form-group"><label class="form-label">Saat</label>
         <div class="time-slots">${r.times.map(t=>`<div class="time-slot ${reservationData.time===t?'selected':''}" onclick="document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));this.classList.add('selected');reservationData.time='${t}'">${t}</div>`).join('')}</div>
       </div>
       <div class="form-group"><label class="form-label">Kişi Sayısı</label>
         <div class="people-counter">
-          <button class="counter-btn" onclick="changePeople(-1)">−</button>
+          <button class="counter-btn" onclick="changePeople(-1);updateDiscountBanners()">−</button>
           <div class="counter-val" id="peopleVal">${reservationData.people||2}</div>
-          <button class="counter-btn" onclick="changePeople(1)">+</button>
+          <button class="counter-btn" onclick="changePeople(1);updateDiscountBanners()">+</button>
           <span style="font-size:13px;color:var(--gray);margin-left:8px">kişi</span>
         </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:8px">
         <button class="btn btn-teal" style="flex:1;padding:14px" onclick="if(!reservationData.date||!reservationData.time){alert('Lütfen tarih ve saat seçin!');return;}if(!reservationData.people)reservationData.people=2;nextStep()">Devam Et →</button>
       </div>`;
-    if(!reservationData.people)reservationData.people=2;
-    if(!reservationData.date)reservationData.date=today;
+    setTimeout(updateDiscountBanners,10);
   }
 
   else if(currentStep===2){
@@ -1844,10 +1911,21 @@ function renderStep(){
 
   else if(currentStep===4){
     document.getElementById('reserveStep').textContent='Ödeme';
-    const preorderTotal=reservationData.preorderItems.reduce((s,x)=>s+x.price,0);
+    const preorderTotal=reservationData.preorderItems.reduce((s,x)=>s+x.price*(x.qty||1),0);
     const serviceFee=50;
-    const total=preorderTotal+serviceFee;
+    let subtotal=preorderTotal+serviceFee;
+    // Discounts
+    const today2=new Date().toISOString().split('T')[0];
+    const daysAhead2=Math.floor((new Date(reservationData.date||today2)-new Date(today2))/(86400000));
+    const earlyDiscount=daysAhead2>=3?Math.round(subtotal*0.15):0;
+    const groupDiscount=(reservationData.people||0)>=6?(reservationData.people)*50:0;
+    const totalDiscount=earlyDiscount+groupDiscount;
+    const total=Math.max(0,subtotal-totalDiscount);
     reservationData.total=total;
+    // Points earned
+    const pointsEarned=total;
+    const user=JSON.parse(localStorage.getItem('masaUser')||'{}');
+    const curPoints=parseInt(localStorage.getItem('masaPoints')||'0');
     c.innerHTML=`
       <div class="order-summary">
         <div class="summary-row"><span>🍽️ ${reservationData.restaurantName}</span></div>
@@ -1855,7 +1933,11 @@ function renderStep(){
         <div class="summary-row"><span>🪑 Masa ${reservationData.table}</span></div>
         ${preorderTotal>0?`<div class="summary-row"><span>Ön Sipariş</span><span>₺${preorderTotal}</span></div>`:''}
         <div class="summary-row"><span>Hizmet Bedeli</span><span>₺${serviceFee}</span></div>
-        <div class="summary-row total"><span>Toplam</span><span>₺${total}</span></div>
+        ${earlyDiscount>0?`<div class="summary-row" style="color:#065f46"><span>✅ Erken Rezervasyon (%15)</span><span>-₺${earlyDiscount}</span></div>`:''}
+        ${groupDiscount>0?`<div class="summary-row" style="color:#92400e"><span>🎉 Grup İndirimi (${reservationData.people}×₺50)</span><span>-₺${groupDiscount}</span></div>`:''}
+        ${curPoints>=500?`<div class="summary-row" style="color:var(--teal)"><span>⭐ Puan Kullan (500 puan = ₺50 indirim)</span><span><label style="cursor:pointer"><input type="checkbox" id="usePointsCheck" onchange="recalcWithPoints(${total},${curPoints})"> Uygula</label></span></div>`:''}
+        <div class="summary-row total" id="totalRow"><span>Toplam</span><span id="finalTotalDisplay">₺${total}</span></div>
+        <div style="font-size:11px;color:var(--teal);margin-top:6px;text-align:right">⭐ Bu rezervasyondan ${total} puan kazanacaksınız</div>
       </div>
       <div class="payment-methods">
         <div class="pay-method-card selected" id="payCard" onclick="selectPayMethod('card')"><div class="pay-method-icon">💳</div><div class="pay-method-name">Kredi Kartı</div></div>
@@ -1889,7 +1971,7 @@ function renderStep(){
   }
 }
 
-function setDate(d,btn){reservationData.date=d;document.querySelectorAll('.form-group button').forEach(b=>b.classList.remove('btn-teal'));btn.classList.add('btn-teal');}
+function setDate(d,btn){reservationData.date=d;document.querySelectorAll('.form-group .btn-teal,.form-group .btn-outline').forEach(b=>{b.classList.remove('btn-teal');b.classList.add('btn-outline');});if(btn){btn.classList.remove('btn-outline');btn.classList.add('btn-teal');}}
 function changePeople(delta){let p=(reservationData.people||2)+delta;p=Math.max(1,Math.min(10,p));reservationData.people=p;document.getElementById('peopleVal').textContent=p;}
 function selectTable(n,el){reservationData.table=n;document.querySelectorAll('.table-circle:not(.occupied)').forEach(t=>t.classList.remove('selected'));el.classList.add('selected');}
 function toggleMenuItem(name,price,checked){if(checked){reservationData.preorderItems.push({name,price});}else{reservationData.preorderItems=reservationData.preorderItems.filter(x=>x.name!==name);}document.getElementById('preorderTotal').textContent='₺'+reservationData.preorderItems.reduce((s,x)=>s+x.price,0);}
@@ -1963,8 +2045,25 @@ function formatExpiry(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.su
 function toggleSplit(on){document.getElementById('splitSection').style.display=on?'block':'none';if(on)updateSplit();}
 function updateSplit(){const n=parseInt(document.getElementById('splitCount').value)||2;const amt=Math.ceil(reservationData.total/n);const emojis=['👤','👤','👤','👤','👤','👤','👤','👤','👤','👤'];document.getElementById('splitResult').innerHTML=Array.from({length:n},(_,i)=>`<div class="split-person"><div class="split-person-emoji">${emojis[i]}</div><div class="split-person-label">Kişi ${i+1}</div><div class="split-person-amount">₺${amt}</div></div>`).join('');}
 
+function recalcWithPoints(baseTotal,curPoints){
+  const usePoints=document.getElementById('usePointsCheck')&&document.getElementById('usePointsCheck').checked;
+  const discount=usePoints&&curPoints>=500?50:0;
+  const newTotal=Math.max(0,baseTotal-discount);
+  reservationData.total=newTotal;
+  const el=document.getElementById('finalTotalDisplay');
+  if(el)el.textContent='₺'+newTotal;
+}
+
 function completePayment(){
   launchConfetti();
+  // Award points: total spent = points earned
+  const earned=reservationData.total||0;
+  const curPoints=parseInt(localStorage.getItem('masaPoints')||'0');
+  const usePoints=document.getElementById('usePointsCheck')&&document.getElementById('usePointsCheck').checked;
+  const usedPoints=usePoints&&curPoints>=500?500:0;
+  const newPoints=curPoints-usedPoints+earned;
+  localStorage.setItem('masaPoints',String(newPoints));
+  updateNavPoints();
   // Increment visit count for loyalty
   incrementVisitCount();
   const r=currentRestaurant;
@@ -2150,6 +2249,17 @@ function loginUser(user){
   updateNavForUser(user);
   closeAuthModal();
 }
+function updateNavPoints(){
+  const pts=parseInt(localStorage.getItem('masaPoints')||'0');
+  const badge=document.getElementById('navPointsBadge');
+  const val=document.getElementById('navPointsVal');
+  const user=JSON.parse(localStorage.getItem('masaUser')||'null');
+  if(user&&badge){
+    badge.style.display='flex';
+    if(val)val.textContent=pts.toLocaleString('tr-TR');
+  }
+}
+
 function updateNavForUser(user){
   document.getElementById('loginBtn').style.display='none';
   const navUser=document.getElementById('navUser');
@@ -2157,6 +2267,7 @@ function updateNavForUser(user){
   const initials=user.name.split(' ').map(w=>w[0]).join('').toUpperCase().substring(0,2);
   document.getElementById('navAvatar').textContent=initials;
   document.getElementById('navUserName').textContent=user.name;
+  updateNavPoints();
   if(user.role==='restoran'){
     document.getElementById('ownerPanelBtn').style.display='block';
   }
@@ -2173,6 +2284,7 @@ function doLogout(){
   document.getElementById('navUser').style.display='none';
   document.getElementById('ownerPanelBtn').style.display='none';
   document.getElementById('gelirlerNavBtn').style.display='none';
+  document.getElementById('navPointsBadge').style.display='none';
   closeProfile();
 }
 
@@ -2221,17 +2333,50 @@ const mockReservations=[
   {id:'RES-1003',restaurant:'Balıkçı Sabahattin',emoji:'🐟',date:'2026-02-14',time:'13:00',people:2,status:'past',total:480},
   {id:'RES-1004',restaurant:'Ciya Sofrası',emoji:'🥗',date:'2026-01-30',time:'12:00',people:3,status:'past',total:320},
 ];
+let cancelTargetId=null;
+function openCancelConfirm(id){cancelTargetId=id;document.getElementById('cancelConfirmOverlay').classList.add('open');}
+function closeCancelConfirm(){document.getElementById('cancelConfirmOverlay').classList.remove('open');cancelTargetId=null;}
+function confirmCancelReservation(){
+  const idx=mockReservations.findIndex(r=>r.id===cancelTargetId);
+  if(idx>-1){mockReservations[idx].status='cancelled';}
+  closeCancelConfirm();
+  renderUserReservations();
+  alert('Rezervasyonunuz iptal edildi. ✅');
+}
+function modifyReservation(id){
+  const r=mockReservations.find(x=>x.id===id);
+  if(!r)return;
+  // find the restaurant
+  const rest=restaurants.find(x=>x.name===r.restaurant);
+  if(!rest){alert('Restoran bulunamadı.');return;}
+  closeProfile();
+  // pre-fill reservation data
+  reservationData={restaurantId:rest.id,restaurantName:rest.name,date:r.date,time:r.time,people:r.people,preorderItems:[],payMethod:'card'};
+  currentRestaurant=rest;currentStep=1;
+  document.getElementById('reserveRestName').textContent=rest.name;
+  updateStepBar();renderStep();
+  document.getElementById('reserveOverlay').classList.add('open');
+}
+
 function renderUserReservations(){
   const list=document.getElementById('userReservationsList');
-  list.innerHTML=mockReservations.map(r=>`
-    <div class="reserv-card">
+  list.innerHTML=mockReservations.map(r=>{
+    const isCancelled=r.status==='cancelled';
+    const isUpcoming=r.status==='upcoming';
+    return `
+    <div class="reserv-card" style="${isCancelled?'opacity:.6':''}">
       <div class="reserv-card-icon">${r.emoji}</div>
       <div class="reserv-card-info">
         <div class="reserv-card-name">${r.restaurant}</div>
         <div class="reserv-card-meta">📅 ${r.date} • ⏰ ${r.time} • 👥 ${r.people} kişi • 💰 ₺${r.total}</div>
+        ${isUpcoming?`<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="modify-reserv-btn" onclick="modifyReservation('${r.id}')">✏️ Değiştir</button>
+          <button class="cancel-reserv-btn" onclick="openCancelConfirm('${r.id}')">❌ İptal Et</button>
+        </div>`:''}
       </div>
-      <span class="reserv-status ${r.status==='upcoming'?'reserv-upcoming':'reserv-past'}">${r.status==='upcoming'?'✅ Yaklaşan':'📋 Geçmiş'}</span>
-    </div>`).join('');
+      <span class="reserv-status ${isCancelled?'reserv-past':isUpcoming?'reserv-upcoming':'reserv-past'}">${isCancelled?'❌ İptal':isUpcoming?'✅ Yaklaşan':'📋 Geçmiş'}</span>
+    </div>`;
+  }).join('');
 }
 function getSavedCards(){return JSON.parse(localStorage.getItem('masaCards')||'[]');}
 function saveSavedCards(cards){localStorage.setItem('masaCards',JSON.stringify(cards));}
@@ -2953,7 +3098,7 @@ function renderVipSection(){
   const user=JSON.parse(localStorage.getItem('masaUser')||'{}');
   const visits=getVisitCount();
   const tier=getVipTier(visits);
-  const points=visits*100;
+  const points=parseInt(localStorage.getItem('masaPoints')||String(visits*100));
   const progressPct=tier.next?(visits-{Bronze:0,Silver:5,Gold:10,Platinum:20}[tier.name])/({Silver:5,Gold:5,Platinum:10}[tier.next]||1)*100:100;
   const tierCards=['Bronze','Silver','Gold','Platinum'];
   const tierEmojis={Bronze:'🥉',Silver:'🥈',Gold:'🥇',Platinum:'💎'};
@@ -2981,6 +3126,12 @@ function renderVipSection(){
     <div class="vip-benefits-section">
       <div class="vip-benefits-title">${tier.emoji} ${tier.name} Ayrıcalıkları</div>
       ${(tierBenefits[tier.name]||[]).map(b=>`<div class="vip-benefit-item">${b}</div>`).join('')}
+    </div>
+    <div class="points-info-card">
+      <div style="font-size:13px;opacity:.8;margin-bottom:8px;position:relative">⭐ Puan Bakiyeniz</div>
+      <div class="points-balance-big" style="position:relative">${points.toLocaleString('tr-TR')} Puan</div>
+      <div style="font-size:12px;opacity:.75;margin-top:6px;position:relative">₺1 harcama = 1 puan • 500 puan = ₺50 indirim</div>
+      ${points>=500?`<button class="points-redeem-btn" onclick="alert('Puanlarınız bir sonraki ödeme adımında otomatik uygulanacaktır! 🎉')">🎁 500 Puan Kullan (₺50 indirim)</button>`:`<div style="font-size:12px;margin-top:10px;position:relative;opacity:.75">Kullanmak için ${500-points} puan daha kazanın</div>`}
     </div>
     <div style="text-align:center;font-size:12px;color:var(--gray);padding:8px">Her başarılı rezervasyondan sonra puan ve ziyaret sayınız artar.</div>`;
 }
@@ -3025,8 +3176,72 @@ function sendBulkWinback(){
   setTimeout(()=>alert('✅ Toplu win-back kampanyası 3 kullanıcıya gönderildi! Elif Bozkurt, Fatma Doğan, Ali Rıza Öz'),300);
 }
 
+// ===== FLASH DEALS =====
+const flashDeals=[
+  {id:1,discount:20,label:'Bu akşam %20 indirim!',expires:'23:00'},
+  {id:4,discount:15,label:'Sadece bugün %15 indirim!',expires:'22:00'},
+  {id:6,discount:25,label:'Özel fiyat: %25 indirim!',expires:'21:30'},
+  {id:12,discount:30,label:'Son saatler: %30 indirim!',expires:'22:30'},
+];
+
+function getCountdown(expiresStr){
+  const now=new Date();
+  const [h,m]=expiresStr.split(':').map(Number);
+  const target=new Date(now);
+  target.setHours(h,m,0,0);
+  const diff=target-now;
+  if(diff<=0)return'Sona erdi';
+  const hours=Math.floor(diff/3600000);
+  const mins=Math.floor((diff%3600000)/60000);
+  return `${hours}s ${mins}dk kaldı`;
+}
+
+function renderFlashDeals(){
+  const grid=document.getElementById('flashDealsGrid');
+  if(!grid)return;
+  grid.innerHTML=flashDeals.map(deal=>{
+    const r=restaurants.find(x=>x.id===deal.id);
+    if(!r)return'';
+    const photo=restaurantPhotos[r.id]||'';
+    return `<div class="flash-card" onclick="openReserve(${r.id})">
+      <div class="flash-card-img" style="background-image:url('${photo}'),${r.gradient};background-size:cover;background-position:center">
+        <span class="flash-emoji-overlay">${r.emoji}</span>
+        <div class="flash-discount-badge">🔥 ${deal.label}</div>
+        <div class="flash-countdown">⏰ <span class="flash-timer" data-expires="${deal.expires}">${getCountdown(deal.expires)}</span></div>
+      </div>
+      <div class="flash-card-body">
+        <div class="flash-card-name">${r.name}</div>
+        <div class="flash-card-meta">📍 ${r.neighborhood} • ★ ${r.rating}</div>
+        <button class="flash-reserve-btn" onclick="event.stopPropagation();openReserve(${r.id})">🍽️ Hemen Rezerve Et</button>
+      </div>
+    </div>`;
+  }).join('');
+  // Start countdown timers
+  setInterval(()=>{
+    document.querySelectorAll('.flash-timer').forEach(el=>{
+      el.textContent=getCountdown(el.dataset.expires);
+    });
+  },60000);
+}
+
+// ===== DISCOUNT BANNERS =====
+function updateDiscountBanners(){
+  const area=document.getElementById('discountBannersArea');
+  if(!area)return;
+  const today=new Date().toISOString().split('T')[0];
+  const selectedDate=reservationData.date||today;
+  const daysAhead=Math.floor((new Date(selectedDate)-new Date(today))/(86400000));
+  const isEarly=daysAhead>=3;
+  const isGroup=(reservationData.people||2)>=6;
+  let html='';
+  if(isEarly)html+=`<div class="discount-banner discount-banner-early">✅ Erken rezervasyon indirimi: %15! (${daysAhead} gün önce ayırtıyorsunuz)</div>`;
+  if(isGroup)html+=`<div class="discount-banner discount-banner-group">🎉 Grup indirimi: kişi başı ₺50 indirim! (${reservationData.people} kişi)</div>`;
+  area.innerHTML=html;
+}
+
 // ===== INIT =====
 renderRestaurants();
+renderFlashDeals();
 updateCalculator();
 // Init chat
 document.getElementById('chatMessages').innerHTML='';
@@ -3038,7 +3253,9 @@ document.getElementById('chatMessages').innerHTML='';
 (function(){
   const user=JSON.parse(localStorage.getItem('masaUser')||'null');
   if(user)updateNavForUser(user);
+  updateNavPoints();
 })();
 </script>
 </body>
 </html>
+
