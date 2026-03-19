@@ -591,7 +591,7 @@ footer{background:var(--teal-dark);color:rgba(255,255,255,.55);padding:40px 48px
   <div class="nav-actions">
     
     <a href="#" class="btn btn-outline" id="loginBtn" onclick="openAuthModal(event)">Giriş yap</a>
-    <a href="#" class="btn btn-gold">Ücretsiz dene</a>
+    
     <div class="nav-user" id="navUser">
       <div class="nav-avatar" id="navAvatar" onclick="openProfile()"></div>
       <span class="nav-user-name" id="navUserName" onclick="openProfile()"></span>
@@ -3164,9 +3164,125 @@ document.getElementById('chatMessages').innerHTML='';
   if(user)updateNavForUser(user);
   updateNavPoints();
 })();
+
+// Ana Ekrana Ekle — show after 3 seconds if not dismissed
+setTimeout(function(){
+  if(!localStorage.getItem('masaInstallDismissed')){
+    showInstallPopup();
+  }
+}, 3000);
+
+function showInstallPopup(){
+  document.getElementById('installPopup').classList.add('open');
+}
+function closeInstallPopup(dontShow){
+  document.getElementById('installPopup').classList.remove('open');
+  if(dontShow) localStorage.setItem('masaInstallDismissed','1');
+}
+</script>
+
+<!-- ANA EKRANA EKLE POPUP -->
+<div id="installPopup" style="position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s" onclick="if(event.target===this)closeInstallPopup(false)">
+  <div style="background:#fff;border-radius:24px;width:100%;max-width:480px;padding:28px;transform:translateY(40px);transition:transform .35s;box-shadow:0 -8px 60px rgba(0,0,0,.25)" id="installCard">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+      <div>
+        <div style="font-size:20px;font-weight:900;color:#0f4444;letter-spacing:-.5px">📱 MASA'yı Ana Ekrana Ekle</div>
+        <div style="font-size:13px;color:#666;margin-top:4px">Uygulama gibi kullan — ücretsiz, indirme yok!</div>
+      </div>
+      <button onclick="closeInstallPopup(true)" style="background:#f5f5f0;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+
+    <!-- TABS -->
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <button id="tabIphone" onclick="switchInstallTab('iphone')" style="flex:1;padding:9px;border-radius:10px;border:none;background:#0f4444;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">🍎 iPhone</button>
+      <button id="tabAndroid" onclick="switchInstallTab('android')" style="flex:1;padding:9px;border-radius:10px;border:1.5px solid #e5e5e5;background:#fff;color:#666;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">🤖 Android</button>
+    </div>
+
+    <!-- iPHONE STEPS -->
+    <div id="iphoneSteps">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f0;border-radius:14px;padding:14px">
+          <div style="width:36px;height:36px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">1</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">Safari'de Paylaş'a bas</div>
+            <div style="font-size:12px;color:#666;margin-top:2px">Alt menüdeki <b style="color:#0f4444">⬆️ Paylaş</b> butonuna dokun</div>
+          </div>
+          <div style="font-size:28px;margin-left:auto">⬆️</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f0;border-radius:14px;padding:14px">
+          <div style="width:36px;height:36px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">2</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">"Ana Ekrana Ekle" seç</div>
+            <div style="font-size:12px;color:#666;margin-top:2px">Aşağı kaydır → <b style="color:#0f4444">⊕ Ana Ekrana Ekle</b> seç</div>
+          </div>
+          <div style="font-size:28px;margin-left:auto">⊕</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f0;border-radius:14px;padding:14px">
+          <div style="width:36px;height:36px;background:#c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1a1a1a;font-weight:800;font-size:15px;flex-shrink:0">3</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">"Ekle" butonuna bas</div>
+            <div style="font-size:12px;color:#666;margin-top:2px">Sağ üstteki <b style="color:#0f4444">Ekle</b>'ye bas — hazır!</div>
+          </div>
+          <div style="font-size:28px;margin-left:auto">✅</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANDROID STEPS -->
+    <div id="androidSteps" style="display:none">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f0;border-radius:14px;padding:14px">
+          <div style="width:36px;height:36px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">1</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">Chrome'da ⋮ menüsüne bas</div>
+            <div style="font-size:12px;color:#666;margin-top:2px">Sağ üstteki <b style="color:#0f4444">⋮</b> üç noktaya dokun</div>
+          </div>
+          <div style="font-size:28px;margin-left:auto">⋮</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f0;border-radius:14px;padding:14px">
+          <div style="width:36px;height:36px;background:#0f4444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">2</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">"Ana ekrana ekle" seç</div>
+            <div style="font-size:12px;color:#666;margin-top:2px">Menüden <b style="color:#0f4444">Ana ekrana ekle</b>'ye dokun</div>
+          </div>
+          <div style="font-size:28px;margin-left:auto">📲</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f0;border-radius:14px;padding:14px">
+          <div style="width:36px;height:36px;background:#c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1a1a1a;font-weight:800;font-size:15px;flex-shrink:0">3</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">"Ekle"ye bas</div>
+            <div style="font-size:12px;color:#666;margin-top:2px">Onay ekranında <b style="color:#0f4444">Ekle</b>'ye bas — hazır!</div>
+          </div>
+          <div style="font-size:28px;margin-left:auto">✅</div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="closeInstallPopup(true)" style="width:100%;margin-top:18px;padding:13px;background:linear-gradient(135deg,#0f4444,#1a6b6b);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">Anladım, sonra eklerim →</button>
+    <div style="text-align:center;margin-top:10px;font-size:12px;color:#aaa">Bir daha gösterme</div>
+  </div>
+</div>
+
+<style>
+#installPopup.open{opacity:1;pointer-events:all}
+#installPopup.open #installCard{transform:translateY(0)}
+</style>
+
+<script>
+function switchInstallTab(tab){
+  document.getElementById('iphoneSteps').style.display=tab==='iphone'?'block':'none';
+  document.getElementById('androidSteps').style.display=tab==='android'?'block':'none';
+  document.getElementById('tabIphone').style.background=tab==='iphone'?'#0f4444':'#fff';
+  document.getElementById('tabIphone').style.color=tab==='iphone'?'#fff':'#666';
+  document.getElementById('tabIphone').style.border=tab==='iphone'?'none':'1.5px solid #e5e5e5';
+  document.getElementById('tabAndroid').style.background=tab==='android'?'#0f4444':'#fff';
+  document.getElementById('tabAndroid').style.color=tab==='android'?'#fff':'#666';
+  document.getElementById('tabAndroid').style.border=tab==='android'?'none':'1.5px solid #e5e5e5';
+}
 </script>
 </body>
 </html>
+
 
 
 
