@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>MASA — Sıkça Sorulan Sorular</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#1a6b6b;--teal-dark:#0f4444;--teal-light:#2a8a8a;--gold:#c9a84c;--gold-light:#e8c46a;--gold-pale:#fdf6e3;--cream:#fafaf7;--dark:#1a1a1a;--gray:#666;--light:#f5f5f0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark)}
+.header{background:linear-gradient(150deg,var(--teal-dark),var(--teal) 60%,#1a8585);padding:40px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%);border-radius:50%}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;transition:all .2s;margin-bottom:24px;position:relative;z-index:1}
+.back-btn:hover{background:rgba(255,255,255,.25);transform:translateX(-2px)}
+.logo{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px;position:relative;z-index:1}
+.logo-mark{width:48px;height:48px;background:rgba(255,255,255,.15);border:2px solid rgba(201,168,76,.5);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-weight:900;font-size:22px}
+.logo-text{font-size:26px;font-weight:900;color:#fff}
+.header-title{font-size:28px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:10px;position:relative;z-index:1}
+.header-sub{font-size:15px;color:rgba(255,255,255,.75);position:relative;z-index:1;max-width:500px;margin:0 auto}
+.content{max-width:780px;margin:-30px auto 60px;padding:0 20px;position:relative;z-index:2}
+/* KATEGORI TABS */
+.cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;background:#fff;border-radius:16px;padding:14px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.cat-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid #e5e5e5;background:#fff;color:var(--gray);transition:all .2s;display:flex;align-items:center;gap:6px}
+.cat-tab:hover,.cat-tab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+/* SECTION */
+.section{background:#fff;border-radius:18px;padding:28px 32px;margin-bottom:20px;box-shadow:0 4px 24px rgba(0,0,0,.08);border-top:4px solid var(--teal);display:none}
+.section.active{display:block}
+.section-header{display:flex;align-items:center;margin-bottom:18px}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:linear-gradient(135deg,var(--teal),var(--teal-light));color:#fff;border-radius:50%;font-size:14px;font-weight:900;flex-shrink:0;margin-right:12px}
+.section-title{font-size:17px;font-weight:800;color:var(--teal-dark)}
+/* FAQ ITEMS */
+.faq-item{background:var(--light);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer;border-left:3px solid var(--teal)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;font-size:14px;font-weight:700;color:var(--dark);user-select:none}
+.faq-q:hover{color:var(--teal)}
+.faq-icon{font-size:20px;color:var(--teal);transition:transform .25s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-ans{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-ans-inner{padding:0 18px 16px;font-size:13px;color:var(--gray);line-height:1.8}
+.faq-item.open .faq-ans{max-height:400px}
+/* PUAN TABLOSU */
+.pts-table{width:100%;border-collapse:collapse;margin-top:12px}
+.pts-table th{background:var(--teal-dark);color:#fff;padding:10px 14px;font-size:12px;text-align:left;font-weight:700}
+.pts-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid #f0f0f0}
+.pts-table tr:last-child td{border-bottom:none}
+.pts-table tr:hover td{background:#fafafa}
+.pts-val{font-weight:800;color:var(--teal)}
+/* HIGHLIGHT */
+.highlight{background:var(--gold-pale);border:1.5px solid rgba(201,168,76,.4);border-radius:12px;padding:16px 18px;margin-top:14px;font-size:13px;line-height:1.7;color:#5a4000}
+.highlight .label{font-weight:800;color:#7a5900;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+/* REWARD CARDS */
+.reward-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.reward-card{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;border-radius:14px;padding:18px;text-align:center}
+.reward-icon{font-size:36px;margin-bottom:8px}
+.reward-pts{font-size:22px;font-weight:900;color:var(--gold-light)}
+.reward-name{font-size:13px;opacity:.85;margin-top:4px}
+/* WARNING */
+.warning{background:#fee2e2;border:1.5px solid #fca5a5;border-radius:12px;padding:14px 16px;font-size:13px;color:#7f1d1d;display:flex;gap:10px;margin-top:12px}
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.step-item{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--light);border-radius:10px}
+.step-n{width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;margin-top:1px}
+.step-body{font-size:13px;line-height:1.6}
+/* FOOTER */
+.footer{text-align:center;padding:30px 20px;color:var(--gray);font-size:13px;border-top:1px solid #e5e5e5;margin-top:10px}
+.footer a{color:var(--teal);text-decoration:none;font-weight:600}
+.btn-back{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--teal);color:#fff;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:0 4px 16px rgba(26,107,107,.3);margin-bottom:20px}
+.btn-back:hover{background:var(--teal-light);transform:translateY(-2px)}
+@media(max-width:600px){.header{padding:28px 16px 48px}.section{padding:20px 16px}.content{padding:0 12px}.reward-cards{grid-template-columns:1fr}.cat-tabs{gap:6px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="back-btn" href="index.html">← Ana Sayfaya Dön</a>
+  <div class="logo">
+    <div class="logo-mark">M</div>
+    <span class="logo-text">MASA</span>
+  </div>
+  <div class="header-title">Sıkça Sorulan Sorular</div>
+  <div class="header-sub">Rezervasyon, puan sistemi ve platform kullanımı hakkında merak ettikleriniz</div>
+</div>
+
+<div class="content">
+
+  <!-- KATEGORİ TABLETs -->
+  <div class="cat-tabs">
+    <div class="cat-tab active" onclick="showCat('rezervasyon',this)">📅 Rezervasyon</div>
+    <div class="cat-tab" onclick="showCat('puan',this)">⭐ Puan & Ödüller</div>
+    <div class="cat-tab" onclick="showCat('davet',this)">🎁 Arkadaş Daveti</div>
+    <div class="cat-tab" onclick="showCat('odeme',this)">💳 Ödeme</div>
+    <div class="cat-tab" onclick="showCat('hesap',this)">👤 Hesap</div>
+    <div class="cat-tab" onclick="showCat('iletisim',this)">📞 İletişim</div>
+  </div>
+
+  <!-- REZERVASYON -->
+  <div class="section active" id="cat-rezervasyon">
+    <div class="section-header"><span class="section-num">📅</span><span class="section-title">Rezervasyon</span></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Nasıl rezervasyon yapabilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        <div class="steps">
+          <div class="step-item"><div class="step-n">1</div><div class="step-body">Ana sayfada istediğiniz restoranı bulun ve kartına tıklayın</div></div>
+          <div class="step-item"><div class="step-n">2</div><div class="step-body">Tarih, saat ve kişi sayısını seçin</div></div>
+          <div class="step-item"><div class="step-n">3</div><div class="step-body">Masa seçin (isteğe bağlı)</div></div>
+          <div class="step-item"><div class="step-n">4</div><div class="step-body">Ön sipariş ekleyin (isteğe bağlı, ekstra puan kazanırsınız)</div></div>
+          <div class="step-item"><div class="step-n">5</div><div class="step-body">Rezervasyonu onaylayın — tamamen ücretsiz!</div></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Rezervasyonu ücretsiz iptal edebilir miyim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        Rezervasyon saatine <strong>2 saat öncesine kadar</strong> ücretsiz iptal edebilirsiniz.
+        <div class="highlight"><div class="label">Örnek</div>Saat 20:00 rezervasyonunuzu 17:59'a kadar iptal edebilirsiniz.</div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Onay bildirimi nasıl gelir?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Rezervasyonunuz onaylandığında WhatsApp numaranıza bildirim gönderilir. Hesabınızdaki "Rezervasyonlarım" bölümünden de takip edebilirsiniz.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Ön sipariş vermek zorunda mıyım?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Hayır, ön sipariş tamamen isteğe bağlıdır. Ancak ön sipariş eklerseniz <strong>+50 puan</strong> kazanırsınız ve restorana gittiğinizde siparişiniz hazır olur.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Grup rezervasyonu nasıl yapılır?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        6 veya daha fazla kişi için restoran sayfasındaki <strong>"Grup Rezervasyonu"</strong> butonunu kullanın. Bir paylaşım linki oluşturulur, arkadaşlarınıza WhatsApp üzerinden gönderebilirsiniz. Herkes kendi ön siparişini verebilir.
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Restorana gittiğimde ne söylemem gerekiyor?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Adınızı ve rezervasyon saatinizi söylemeniz yeterli. Restoran tüm bilgilere MASA sisteminden anında erişebilir. Ayrıca WhatsApp'a gelen onay mesajını gösterebilirsiniz.</div></div>
+    </div>
+  </div>
+
+  <!-- PUAN & ÖDÜLLER -->
+  <div class="section" id="cat-puan">
+    <div class="section-header"><span class="section-num">⭐</span><span class="section-title">Puan & Ödüller</span></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Puan sistemi nasıl çalışır?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        Her rezervasyondan puan kazanırsınız. Puan kazanma yolları:
+        <table class="pts-table" style="margin-top:10px">
+          <thead><tr><th>Eylem</th><th>Puan</th><th>Not</th></tr></thead>
+          <tbody>
+            <tr><td>📅 Rezervasyon yapma</td><td class="pts-val">+20</td><td>Her rezervasyonda</td></tr>            <tr><td>🍽️ Ön sipariş ekleme</td><td class="pts-val">+50</td><td>Menüden en az 1 ürün seçilirse</td></tr>
+
+            <tr><td>🎁 Arkadaş daveti</td><td class="pts-val">+60</td><td>Arkadaşınız ilk rezervasyonunu yapınca ikiniz de</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight" style="margin-top:12px"><div class="label">💡 Maksimum</div>Tek bir rezervasyondan en fazla <strong>100 puan</strong> kazanabilirsiniz (20+50+30).</div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Puanlarımı nasıl kullanabilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        <div class="reward-cards">
+          <div class="reward-card"><div class="reward-icon">🥤</div><div class="reward-pts">500 puan</div><div class="reward-name">1 İçecek Ücretsiz</div></div>
+          <div class="reward-card"><div class="reward-icon">🍽️</div><div class="reward-pts">750 puan</div><div class="reward-name">1 Tabak Yemek Ücretsiz</div></div>
+        </div>
+        <div style="font-size:13px;color:var(--gray);margin-top:12px;line-height:1.7">Rezervasyon yaparken <strong>4. adımda</strong> ödülünüzü seçin. Restoran bilgilendirilir, masada otomatik olarak uygulanır. Ödül bedeli MASA tarafından restorana ödenir.</div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Puanlarım ne zaman hesabıma yansır?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Rezervasyonunuzu tamamladığınız anda puanlar hesabınıza anında eklenir. Profil → VIP & Puanlar bölümünden bakiyenizi görebilirsiniz.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Puanlarımın son kullanma tarihi var mı?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Şu an için puanların son kullanma tarihi yoktur. Dilediğiniz zaman kullanabilirsiniz.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">VIP seviyeleri nelerdir?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        Toplam ziyaret sayınıza göre seviye atlarsınız:
+        <table class="pts-table" style="margin-top:10px">
+          <thead><tr><th>Seviye</th><th>Gereksinim</th></tr></thead>
+          <tbody>
+            <tr><td>🥉 Bronze</td><td>0+ ziyaret</td></tr>
+            <tr><td>🥈 Silver</td><td>5+ ziyaret</td></tr>
+            <tr><td>🥇 Gold</td><td>10+ ziyaret</td></tr>
+            <tr><td>💎 Platinum</td><td>20+ ziyaret</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ARKADAŞ DAVETİ -->
+  <div class="section" id="cat-davet">
+    <div class="section-header"><span class="section-num">🎁</span><span class="section-title">Arkadaş Daveti</span></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Davet sistemi nasıl çalışır?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        <div class="steps">
+          <div class="step-item"><div class="step-n">1</div><div class="step-body">Profil → VIP & Puanlar → <strong>"Davet Linki Oluştur"</strong> butonuna basın</div></div>
+          <div class="step-item"><div class="step-n">2</div><div class="step-body">Kişisel davet linkinizi kopyalayın veya WhatsApp ile paylaşın</div></div>
+          <div class="step-item"><div class="step-n">3</div><div class="step-body">Arkadaşınız bu linkle MASA'ya kayıt olur</div></div>
+          <div class="step-item"><div class="step-n">4</div><div class="step-body">Arkadaşınız <strong>ilk rezervasyonunu</strong> yaptığında ikiniz de <strong>60'ar puan</strong> kazanırsınız</div></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Kaç arkadaş davet edebilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Sınırsız sayıda arkadaş davet edebilirsiniz. Her başarılı davet için 60 puan kazanırsınız.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Ne zaman puan kazanırım?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Arkadaşınız davet linkinizle kayıt olup <strong>ilk rezervasyonunu tamamladığında</strong> ikiniz de 60'ar puan kazanırsınız. Yalnızca kayıt olması yeterli değildir, ilk rezervasyon şarttır.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Aynı kişiyi iki kez davet edebilir miyim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Her MASA hesabı yalnızca bir davet kodu kullanabilir. Aynı kişi ikinci kez davet kodunuzla kayıt olamaz.</div></div>
+    </div>
+  </div>
+
+  <!-- ÖDEME -->
+  <div class="section" id="cat-odeme">
+    <div class="section-header"><span class="section-num">🎉</span><span class="section-title">Ücret</span></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Rezervasyon ücretli mi?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        <strong>Hayır, tamamen ücretsiz!</strong> MASA'da rezervasyon yapmak için herhangi bir ücret ödemezsiniz. Kart bilgisi girmenize gerek yoktur.
+        <div class="highlight" style="margin-top:10px"><div class="label">💡 Bilgi</div>Yemek hesabınızı restoranda normal şekilde ödersiniz. MASA bu konuda herhangi bir ücret almaz.</div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">İptal ücreti var mı?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Hayır, iptal de tamamen ücretsizdir. Rezervasyonunuzu istediğiniz zaman iptal edebilirsiniz, herhangi bir ücret yansıtılmaz.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Neden ücretsiz?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">MASA, restoranlar ve müşteriler arasında köprü kurmak için tasarlanmış bir platform. Büyüme döneminde platformu herkese açık ve ücretsiz tutuyoruz. Amacımız sizi en iyi restoran deneyimiyle buluşturmak.</div></div>
+    </div>
+  </div>
+
+  <!-- HESAP -->
+  <div class="section" id="cat-hesap">
+    <div class="section-header"><span class="section-num">👤</span><span class="section-title">Hesap</span></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Nasıl üye olabilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Sağ üstteki <strong>"Giriş yap"</strong> butonuna basın. Google hesabınızla bir tıkla kayıt olabilir veya e-posta/şifre ile kayıt formu doldurabilirsiniz. Üyelik tamamen ücretsizdir.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Üye olmadan rezervasyon yapabilir miyim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Rezervasyon yapmak için üye olmanız gerekmez, ancak üye olursanız puan kazanabilir, rezervasyonlarınızı takip edebilir ve ödül kullanabilirsiniz.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Geçmiş rezervasyonlarımı nasıl görebilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Profil ikonuna tıklayın → <strong>Rezervasyonlarım</strong> sekmesinde tüm geçmiş ve yaklaşan rezervasyonlarınızı görebilirsiniz.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Hesabımı nasıl silebilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Hesap silme talebi için <a href="mailto:psakml1233@gmail.com" style="color:var(--teal);font-weight:700">psakml1233@gmail.com</a> adresine e-posta gönderebilirsiniz. Talebiniz 48 saat içinde işleme alınır.</div></div>
+    </div>
+  </div>
+
+  <!-- İLETİŞİM -->
+  <div class="section" id="cat-iletisim">
+    <div class="section-header"><span class="section-num">📞</span><span class="section-title">İletişim & Destek</span></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Sorun yaşarsam kime yazabilirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">
+        <strong>E-posta:</strong> <a href="mailto:psakml1233@gmail.com" style="color:var(--teal);font-weight:700">psakml1233@gmail.com</a><br>
+        <strong>Yanıt süresi:</strong> En geç 24 saat içinde dönüş yapılır.<br><br>
+        Ayrıca sitede sağ alttaki <strong>🤖 AI asistan</strong> butonunu kullanarak anlık yardım alabilirsiniz.
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Restoranla ilgili şikayetim olursa ne yapmalıyım?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Rezervasyon sonrasında çıkan değerlendirme formuna yorumunuzu yazabilirsiniz. Acil bir durum için <a href="mailto:psakml1233@gmail.com" style="color:var(--teal);font-weight:700">psakml1233@gmail.com</a> adresine yazın.</div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">MASA'ya restoran nasıl ekletirim?<span class="faq-icon">+</span></div>
+      <div class="faq-ans"><div class="faq-ans-inner">Sayfanın en altındaki <strong>"Restoranınızı MASA'ya ekleyin → Başvur"</strong> linkine tıklayarak restoran başvuru formunu doldurabilirsiniz. Başvurular 48 saat içinde değerlendirilir.</div></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:30px 0 10px">
+    <a class="btn-back" href="index.html">← Ana Sayfaya Dön</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>MASA Platform</strong> · Tüm hakları saklıdır © 2026<br>
+  Sorularınız için: <a href="mailto:psakml1233@gmail.com">psakml1233@gmail.com</a>
+</div>
+
+<script>
+function showCat(cat, btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('cat-'+cat).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleFaq(item){
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
